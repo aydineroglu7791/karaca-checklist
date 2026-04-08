@@ -1769,4 +1769,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </body>
+  <script>
+// --- SİSTEM AYARLARINI BURAYA ZORLA EKLEYELİM ---
+
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwAzifnliVx62bFNcWKoC5Dg6-d2vLw92dQPszhn8JhLznWLgej22ry2AoXNXKnqoIh/exec';
+
+function sendData(data) {
+  // HTML rapor sayfasını Drive'a göndermek için içeriği alıyoruz
+  const raporElement = document.getElementById('reportPage');
+  if (raporElement) {
+    data.rapor_html = raporElement.innerHTML;
+  }
+
+  return fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    cache: 'no-cache',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+}
+</script>
 </html>
