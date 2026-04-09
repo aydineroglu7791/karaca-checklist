@@ -121,7 +121,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .dc input{width:100%;border:1.5px solid var(--bdr);border-radius:7px;padding:7px 9px;font-family:'Lato',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);outline:none;transition:all .16s}
 .dc input:focus{border-color:var(--clay);background:#fff}
 
-/* ─ FOTOĞRAF ALANI ─ */
+/* ─ FOTOĞRAF ALANI (mobil uyumlu) ─ */
 .pc{padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px}
 .cam-btn{width:44px;height:44px;border-radius:10px;border:2px dashed var(--bdr);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .16s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;flex-shrink:0}
 .cam-btn:hover,.cam-btn:active{border-color:var(--clay);background:var(--ylw)}
@@ -144,28 +144,61 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .mail-bd{padding:13px 17px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .chip{display:flex;align-items:center;gap:5px;background:var(--bg);border:1.5px solid var(--bdr);border-radius:20px;padding:4px 10px 4px 9px;font-size:11.5px;color:var(--ink)}
-.chip button{background:none;border:none;cursor:pointer;color:var(--ink-s);font-size:13px}
+.mail-add{display:flex;gap:7px}
+.mail-add input{flex:1;border:1.5px solid var(--bdr);border-radius:7px;padding:8px 10px;font-family:'Lato',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);outline:none;-webkit-appearance:none}
+.mail-add input:focus{border-color:var(--clay);background:#fff}
+.btn-addm{background:var(--clay);color:var(--ink);border:none;border-radius:7px;padding:8px 13px;font-family:'Lato',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;touch-action:manipulation}
 
-/* ─ BUTONLAR ─ */
+/* ─ SUBMIT BUTONU ─ */
 .btn-sub-wrap{display:flex;flex-direction:column;gap:9px;min-width:180px;align-self:stretch}
 .btn-preview{background:var(--white);color:var(--clay-d);border:1.5px solid var(--clay);border-radius:var(--r);padding:11px;font-family:'Lato',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;box-shadow:var(--s1);display:flex;align-items:center;justify-content:center;gap:7px}
 .btn-sub{background:linear-gradient(160deg,#1e1a16 0%,#2d261e 50%,#1a150e 100%);color:#fff;border:none;border-radius:var(--r);padding:0;font-family:'Playfair Display',serif;cursor:pointer;transition:all .22s;box-shadow:0 6px 24px rgba(30,26,22,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:100%;min-height:130px;width:100%}
 
 /* ─ RAPOR SAYFASI ─ */
-.rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:350;overflow-y:auto}
+.rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:350;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .rpt-page.on{display:block}
 .rpt-inner{max-width:780px;margin:0 auto;padding:72px 12px 80px}
-.rpt-close-btn{position:fixed;top:12px;left:12px;background:var(--ink);color:#fff;border:none;border-radius:50px;height:44px;padding:0 18px;font-weight:700;cursor:pointer;z-index:10}
+.rpt-close-btn{position:fixed;top:12px;left:12px;background:var(--ink);color:#fff;border:none;border-radius:50px;height:44px;padding:0 18px;font-family:'Lato',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;box-shadow:var(--s2);z-index:10;touch-action:manipulation}
 
-/* ─ SUCCESS & SPINNER ─ */
-.sov,.spin-ov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.sov.on,.spin-ov.on{display:flex}
-.smodal{background:#fff;border-radius:16px;width:92%;max-width:460px;overflow:hidden;padding:20px;text-align:center}
+/* ─ ADMİN GİRİŞ MODALİ ─ */
+.aov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.7);z-index:600;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.aov.on{display:flex}
+.amodal{background:#fff;border-radius:16px;width:90%;max-width:380px;overflow:hidden;box-shadow:var(--s3)}
+
+/* ─ SPINNER ─ */
+.spin-ov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.6);z-index:700;align-items:center;justify-content:center;flex-direction:column;gap:13px;backdrop-filter:blur(3px)}
+.spin-ov.on{display:flex}
 .spinner{width:42px;height:42px;border:4px solid rgba(200,169,126,.25);border-top-color:var(--clay);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;border-radius:11px;padding:12px 18px;font-size:13px;z-index:800;transition:all .3s}
+
+/* ─ SUCCESS MODALİ ─ */
+.sov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.65);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.sov.on{display:flex}
+.smodal{background:#fff;border-radius:16px;width:92%;max-width:460px;overflow:hidden;box-shadow:var(--s3);padding:20px;text-align:center}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;border-radius:11px;padding:12px 18px;font-size:13px;z-index:800;transition:all .32s cubic-bezier(.34,1.56,.64,1);max-width:88vw;text-align:center}
 .toast.on{transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
+
+/* LIGHTBOX */
+.lightbox-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:900;align-items:center;justify-content:center;padding:16px}
+.lightbox-ov.on{display:flex}
+.lightbox-ov img{max-width:100%;max-height:90vh;border-radius:10px;object-fit:contain}
+
+/* ─ RESPONSIVE ─ */
+@media(max-width:600px){
+  .hdr-in{flex-direction:column;align-items:flex-start;gap:10px;padding:28px 16px 22px}
+  .mg3{grid-template-columns:1fr 1fr}
+  .mg2{grid-template-columns:1fr}
+  .th-row{grid-template-columns:26px 1fr 86px 46px}
+  .th-row span:nth-child(4){display:none}
+  .qr{display:flex;flex-wrap:wrap;align-items:center;padding:0}
+  .qr .qn{width:26px;flex-shrink:0;padding-top:16px;align-self:flex-start;text-align:center}
+  .qr .qt{flex:1;min-width:0;padding:12px 8px 12px 4px;font-size:12.5px}
+  .qr .yn{flex-shrink:0;padding:10px 4px}
+  .qr .pc{flex-shrink:0;width:46px;padding:8px 2px}
+  .qr .dc{display:block;width:100%;padding:0 8px 10px 26px;order:10}
+}
 </style>
 </head>
 <body>
@@ -409,8 +442,10 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
   <div class="prog-pct" id="pPct">%0</div>
 </div>
 
+<!-- KATEGORİLER -->
 <div id="catWrap"></div>
 
+<!-- NOTLAR -->
 <div class="notes-card">
   <div class="notes-hd">📝 Genel Gözlem & Aksiyon Planı</div>
   <div class="notes-bd">
@@ -418,13 +453,14 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
   </div>
 </div>
 
+<!-- GÖNDER -->
 <div class="send-wrap">
   <div class="mail-card">
     <div class="mail-hd"><span>✉️ &nbsp;Rapor Gönderilecek Kişiler</span></div>
     <div class="mail-bd">
       <div class="chips" id="chips"></div>
       <div class="mail-add">
-        <input type="email" id="mailInp" placeholder="ad@karaca.com" onkeydown="mkd(event)">
+        <input type="email" id="mailInp" placeholder="ad@karaca.com — Enter ile ekle" onkeydown="mkd(event)">
         <button class="btn-addm" onclick="addMail()">+ Ekle</button>
       </div>
     </div>
@@ -442,7 +478,12 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 </div>
 </div>
 
-<!-- SUCCESS MODAL -->
+<!-- MODALLER -->
+<div class="rpt-page" id="rptPage">
+  <button class="rpt-close-btn" onclick="closeReport()">← Geri</button>
+  <div class="rpt-inner" id="rptInner"></div>
+</div>
+
 <div class="sov" id="succOv">
   <div class="smodal">
     <h2>✅ Rapor Gönderildi!</h2>
@@ -451,13 +492,13 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
   </div>
 </div>
 
-<div class="spin-ov" id="spinOv"><div class="spinner"></div><div id="spinTxt" style="color:#fff; margin-top:10px">Kaydediliyor...</div></div>
+<div class="spin-ov" id="spinOv"><div class="spinner"></div><div style="color:#fff; margin-top:10px">Kaydediliyor...</div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 // ══════════════════════════════════════════════════════════
 const CONFIG = {
-  sheets_url: 'https://script.google.com/macros/s/AKfycbxlaoRObf7GCVmLPbom4ye_k5-K1VMMUNQQ2Z4Met5EaK70jg2MCRneygao4pHTiJU-/exec',
+  sheets_url: 'https://script.google.com/macros/s/AKfycbxxxJcfiokEP3x8XxulR4kWIY0VnnG9f-e1hlSi1TsheuGrQn1y82W9bbXNf5vInTc_/exec',
   admin_password: '779100Aa!',
   default_mails: [
     {a:'aydin.eroglu@karaca.com', r:'Bölge Müdürü'},
@@ -484,7 +525,6 @@ var CATS = [
 
 var ANS={}, DESC={}, PHOTOS={}, SEL_VAL={mudur:'', magaza:''};
 var mailList = CONFIG.default_mails.map(m=>({a:m.a, r:m.r}));
-var isAdmin=false;
 
 function render(){
   document.getElementById('totCnt').textContent = totalQ();
@@ -496,6 +536,7 @@ function render(){
         <div class="cat-dot" style="background:${cat.col};color:${cat.icol}">${cat.icon}</div>
         <div class="cat-txt"><h3>${cat.title}</h3></div>
         <div class="cat-pill" id="pill-${cat.id}">0/${cat.questions.length}</div>
+        <span class="cat-chev">▾</span>
       </div>
     </div>
     <div class="cat-bd open" id="bd-${cat.id}">
@@ -579,29 +620,28 @@ function updatePills(){
 }
 
 function totalQ(){ return CATS.reduce((s,c)=>s+c.questions.length,0); }
-function toggleCat(hd,id){ document.getElementById('bd-'+id).classList.toggle('open'); }
+function toggleCat(hd,id){ document.getElementById('bd-'+id).classList.toggle('open'); hd.classList.toggle('open'); }
 
 async function submitForm(){
   updateDateTime();
   var mudur=v('f-mudur'), magaza=v('f-magaza'), magMudur=v('f-mag-mudur'), notlar=v('f-notlar');
 
-  if(!mudur || !magaza || !magMudur){ toast('Ziyaret bilgilerini doldurun!',true); return; }
+  if(!mudur || !magaza || !magMudur){ toast('Lütfen ziyaret bilgilerini doldurun!',true); return; }
   if(Object.keys(ANS).length < totalQ()){ toast('Tüm soruları cevaplayın!',true); return; }
-  if(notlar.length < 20){ toast('Genel gözlem en az 20 karakter olmalı!',true); return; }
+  if(notlar.length < 20){ toast('Genel gözlem alanı en az 20 karakter olmalıdır!',true); return; }
 
-  // EVET -> Fotoğraf Zorunluluğu
   for(var qid in ANS){
     if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length===0)){
-       toast('Evet dediğiniz maddelerde fotoğraf zorunludur!',true); 
+       toast('Evet seçilen maddelerde fotoğraf zorunludur!',true); 
        document.getElementById('r-'+qid).scrollIntoView({behavior:'smooth'}); return;
     }
     if(ANS[qid]==='no' && !DESC[qid]){
-       toast('Hayır dediğiniz maddelerde açıklama zorunludur!',true); 
+       toast('Hayır seçilen maddelerde açıklama zorunludur!',true); 
        document.getElementById('r-'+qid).scrollIntoView({behavior:'smooth'}); return;
     }
   }
 
-  spin(true, 'Kaydediliyor...');
+  spin(true);
   await saveToSheets();
   spin(false);
   document.getElementById('succOv').classList.add('on');
@@ -625,11 +665,7 @@ async function saveToSheets() {
     tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag-mudur'),
     sira: v('f-sira'), total: st.total, evet: st.yesN, hayir: st.noN,
     pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'),
-    catStats: CATS.map(cat => {
-        var ey=cat.questions.filter((_,i)=>ANS[cat.id+'-'+i]==='yes').length;
-        var en=cat.questions.filter((_,i)=>ANS[cat.id+'-'+i]==='no').length;
-        return {title: cat.title, u: Math.round(ey/(ey+en)*100)||0};
-    }),
+    catStats: CATS.map(cat => ({ title: cat.title, u: Math.round(cat.questions.filter((_,i)=>ANS[cat.id+'-'+i]==='yes').length / cat.questions.length * 100) })),
     soruCevaplar: soruCevaplar 
   };
 
@@ -669,33 +705,28 @@ function hesaplaSira(){
 }
 
 function showReport(){
-  var st = calcStats();
-  var html = `<div class="rpt-inner">
-    <button class="rpt-close-btn" onclick="closeReport()">Kapat</button>
-    <h2>${v('f-magaza')} Rapor Önizleme</h2>
-    <p><b>BM:</b> ${v('f-mudur')} | <b>Tarih:</b> ${v('f-tarih')}</p>
-    <hr>
-    <div style="display:flex; gap:10px; margin:20px 0">
-      <div class="rsc" style="background:#edf7f2; padding:15px; border-radius:10px; flex:1">Evet: ${st.yesN}</div>
-      <div class="rsc" style="background:#fdf0f0; padding:15px; border-radius:10px; flex:1">Hayır: ${st.noN}</div>
-      <div class="rsc" style="background:#fdf8ee; padding:15px; border-radius:10px; flex:1">Uyum: %${st.uyum}</div>
-    </div>
-    <div style="text-align:left">
-      ${CATS.map(c => `<h3>${c.title}</h3>` + c.questions.map((q,i)=> `<p>${i+1}. ${q.t} -> <b>${ANS[c.id+'-'+i]==='yes'?'EVET':'HAYIR'}</b></p>`).join('')).join('')}
-    </div>
-  </div>`;
-  document.getElementById('rptPage').innerHTML = html;
-  document.getElementById('rptPage').style.display = 'block';
+  const st = calcStats();
+  let h = `<h2>Mağaza Rapor Önizleme</h2><p>${v('f-magaza')} | ${v('f-mudur')}</p><hr>`;
+  CATS.forEach(c => {
+    h += `<h4>${c.icon} ${c.title}</h4>`;
+    c.questions.forEach((q,i) => {
+      const ans = ANS[c.id+'-'+i];
+      h += `<p style="font-size:12px">${i+1}. ${q.t} -> <b>${ans==='yes'?'EVET':'HAYIR'}</b></p>`;
+    });
+  });
+  document.getElementById('rptInner').innerHTML = h;
+  document.getElementById('rptPage').classList.add('on');
 }
-
-function closeReport(){ document.getElementById('rptPage').style.display='none'; }
-
-function downloadPDF(){
-  window.print(); // Mobil ve masaüstünde en güvenli PDF alma yöntemi budur.
+function closeReport(){ document.getElementById('rptPage').classList.remove('on'); }
+function downloadPDF(){ window.print(); }
+function renderChips(){
+  const c=document.getElementById('chips'); c.innerHTML='';
+  mailList.forEach((m,i)=>c.innerHTML+=`<div class="chip">✉ ${m.a}</div>`);
 }
-
+function addMail(){ const inp=document.getElementById('mailInp'); if(inp.value.includes('@')){ mailList.push({a:inp.value,r:'Ekip'}); inp.value=''; renderChips(); } }
+function mkd(e){ if(e.key==='Enter'){e.preventDefault();addMail();} }
 function v(id){ var el=document.getElementById(id); return el?el.value:'' }
-function spin(on,txt){ document.getElementById('spinOv').classList.toggle('on',on); document.getElementById('spinTxt').textContent=txt; }
+function spin(on){ document.getElementById('spinOv').classList.toggle('on',on); }
 function toast(m,e){ var t=document.getElementById('toast'); t.textContent=m; t.className='toast on'+(e?' err':''); setTimeout(()=>t.classList.remove('on'),3000); }
 function adminToggle(){}
 
@@ -705,7 +736,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('f-magaza').addEventListener('change', hesaplaSira);
 });
 </script>
-
-<div class="rpt-page" id="rptPage"></div>
 </body>
 </html>
