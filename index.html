@@ -1402,10 +1402,51 @@ async function submitForm(){
 // ─── GOOGLE SHEETS + DRIVE KAYIT ───
 async function saveToSheets(st, mudur, magaza, tarih, sira, notlar) {
   if (!CONFIG.sheets_url) return;
-  var catStats = st.catStats.map(function(cs) {
-    return { title: cs.cat.title, u: cs.u };
+
+  // 1. Şablondaki {{Tablo}} kısmına gidecek tüm soru ve cevapları topla
+  const soruCevaplar = [];
+  CATS.forEach(cat => {
+    cat.questions.forEach((q, i) => {
+      const qid = cat.id + '-' + i;
+      soruCevaplar.push({
+        soru: q.t,
+        cevap: ANS[qid] === 'yes' ? 'EVET' : (ANS[qid] === 'no' ? 'HAYIR' : 'YANITSIZ'),
+        not: DESC[qid] || ''
+      });
+    });
   });
 
+  // 2. Apps Script'e (Kod.gs) gidecek veri paketini hazırla
+  const payload = {
+    tarih: tarih || '',
+    mudur: mudur || '',
+    magaza: magaza || '',
+    mag_mudur: document.getElementById('f-mag-mudur').value || '',
+    sira: sira || '',
+    total: st.total || 0,
+    evet: st.yesN || 0,
+    hayir: st.noN || 0,
+    pct: st.pct || 0,
+    uyum: st.uyum || 0,
+    notlar: notlar || '',
+    catStats: st.catStats.map(cs => ({ title: cs.cat.title, u: cs.u })),
+    soruCevaplar: soruCevaplar // Tüm tablo verisi burada gidiyor
+  };
+
+  // 3. Veriyi gönder
+  try {
+    await fetch(CONFIG.sheets_url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    console.log("Veri başarıyla gönderildi.");
+  } catch (error) {
+    console.error("Gönderim hatası:", error);
+    toast("Sunucuya bağlanırken bir hata oluştu!", true);
+  }
+}
   // Tam HTML raporu oluştur (fotoğraflar dahil)
   var raporHtml = buildMailReport();
 
