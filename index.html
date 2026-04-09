@@ -39,8 +39,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 
 /* ADMIN BADGE */
 .admin-badge{position:fixed;top:12px;right:12px;z-index:1000;display:flex;align-items:center;gap:6px;background:var(--clay);color:var(--ink);border:none;border-radius:20px;padding:6px 14px;font-family:'Lato',sans-serif;font-size:11px;font-weight:700;cursor:pointer;box-shadow:var(--s2);transition:all .18s}
-.admin-badge:hover{background:var(--clay-l)}
-.admin-badge.active{background:#2d6a4f;color:#fff}
 
 /* ─ WRAPPER ─ */
 .W{max-width:980px;margin:0 auto;padding:0 12px}
@@ -53,164 +51,105 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 
 /* ─ FORM ALANLARI ─ */
 .mg{display:grid;gap:13px;margin-bottom:13px}
-.mg3{grid-template-columns:1fr 1fr 1fr}
+.mg3{grid-template-columns:1fr 1.2fr 1fr} /* Mağaza ismine biraz daha yer verdik */
 .mg2{grid-template-columns:1fr 1fr}
 .fld{display:flex;flex-direction:column;gap:5px}
 .fld label{font-size:10px;font-weight:700;color:var(--ink-s);letter-spacing:1.5px;text-transform:uppercase}
 .fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:8px;padding:9px 12px;font-family:'Lato',sans-serif;font-size:14px;color:var(--ink);background:var(--bg);outline:none;transition:all .18s;-webkit-appearance:none;appearance:none}
 .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--clay);background:#fff;box-shadow:0 0 0 3px rgba(200,169,126,.13)}
-.fld textarea{resize:vertical;min-height:82px}
 
 /* ─ PROGRESS ─ */
 .prog{background:var(--white);border-radius:var(--r);box-shadow:var(--s1);padding:15px 20px;margin-top:14px;display:flex;align-items:center;gap:14px}
 .prog-info{min-width:140px}
 .prog-lbl{font-size:9.5px;font-weight:700;color:var(--ink-s);letter-spacing:1px;text-transform:uppercase}
 .prog-num{font-family:'Playfair Display',serif;font-size:22px;color:var(--clay-d);margin-top:1px}
-.prog-num small{font-size:12px;color:var(--ink-s)}
 .prog-track{flex:1;height:8px;background:var(--bdr);border-radius:99px;overflow:hidden}
 .prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--clay-d),var(--clay));transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
 .prog-pct{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--clay);min-width:44px;text-align:right}
 
 /* ─ KATEGORİ ─ */
 .cat{margin-top:14px;border-radius:var(--r);overflow:hidden;box-shadow:var(--s1)}
-.cat-hd{background:var(--white);border-bottom:1px solid var(--bdr);cursor:pointer;user-select:none;transition:background .15s;-webkit-user-select:none}
-.cat-hd:active{background:var(--ylw)}
+.cat-hd{background:var(--white);border-bottom:1px solid var(--bdr);cursor:pointer;transition:background .15s}
 .cat-hd-in{padding:12px 16px;display:flex;align-items:center;gap:10px}
 .cat-dot{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .cat-txt{flex:1;min-width:0}
-.cat-txt h3{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cat-txt p{font-size:10.5px;color:var(--ink-s);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cat-acts{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.cat-pill{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--bg);color:var(--ink-s);border:1.5px solid var(--bdr);min-width:44px;text-align:center;white-space:nowrap}
+.cat-txt h3{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:600;color:var(--ink)}
+.cat-pill{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--bg);color:var(--ink-s);border:1.5px solid var(--bdr)}
 .cat-pill.done{background:var(--grn-b);color:var(--grn);border-color:#b0d9c4}
-.cat-pill.warn{background:#fef9ee;color:#b8860b;border-color:#e8c97a}
-.cat-edit-btn{background:none;border:1.5px solid var(--bdr);border-radius:7px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--ink-s);cursor:pointer;letter-spacing:.4px;transition:all .15s;display:none}
-.admin-mode .cat-edit-btn{display:inline-block}
-.cat-edit-btn:hover{border-color:var(--clay);color:var(--clay-d)}
-.cat-chev{font-size:13px;color:var(--ink-s);transition:transform .3s;flex-shrink:0}
+.cat-chev{font-size:13px;color:var(--ink-s);transition:transform .3s}
 .cat-hd.open .cat-chev{transform:rotate(180deg)}
 .cat-bd{background:var(--white);display:none}
 .cat-bd.open{display:block}
 
-/* ─ TABLO BAŞLIĞI ─ */
-.th-row{display:grid;background:#f0ebe3;border-bottom:2px solid var(--bdr);padding:7px 0;
-  grid-template-columns:32px 1fr 90px 1fr 60px}
+/* ─ TABLO ─ */
+.th-row{display:grid;background:#f0ebe3;border-bottom:2px solid var(--bdr);padding:7px 0; grid-template-columns:32px 1fr 90px 1fr 60px}
 .th-row span{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-s);padding:0 6px}
-.th-row span:nth-child(3),.th-row span:nth-child(5){text-align:center}
-
-/* ─ SORU SATIRI ─ */
-.qr{display:grid;align-items:start;border-bottom:1px solid var(--bdr);transition:background .12s;border-left:3px solid transparent;
-  grid-template-columns:32px 1fr 90px 1fr 60px}
-.qr:last-child{border-bottom:none}
-.qr:hover{background:#fbf9f6}
-.qr.y{border-left-color:var(--grn);background:#f9fdfa}
-.qr.n{border-left-color:var(--red);background:#fefafa}
-.qr .qn{font-size:10px;font-weight:700;color:var(--ink-s);text-align:center;padding:16px 2px}
-.qr .qt{font-size:13px;color:var(--ink);line-height:1.5;padding:13px 10px 13px 6px}
-
-/* YN BUTONLARI */
-.yn{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 4px}
-.yb{width:36px;height:36px;border-radius:50%;border:2px solid var(--bdr);background:transparent;cursor:pointer;font-size:13px;font-weight:700;color:var(--ink-s);transition:all .15s;display:flex;align-items:center;justify-content:center;font-family:'Lato',sans-serif;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.yb.y:hover,.yb.y:active{border-color:var(--grn);color:var(--grn);background:var(--grn-b)}
-.yb.n:hover,.yb.n:active{border-color:var(--red);color:var(--red);background:var(--red-b)}
-.yb.y.s{background:var(--grn);border-color:var(--grn);color:#fff;box-shadow:0 3px 10px rgba(61,122,90,.35)}
-.yb.n.s{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 3px 10px rgba(184,64,64,.35)}
-
-/* AÇIKLAMA */
+.qr{display:grid;border-bottom:1px solid var(--bdr); grid-template-columns:32px 1fr 90px 1fr 60px}
+.qr.y{border-left:3px solid var(--grn);background:#f9fdfa}
+.qr.n{border-left:3px solid var(--red);background:#fefafa}
+.qn{font-size:10px;font-weight:700;color:var(--ink-s);text-align:center;padding-top:16px}
+.qt{font-size:13px;padding:13px 10px}
+.yn{display:flex;gap:7px;padding:12px 4px;justify-content:center}
+.yb{width:36px;height:36px;border-radius:50%;border:2px solid var(--bdr);background:transparent;cursor:pointer;font-weight:700;color:var(--ink-s);transition:all .15s}
+.yb.y.s{background:var(--grn);border-color:var(--grn);color:#fff}
+.yb.n.s{background:var(--red);border-color:var(--red);color:#fff}
 .dc{padding:8px 4px}
-.dc input{width:100%;border:1.5px solid var(--bdr);border-radius:7px;padding:7px 9px;font-family:'Lato',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);outline:none;transition:all .16s}
-.dc input:focus{border-color:var(--clay);background:#fff}
-
-/* ─ FOTOĞRAF ALANI (mobil uyumlu) ─ */
-.pc{padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px}
-.cam-btn{width:44px;height:44px;border-radius:10px;border:2px dashed var(--bdr);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .16s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;flex-shrink:0}
-.cam-btn:hover,.cam-btn:active{border-color:var(--clay);background:var(--ylw)}
+.dc input{width:100%;border:1.5px solid var(--bdr);border-radius:7px;padding:7px 9px;font-size:13px}
+.pc{padding:8px 4px;display:flex;flex-direction:column;align-items:center}
+.cam-btn{width:44px;height:44px;border-radius:10px;border:2px dashed var(--bdr);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
 .cam-btn.has{border-style:solid;border-color:var(--grn);background:var(--grn-b)}
-.cam-cnt{font-size:9px;color:var(--ink-s);text-align:center}
-.cam-input{display:none}
-.thumbs{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;justify-content:center}
-.thumbs img{width:40px;height:40px;border-radius:5px;object-fit:cover;border:1.5px solid var(--bdr)}
-
-/* ─ NOTLAR ─ */
-.notes-card{background:var(--white);border-radius:var(--r);box-shadow:var(--s1);overflow:hidden;margin-top:14px}
-.notes-hd{background:var(--ylw);border-bottom:1px solid var(--bdr);padding:12px 18px;font-family:'Playfair Display',serif;font-size:14px;color:var(--ink)}
-.notes-bd{padding:14px 18px}
+.cam-cnt{font-size:9px;color:var(--ink-s);margin-top:2px}
+.thumbs img{width:40px;height:40px;border-radius:5px;object-fit:cover;border:1.5px solid var(--bdr);margin:2px}
 
 /* ─ MAİL & GÖNDER ─ */
 .send-wrap{margin-top:16px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start}
 .mail-card{background:var(--white);border-radius:var(--r);box-shadow:var(--s1);overflow:hidden}
-.mail-hd{background:#f0ebe3;border-bottom:1px solid var(--bdr);padding:11px 17px}
-.mail-hd span{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-s)}
+.mail-hd{background:#f0ebe3;padding:11px 17px;font-size:10.5px;font-weight:700;color:var(--ink-s);text-transform:uppercase}
 .mail-bd{padding:13px 17px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.chip{display:flex;align-items:center;gap:5px;background:var(--bg);border:1.5px solid var(--bdr);border-radius:20px;padding:4px 10px 4px 9px;font-size:11.5px;color:var(--ink)}
-.mail-add{display:flex;gap:7px}
-.mail-add input{flex:1;border:1.5px solid var(--bdr);border-radius:7px;padding:8px 10px;font-family:'Lato',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);outline:none;-webkit-appearance:none}
-.mail-add input:focus{border-color:var(--clay);background:#fff}
-.btn-addm{background:var(--clay);color:var(--ink);border:none;border-radius:7px;padding:8px 13px;font-family:'Lato',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;touch-action:manipulation}
-
-/* ─ SUBMIT BUTONU ─ */
-.btn-sub-wrap{display:flex;flex-direction:column;gap:9px;min-width:180px;align-self:stretch}
-.btn-preview{background:var(--white);color:var(--clay-d);border:1.5px solid var(--clay);border-radius:var(--r);padding:11px;font-family:'Lato',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;box-shadow:var(--s1);display:flex;align-items:center;justify-content:center;gap:7px}
-.btn-sub{background:linear-gradient(160deg,#1e1a16 0%,#2d261e 50%,#1a150e 100%);color:#fff;border:none;border-radius:var(--r);padding:0;font-family:'Playfair Display',serif;cursor:pointer;transition:all .22s;box-shadow:0 6px 24px rgba(30,26,22,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:100%;min-height:130px;width:100%}
+.chip{background:var(--bg);border:1.5px solid var(--bdr);border-radius:20px;padding:4px 12px;font-size:11.5px}
+.btn-sub-wrap{display:flex;flex-direction:column;gap:9px;min-width:180px}
+.btn-preview{background:var(--white);color:var(--clay-d);border:1.5px solid var(--clay);border-radius:var(--r);padding:11px;font-weight:700;cursor:pointer}
+.btn-sub{background:linear-gradient(160deg,#1e1a16 0%,#2d261e 50%,#1a150e 100%);color:#fff;border-radius:var(--r);border:none;cursor:pointer;height:100%;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:var(--s2)}
+.btn-sub .bi{font-size:26px;margin-bottom:4px}
 
 /* ─ RAPOR SAYFASI ─ */
-.rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:350;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:350;overflow-y:auto;padding:20px 12px}
 .rpt-page.on{display:block}
-.rpt-inner{max-width:780px;margin:0 auto;padding:72px 12px 80px}
-.rpt-close-btn{position:fixed;top:12px;left:12px;background:var(--ink);color:#fff;border:none;border-radius:50px;height:44px;padding:0 18px;font-family:'Lato',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;box-shadow:var(--s2);z-index:10;touch-action:manipulation}
+.rpt-inner{max-width:780px;margin:0 auto;background:#fff;border-radius:14px;padding:24px;box-shadow:var(--s3)}
+.rpt-hd{background:var(--ink);color:#fff;padding:20px;border-radius:12px;margin-bottom:16px}
+.rpt-scores{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.rsc{background:var(--white);border-radius:11px;padding:14px;text-align:center;box-shadow:var(--s1);border:1px solid var(--bdr)}
+.rsc .rv{font-family:'Playfair Display',serif;font-size:24px;font-weight:700}
+.rsc .rl{font-size:9px;font-weight:700;text-transform:uppercase;color:var(--ink-s)}
 
-/* ─ ADMİN GİRİŞ MODALİ ─ */
-.aov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.7);z-index:600;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.aov.on{display:flex}
-.amodal{background:#fff;border-radius:16px;width:90%;max-width:380px;overflow:hidden;box-shadow:var(--s3)}
-
-/* ─ SPINNER ─ */
-.spin-ov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.6);z-index:700;align-items:center;justify-content:center;flex-direction:column;gap:13px;backdrop-filter:blur(3px)}
-.spin-ov.on{display:flex}
-.spinner{width:42px;height:42px;border:4px solid rgba(200,169,126,.25);border-top-color:var(--clay);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ─ SUCCESS MODALİ ─ */
-.sov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.65);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+/* ─ SUCCESS MODAL ─ */
+.sov{display:none;position:fixed;inset:0;background:rgba(30,26,22,.7);z-index:500;align-items:center;justify-content:center}
 .sov.on{display:flex}
-.smodal{background:#fff;border-radius:16px;width:92%;max-width:460px;overflow:hidden;box-shadow:var(--s3);padding:20px;text-align:center}
+.smodal{background:#fff;border-radius:16px;width:92%;max-width:460px;overflow:hidden;box-shadow:var(--s3)}
+.sm-hd{background:linear-gradient(135deg,var(--ink),#2d261e);padding:26px;text-align:center;color:#fff}
+.sm-ft{padding:20px;display:flex;gap:10px}
+.btn-smc{flex:1;background:var(--clay);color:#1e1a16;border:none;border-radius:9px;padding:12px;font-weight:700;cursor:pointer}
+.btn-smn{flex:1;background:var(--ink);color:#fff;border:none;border-radius:9px;padding:12px;font-weight:700;cursor:pointer}
 
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;border-radius:11px;padding:12px 18px;font-size:13px;z-index:800;transition:all .32s cubic-bezier(.34,1.56,.64,1);max-width:88vw;text-align:center}
-.toast.on{transform:translateX(-50%) translateY(0)}
-.toast.err{background:var(--red)}
-
-/* LIGHTBOX */
-.lightbox-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:900;align-items:center;justify-content:center;padding:16px}
-.lightbox-ov.on{display:flex}
-.lightbox-ov img{max-width:100%;max-height:90vh;border-radius:10px;object-fit:contain}
-
-/* ─ RESPONSIVE ─ */
 @media(max-width:600px){
-  .hdr-in{flex-direction:column;align-items:flex-start;gap:10px;padding:28px 16px 22px}
-  .mg3{grid-template-columns:1fr 1fr}
-  .mg2{grid-template-columns:1fr}
+  .mg3{grid-template-columns:1fr}
   .th-row{grid-template-columns:26px 1fr 86px 46px}
-  .th-row span:nth-child(4){display:none}
-  .qr{display:flex;flex-wrap:wrap;align-items:center;padding:0}
-  .qr .qn{width:26px;flex-shrink:0;padding-top:16px;align-self:flex-start;text-align:center}
-  .qr .qt{flex:1;min-width:0;padding:12px 8px 12px 4px;font-size:12.5px}
-  .qr .yn{flex-shrink:0;padding:10px 4px}
-  .qr .pc{flex-shrink:0;width:46px;padding:8px 2px}
-  .qr .dc{display:block;width:100%;padding:0 8px 10px 26px;order:10}
+  .qr{grid-template-columns:26px 1fr 86px 46px; align-items:center}
+  .qr .dc{grid-column: 1 / -1; padding-left: 26px}
+  .send-wrap{grid-template-columns:1fr}
+  .btn-sub-wrap{flex-direction:row}
+  .rpt-scores{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
-
-<button class="admin-badge" id="adminBadge" onclick="adminToggle()">🔒 Admin</button>
 
 <header class="hdr">
   <div class="hdr-in">
     <div>
       <div class="hdr-logo"><span>✦ Karaca Züccaciye</span></div>
       <h1>Mağaza Ziyaret<br><em>Checklist</em></h1>
-      <p class="hdr-sub">Tüm maddeleri yanıtlayın · Fotoğraf ekleyin · Raporu gönderin</p>
     </div>
     <div class="hdr-date">
       <div class="dd">Bugün</div>
@@ -220,290 +159,77 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 </header>
 
 <div class="W">
+<!-- ZİYARET BİLGİLERİ -->
 <div class="card">
   <div class="card-hd"><h2>📋 Ziyaret Bilgileri</h2></div>
   <div class="card-body">
     <div class="mg mg3">
-      <div class="fld">
-        <label>Bölge Müdürü</label>
-        <select id="f-mudur" class="native-sel" onchange="SEL_VAL.mudur=this.value">
-          <option value="">-- Seçiniz --</option>
-<option value="AYDIN EROĞLU">AYDIN EROĞLU</option>
-<option value="BAHRETTİN BAŞAR">BAHRETTİN BAŞAR</option>
-<option value="BAYRAM ERCAN KARINDAŞ">BAYRAM ERCAN KARINDAŞ</option>
-<option value="ENİS NACİ DUĞAN">ENİS NACİ DUĞAN</option>
-<option value="ERMAN KARAKAYA">ERMAN KARAKAYA</option>
-<option value="FERHAT GENCER">FERHAT GENCER</option>
-<option value="HASAN AYDIN">HASAN AYDIN</option>
-<option value="HÜSEYİN ÖZDEMİR">HÜSEYİN ÖZDEMİR</option>
-<option value="MURAT TİRYAKİ">MURAT TİRYAKİ</option>
-<option value="NİYAZİ KUZAN">NİYAZİ KUZAN</option>
-<option value="OSMAN ASKER">OSMAN ASKER</option>
-<option value="SEDAT AYGÜN">SEDAT AYGÜN</option>
-<option value="SERPİL DURAN">SERPİL DURAN</option>
-<option value="TANER DURAK">TANER DURAK</option>
-<option value="TANER PEHLİVAN">TANER PEHLİVAN</option>
-<option value="ŞÜKRÜ ALPER ERGÜN">ŞÜKRÜ ALPER ERGÜN</option>
-        </select>
-      </div>
-      <div class="fld">
-        <label>Mağaza Adı</label>
-        <select id="f-magaza" class="native-sel" onchange="SEL_VAL.magaza=this.value">
-          <option value="">-- Seçiniz --</option>
-<option value="ADA.ADANACADDE-CONT.KRC.2025">ADA.ADANACADDE-CONT.KRC.2025</option>
-<option value="AMS.AMASYA.CADDE.KRC.2025">AMS.AMASYA.CADDE.KRC.2025</option>
-<option value="AYD.OPSMALL.KRC.2024">AYD.OPSMALL.KRC.2024</option>
-<option value="Ada.Burda Krc.2019">Ada.Burda Krc.2019</option>
-<option value="Ada.M1Real Krc.2010">Ada.M1Real Krc.2010</option>
-<option value="Ada.Optimum Krc.2011">Ada.Optimum Krc.2011</option>
-<option value="Afy.Afiumoutlet Krc.2017">Afy.Afiumoutlet Krc.2017</option>
-<option value="Afy.Park Krc.2015">Afy.Park Krc.2015</option>
-<option value="Ank.Acity Krc.2014">Ank.Acity Krc.2014</option>
-<option value="Ank.Anatolium Krc.2011">Ank.Anatolium Krc.2011</option>
-<option value="Ank.Ankamall Krc.2011">Ank.Ankamall Krc.2011</option>
-<option value="Ank.Antares Krc.2010">Ank.Antares Krc.2010</option>
-<option value="Ank.Cepa Krc.2016">Ank.Cepa Krc.2016</option>
-<option value="Ank.Forum Krc.2010">Ank.Forum Krc.2010</option>
-<option value="Ank.Gordion Krc.2011">Ank.Gordion Krc.2011</option>
-<option value="Ank.Kuzu Effect Krc.2019">Ank.Kuzu Effect Krc.2019</option>
-<option value="Ank.Metromall Krc.2017">Ank.Metromall Krc.2017</option>
-<option value="Ank.Optimum Krc.2012">Ank.Optimum Krc.2012</option>
-<option value="Ank.Podium Krc.2020">Ank.Podium Krc.2020</option>
-<option value="Ank.Taurus Krc.2014">Ank.Taurus Krc.2014</option>
-<option value="Ant.Deepo Krc.2010">Ant.Deepo Krc.2010</option>
-<option value="Ant.Markantalya Krc.2013">Ant.Markantalya Krc.2013</option>
-<option value="Ant.Migros Krc.2012">Ant.Migros Krc.2012</option>
-<option value="Ant.Novada Manavgat Krc.2016">Ant.Novada Manavgat Krc.2016</option>
-<option value="Ant.Terracity Krc.2017">Ant.Terracity Krc.2017</option>
-<option value="Ayd.Forum Krc.2010">Ayd.Forum Krc.2010</option>
-<option value="BLK.AYVALIK MARINA KRC.2024">BLK.AYVALIK MARINA KRC.2024</option>
-<option value="BRS.ANATOLIUM CONTAINER KRC.20">BRS.ANATOLIUM CONTAINER KRC.20</option>
-<option value="BRS.INEGOL KRC.2024">BRS.INEGOL KRC.2024</option>
-<option value="Blk.Burda Krc.2018">Blk.Burda Krc.2018</option>
-<option value="Blk.Novada Edremit Krc.2015">Blk.Novada Edremit Krc.2015</option>
-<option value="Blu.Burda Krc.2015">Blu.Burda Krc.2015</option>
-<option value="Brs.Downtown Krc.2023">Brs.Downtown Krc.2023</option>
-<option value="Brs.Kentmeydanı Krc.2014">Brs.Kentmeydanı Krc.2014</option>
-<option value="Brs.Korupark Krc.2017">Brs.Korupark Krc.2017</option>
-<option value="Brs.Marka Krc.2017">Brs.Marka Krc.2017</option>
-<option value="Brs.Zaferplaza Krc.2017">Brs.Zaferplaza Krc.2017</option>
-<option value="Btm.Petrol Krc.2021">Btm.Petrol Krc.2021</option>
-<option value="Ckk.Forum Krc.2015">Ckk.Forum Krc.2015</option>
-<option value="Cor.Ahlpark Krc.2016">Cor.Ahlpark Krc.2016</option>
-<option value="DNZ. BAYRAMYERI KRC.2024">DNZ. BAYRAMYERI KRC.2024</option>
-<option value="Diy.Ceylan Krc.2019">Diy.Ceylan Krc.2019</option>
-<option value="Diy.Forum Krc.2015">Diy.Forum Krc.2015</option>
-<option value="Dnz.Forum Krc.2010">Dnz.Forum Krc.2010</option>
-<option value="Dıy.Ninovapark Krc.2011">Dıy.Ninovapark Krc.2011</option>
-<option value="Edr.Bendis Kesan Krc.2016">Edr.Bendis Kesan Krc.2016</option>
-<option value="Edr.Erasta Krc.2017">Edr.Erasta Krc.2017</option>
-<option value="Edr.Margi Krc.2011">Edr.Margi Krc.2011</option>
-<option value="Elz.Elysium Krc.2021">Elz.Elysium Krc.2021</option>
-<option value="Erc.Park Krc.2015">Erc.Park Krc.2015</option>
-<option value="Erz.Mng Krc.2019">Erz.Mng Krc.2019</option>
-<option value="Esk.Espark Krc.2010">Esk.Espark Krc.2010</option>
-<option value="Gzt.Forum Krc.2021">Gzt.Forum Krc.2021</option>
-<option value="Gzt.Sankopark Krc.2010">Gzt.Sankopark Krc.2010</option>
-<option value="HTY.ANTAKYA CONTAINER.KRC.2025">HTY.ANTAKYA CONTAINER.KRC.2025</option>
-<option value="Hty.Forbes Iskenderun Krc.2016">Hty.Forbes Iskenderun Krc.2016</option>
-<option value="Hty.Prime Iskenderun Krc.2011">Hty.Prime Iskenderun Krc.2011</option>
-<option value="IST.AKBATI-CONT.KRC.2025">IST.AKBATI-CONT.KRC.2025</option>
-<option value="IST.CITYS KOZYATAGI.KRC.2025">IST.CITYS KOZYATAGI.KRC.2025</option>
-<option value="IST.LIMONLUBAHCE.CONT.KRC.2025">IST.LIMONLUBAHCE.CONT.KRC.2025</option>
-<option value="IST.MARMAR-FRM.CONTAINER.KRC.2">IST.MARMAR-FRM.CONTAINER.KRC.2</option>
-<option value="IST.PENDORYA CONTAINER KRC.202">IST.PENDORYA CONTAINER KRC.202</option>
-<option value="IST.TEMAWORLD KRC.2024">IST.TEMAWORLD KRC.2024</option>
-<option value="Isp.Iyaspark.Krc.2023">Isp.Iyaspark.Krc.2023</option>
-<option value="Ist.Akasya Krc.2014">Ist.Akasya Krc.2014</option>
-<option value="Ist.Arenapark Krc.2011">Ist.Arenapark Krc.2011</option>
-<option value="Ist.Armonipark Krc.2010">Ist.Armonipark Krc.2010</option>
-<option value="Ist.Atirus Krc.2010">Ist.Atirus Krc.2010</option>
-<option value="Ist.Atlas Sbeylı Krc.2015">Ist.Atlas Sbeylı Krc.2015</option>
-<option value="Ist.Basınekspres Container Krc">Ist.Basınekspres Container Krc</option>
-<option value="Ist.Buyaka Krc.2015">Ist.Buyaka Krc.2015</option>
-<option value="Ist.Canpark Krc.2014">Ist.Canpark Krc.2014</option>
-<option value="Ist.Carousel Krc.2011">Ist.Carousel Krc.2011</option>
-<option value="Ist.Carrefour Maltepe Krc.2012">Ist.Carrefour Maltepe Krc.2012</option>
-<option value="Ist.Cevahir Krc.2018">Ist.Cevahir Krc.2018</option>
-<option value="Ist.Emaar Kadıkoy Krc.2017">Ist.Emaar Kadıkoy Krc.2017</option>
-<option value="Ist.Forum Bpasa Krc.2010">Ist.Forum Bpasa Krc.2010</option>
-<option value="Ist.Galataport Krc.2021">Ist.Galataport Krc.2021</option>
-<option value="Ist.Hilltown Kyalı Krc.2017">Ist.Hilltown Kyalı Krc.2017</option>
-<option value="Ist.Historia Fatıh Krc.2010">Ist.Historia Fatıh Krc.2010</option>
-<option value="Ist.Istinyepark Krc.2017">Ist.Istinyepark Krc.2017</option>
-<option value="Ist.Kalecenter Krc.2014">Ist.Kalecenter Krc.2014</option>
-<option value="Ist.Mallof Krc.2014">Ist.Mallof Krc.2014</option>
-<option value="Ist.Marina Kartal Krc.2018">Ist.Marina Kartal Krc.2018</option>
-<option value="Ist.Marina Tuzla Krc.2015">Ist.Marina Tuzla Krc.2015</option>
-<option value="Ist.Marpark Krc.2012">Ist.Marpark Krc.2012</option>
-<option value="Ist.Meydan Krc.2021">Ist.Meydan Krc.2021</option>
-<option value="Ist.Nautilus Krc.2010">Ist.Nautilus Krc.2010</option>
-<option value="Ist.Olivium Krc.2014">Ist.Olivium Krc.2014</option>
-<option value="Ist.Optimum Krc.2010">Ist.Optimum Krc.2010</option>
-<option value="Ist.Palladium Atasehır Krc.201">Ist.Palladium Atasehır Krc.201</option>
-<option value="Ist.PelicanMall Krc.2010">Ist.PelicanMall Krc.2010</option>
-<option value="Ist.Perlavista Krc.2016">Ist.Perlavista Krc.2016</option>
-<option value="Ist.Piazza Maltepe Krc.2018">Ist.Piazza Maltepe Krc.2018</option>
-<option value="Ist.Starcity Krc.2014">Ist.Starcity Krc.2014</option>
-<option value="Ist.Torium Container Krc.2023">Ist.Torium Container Krc.2023</option>
-<option value="Ist.Vadi Krc.2020">Ist.Vadi Krc.2020</option>
-<option value="Ist.Venezia Krc.2015">Ist.Venezia Krc.2015</option>
-<option value="Ist.Vialand Krc.2013">Ist.Vialand Krc.2013</option>
-<option value="Ist.Viaport Container Krc.2022">Ist.Viaport Container Krc.2022</option>
-<option value="Ist.Özdilek Krc.2014">Ist.Özdilek Krc.2014</option>
-<option value="Izm.Agora Krc.2010">Izm.Agora Krc.2010</option>
-<option value="Izm.Forumbornova Krc.2020">Izm.Forumbornova Krc.2020</option>
-<option value="Izm.Gaziemir Container Krc.202">Izm.Gaziemir Container Krc.202</option>
-<option value="Izm.Hilltown K.Yaka Krc.2019">Izm.Hilltown K.Yaka Krc.2019</option>
-<option value="Izm.Istinye Krc.2021">Izm.Istinye Krc.2021</option>
-<option value="Izm.Mavibahce Krc.2015">Izm.Mavibahce Krc.2015</option>
-<option value="Izm.Menemen Krc.2019">Izm.Menemen Krc.2019</option>
-<option value="Izm.Optimum Krc.2012">Izm.Optimum Krc.2012</option>
-<option value="Izm.Point Bornova Krc.2015">Izm.Point Bornova Krc.2015</option>
-<option value="Izm.Westpark Krc.2018">Izm.Westpark Krc.2018</option>
-<option value="KNY.SELÇUKER.KRC.2025">KNY.SELÇUKER.KRC.2025</option>
-<option value="KRB. KARES KRC.2024">KRB. KARES KRC.2024</option>
-<option value="Kcl.Arasta Krc.2021">Kcl.Arasta Krc.2021</option>
-<option value="Kcl.Burda Krc.2015">Kcl.Burda Krc.2015</option>
-<option value="Kcl.Gebzecenter Krc.2010">Kcl.Gebzecenter Krc.2010</option>
-<option value="Kcl.Symbol Krc.2015">Kcl.Symbol Krc.2015</option>
-<option value="Khm.Piazza Krc.2013">Khm.Piazza Krc.2013</option>
-<option value="Kny.Kentplaza Krc.2016">Kny.Kentplaza Krc.2016</option>
-<option value="Kny.Kulesite Krc.2018">Kny.Kulesite Krc.2018</option>
-<option value="Kny.M1 Real Krc.2010">Kny.M1 Real Krc.2010</option>
-<option value="Kny.Novada Krc.2016">Kny.Novada Krc.2016</option>
-<option value="Krk.Burda Luleburgaz Krc.2018">Krk.Burda Luleburgaz Krc.2018</option>
-<option value="Krn.Karaman Krc.2021">Krn.Karaman Krc.2021</option>
-<option value="Kst.Kastamall Krc.2021">Kst.Kastamall Krc.2021</option>
-<option value="Kth.Sera Krc.2021">Kth.Sera Krc.2021</option>
-<option value="Kys.Forum Krc.2012">Kys.Forum Krc.2012</option>
-<option value="Kys.Park Krc.2012">Kys.Park Krc.2012</option>
-<option value="Kır.Podium Krc.2020">Kır.Podium Krc.2020</option>
-<option value="Mgl.Bodrum Avenue Krc.2016">Mgl.Bodrum Avenue Krc.2016</option>
-<option value="Mlt.Park Krc.2010">Mlt.Park Krc.2010</option>
-<option value="Mns.Magnesia Krc.2012">Mns.Magnesia Krc.2012</option>
-<option value="Mrd.Mardian Mall Krc.2021">Mrd.Mardian Mall Krc.2021</option>
-<option value="Mrd.Movapark Krc.2012">Mrd.Movapark Krc.2012</option>
-<option value="Mrs.Carrefour Krc.2012">Mrs.Carrefour Krc.2012</option>
-<option value="Mrs.Forum Krc.2010">Mrs.Forum Krc.2010</option>
-<option value="Mrs.Novada Erdemli Krc.2020">Mrs.Novada Erdemli Krc.2020</option>
-<option value="Mrs.Saya Park Krc.2020">Mrs.Saya Park Krc.2020</option>
-<option value="Mrs.Tarsus Krc.2012">Mrs.Tarsus Krc.2012</option>
-<option value="NIG.TEMAPARK.KRC.2025">NIG.TEMAPARK.KRC.2025</option>
-<option value="Nev.Forum Krc.2011">Nev.Forum Krc.2011</option>
-<option value="Ord.Novada Krc.2017">Ord.Novada Krc.2017</option>
-<option value="Osm.Park Krc.2011">Osm.Park Krc.2011</option>
-<option value="Riz.Simal Krc.2021">Riz.Simal Krc.2021</option>
-<option value="SMS.BULVAR-CONT.KRC.2025">SMS.BULVAR-CONT.KRC.2025</option>
-<option value="SMS.LOVELETOUTLET.KRC.2025">SMS.LOVELETOUTLET.KRC.2025</option>
-<option value="Sak.Agora Krc.2015">Sak.Agora Krc.2015</option>
-<option value="Sak.Cadde Krc.2021">Sak.Cadde Krc.2021</option>
-<option value="Sak.Serdivan Krc.2011">Sak.Serdivan Krc.2011</option>
-<option value="Sms.Piazza Krc.2013">Sms.Piazza Krc.2013</option>
-<option value="Sms.Yeşilyurt Krc.2010">Sms.Yeşilyurt Krc.2010</option>
-<option value="Snf.Piazza Krc.2013">Snf.Piazza Krc.2013</option>
-<option value="Srt.Park Krc.2023">Srt.Park Krc.2023</option>
-<option value="Svs.Park Krc.2016">Svs.Park Krc.2016</option>
-<option value="Tkr.Orion Corlu Krc.2010">Tkr.Orion Corlu Krc.2010</option>
-<option value="Tkr.Tekira Krc.2010">Tkr.Tekira Krc.2010</option>
-<option value="Tkt.Novada Krc.2014">Tkt.Novada Krc.2014</option>
-<option value="Trb.Forum Krc.2010">Trb.Forum Krc.2010</option>
-<option value="VAN. VANMALL KRC.2024">VAN. VANMALL KRC.2024</option>
-<option value="Van.Avm Krc.2015">Van.Avm Krc.2015</option>
-<option value="Yzg.Novada Krc.2016">Yzg.Novada Krc.2016</option>
-<option value="Zon.Burda Krc.2019">Zon.Burda Krc.2019</option>
-        </select>
-      </div>
-      <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Sorumlu kişi" autocomplete="off"></div>
+      <div class="fld"><label>Bölge Müdürü</label><select id="f-mudur" class="native-sel"><option value="">-- Seçiniz --</option><option value="AYDIN EROĞLU">AYDIN EROĞLU</option><option value="BAHRETTİN BAŞAR">BAHRETTİN BAŞAR</option><option value="BAYRAM ERCAN KARINDAŞ">BAYRAM ERCAN KARINDAŞ</option><option value="ENİS NACİ DUĞAN">ENİS NACİ DUĞAN</option><option value="ERMAN KARAKAYA">ERMAN KARAKAYA</option><option value="FERHAT GENCER">FERHAT GENCER</option><option value="HASAN AYDIN">HASAN AYDIN</option><option value="HÜSEYİN ÖZDEMİR">HÜSEYİN ÖZDEMİR</option><option value="MURAT TİRYAKİ">MURAT TİRYAKİ</option><option value="NİYAZİ KUZAN">NİYAZİ KUZAN</option><option value="OSMAN ASKER">OSMAN ASKER</option><option value="SEDAT AYGÜN">SEDAT AYGÜN</option><option value="SERPİL DURAN">SERPİL DURAN</option><option value="TANER DURAK">TANER DURAK</option><option value="TANER PEHLİVAN">TANER PEHLİVAN</option><option value="ŞÜKRÜ ALPER ERGÜN">ŞÜKRÜ ALPER ERGÜN</option></select></div>
+      <div class="fld"><label>Mağaza Adı</label><select id="f-magaza" class="native-sel"><option value="">-- Seçiniz --</option><option value="ADA.ADANACADDE-CONT.KRC.2025">ADA.ADANACADDE-CONT.KRC.2025</option><option value="AMS.AMASYA.CADDE.KRC.2025">AMS.AMASYA.CADDE.KRC.2025</option><option value="Afy.Park Krc.2015">Afy.Park Krc.2015</option><option value="Ank.Ankamall Krc.2011">Ank.Ankamall Krc.2011</option><option value="Ist.Optimum Krc.2010">Ist.Optimum Krc.2010</option></select></div>
+      <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Sorumlu kişi"></div>
     </div>
-    <div class="mg mg2" style="margin-bottom:0">
-      <div class="fld">
-        <label>Ziyaret Tarihi &amp; Saati</label>
-        <div id="f-tarih-display" style="border:1.5px solid var(--bdr);border-radius:8px;padding:9px 12px;font-family:Lato,sans-serif;font-size:14px;color:var(--ink);background:#f0ebe3;cursor:default">—</div>
-        <input type="hidden" id="f-tarih">
-        <input type="hidden" id="f-saat">
-      </div>
-      <div class="fld">
-        <label>Bu Yıl Kaçıncı Ziyaret</label>
-        <div id="f-sira-display" style="border:1.5px solid var(--bdr);border-radius:8px;padding:9px 12px;font-family:Lato,sans-serif;font-size:14px;color:var(--ink);background:#f0ebe3;cursor:default">Bölge Müdürü ve Mağaza seçilince otomatik hesaplanır</div>
-        <input type="hidden" id="f-sira">
-      </div>
+    <div class="mg mg2">
+      <div class="fld"><label>Ziyaret Tarihi & Saati</label><div id="f-tarih-display" style="background:#f0ebe3; padding:9px; border-radius:8px">—</div><input type="hidden" id="f-tarih"></div>
+      <div class="fld"><label>Bu Yıl Kaçıncı Ziyaret</label><div id="f-sira-display" style="background:#f0ebe3; padding:9px; border-radius:8px">Seçim yapınız</div><input type="hidden" id="f-sira"></div>
     </div>
   </div>
 </div>
 
 <!-- PROGRESS -->
 <div class="prog">
-  <div class="prog-info">
-    <div class="prog-lbl">Tamamlanma</div>
-    <div class="prog-num"><span id="ansCnt">0</span><small> / <span id="totCnt">0</span> soru</small></div>
-  </div>
+  <div class="prog-info"><div class="prog-lbl">Tamamlanma</div><div class="prog-num"><span id="ansCnt">0</span><small> / <span id="totCnt">10</span></small></div></div>
   <div class="prog-track"><div class="prog-fill" id="pFill"></div></div>
   <div class="prog-pct" id="pPct">%0</div>
 </div>
 
-<!-- KATEGORİLER -->
 <div id="catWrap"></div>
 
 <!-- NOTLAR -->
 <div class="notes-card">
   <div class="notes-hd">📝 Genel Gözlem & Aksiyon Planı</div>
-  <div class="notes-bd">
-    <div class="fld"><textarea id="f-notlar" placeholder="Gözlemler, öneriler, acil aksiyonlar… (En az 20 karakter)"></textarea></div>
-  </div>
+  <div class="notes-bd"><textarea id="f-notlar" placeholder="Gözlemler, öneriler, acil aksiyonlar… (En az 20 karakter)" style="width:100%; min-height:80px; border:1.5px solid var(--bdr); border-radius:8px; padding:10px"></textarea></div>
 </div>
 
 <!-- GÖNDER -->
 <div class="send-wrap">
   <div class="mail-card">
-    <div class="mail-hd"><span>✉️ &nbsp;Rapor Gönderilecek Kişiler</span></div>
+    <div class="mail-hd">✉️ Rapor Gönderilecek Kişiler</div>
     <div class="mail-bd">
       <div class="chips" id="chips"></div>
-      <div class="mail-add">
-        <input type="email" id="mailInp" placeholder="ad@karaca.com — Enter ile ekle" onkeydown="mkd(event)">
-        <button class="btn-addm" onclick="addMail()">+ Ekle</button>
-      </div>
+      <div style="display:flex; gap:7px"><input type="email" id="mailInp" placeholder="ad@karaca.com" style="flex:1; border:1.5px solid var(--bdr); border-radius:7px; padding:8px"><button onclick="addMail()" style="background:var(--clay); border:none; border-radius:7px; padding:0 12px; cursor:pointer">+</button></div>
     </div>
   </div>
   <div class="btn-sub-wrap">
     <button class="btn-preview" onclick="showReport()">📊 Raporu Önizle</button>
-    <button class="btn-preview" onclick="downloadPDF()" style="background:var(--grn-b);color:var(--grn);border-color:var(--grn)">⬇️ PDF İndir</button>
-    <button class="btn-sub" onclick="submitForm()">
-      <span class="bi">📨</span>
-      <span class="bm">Formu Tamamla</span>
-      <div class="bl"></div>
-      <span class="bs">& Raporu Gönder</span>
-    </button>
+    <button class="btn-preview" onclick="window.print()" style="background:var(--grn-b);color:var(--grn);border-color:var(--grn)">⬇️ PDF İndir</button>
+    <button class="btn-sub" onclick="submitForm()"><span class="bi">📨</span><span style="font-weight:700">Formu Tamamla</span><span style="font-size:10px; opacity:0.7">& Raporu Gönder</span></button>
   </div>
 </div>
 </div>
 
 <!-- MODALLER -->
 <div class="rpt-page" id="rptPage">
-  <button class="rpt-close-btn" onclick="closeReport()">← Geri</button>
   <div class="rpt-inner" id="rptInner"></div>
 </div>
 
 <div class="sov" id="succOv">
   <div class="smodal">
-    <h2>✅ Rapor Gönderildi!</h2>
-    <p>Mağaza ziyaret raporu başarıyla Drive'a ve Sheets'e kaydedildi.</p>
-    <button class="btn-preview" onclick="location.reload()" style="margin-top:20px; width:100%">Yeni Form</button>
+    <div class="sm-hd"><h2>✅ Rapor Gönderildi!</h2><p>Başarıyla Drive'a ve Sheets'e kaydedildi.</p></div>
+    <div class="sm-stats" id="sm-stats-box" style="padding:20px; display:grid; grid-template-columns:repeat(2,1fr); gap:10px"></div>
+    <div class="sm-ft">
+      <button class="btn-smc" onclick="document.getElementById('succOv').classList.remove('on')">Kapat</button>
+      <button class="btn-smn" onclick="location.reload()">Yeni Form</button>
+    </div>
   </div>
 </div>
 
-<div class="spin-ov" id="spinOv"><div class="spinner"></div><div style="color:#fff; margin-top:10px">Kaydediliyor...</div></div>
+<div class="spin-ov" id="spinOv"><div class="spinner"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════════════════
 const CONFIG = {
-  sheets_url: 'https://script.google.com/macros/s/AKfycbxxxJcfiokEP3x8XxulR4kWIY0VnnG9f-e1hlSi1TsheuGrQn1y82W9bbXNf5vInTc_/exec',
-  admin_password: '779100Aa!',
-  default_mails: [
-    {a:'aydin.eroglu@karaca.com', r:'Bölge Müdürü'},
-    {a:'operasyon@karaca.com', r:'Operasyon'},
-  ],
+  sheets_url: 'https://script.google.com/macros/s/AKfycbxlaoRObf7GCVmLPbom4ye_k5-K1VMMUNQQ2Z4Met5EaK70jg2MCRneygao4pHTiJU-/exec',
+  default_mails: [{a:'aydin.eroglu@karaca.com'}, {a:'operasyon@karaca.com'}]
 };
 
 var CATS = [
@@ -524,42 +250,24 @@ var CATS = [
 ];
 
 var ANS={}, DESC={}, PHOTOS={}, SEL_VAL={mudur:'', magaza:''};
-var mailList = CONFIG.default_mails.map(m=>({a:m.a, r:m.r}));
+var mailList = CONFIG.default_mails.map(m=>({a:m.a}));
 
 function render(){
-  document.getElementById('totCnt').textContent = totalQ();
   var wrap = document.getElementById('catWrap'); wrap.innerHTML = '';
   CATS.forEach(cat => {
     var div = document.createElement('div'); div.className='cat';
-    div.innerHTML = `<div class="cat-hd open" onclick="toggleCat(this,'${cat.id}')">
-      <div class="cat-hd-in">
-        <div class="cat-dot" style="background:${cat.col};color:${cat.icol}">${cat.icon}</div>
-        <div class="cat-txt"><h3>${cat.title}</h3></div>
-        <div class="cat-pill" id="pill-${cat.id}">0/${cat.questions.length}</div>
-        <span class="cat-chev">▾</span>
-      </div>
-    </div>
-    <div class="cat-bd open" id="bd-${cat.id}">
-      <div class="th-row"><span>#</span><span>Madde</span><span style="text-align:center">Cevap</span><span>Açıklama</span><span style="text-align:center">Foto</span></div>
-    </div>`;
+    let qRows = '';
     cat.questions.forEach((q,i) => {
       var qid = cat.id+'-'+i;
-      var row = document.createElement('div'); row.className='qr'; row.id='r-'+qid;
-      row.innerHTML = `<div class="qn">${i+1}</div>
+      qRows += `<div class="qr" id="r-${qid}">
+        <div class="qn">${i+1}</div>
         <div class="qt">${q.t}</div>
-        <div class="yn">
-          <button class="yb y" onclick="setA('${qid}','yes')">E</button>
-          <button class="yb n" onclick="setA('${qid}','no')">H</button>
-        </div>
+        <div class="yn"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div>
         <div class="dc"><input type="text" placeholder="Açıklama..." oninput="DESC['${qid}']=this.value"></div>
-        <div class="pc">
-          <div class="cam-btn" id="cb-${qid}" onclick="triggerCam('${qid}')">📷</div>
-          <input type="file" class="cam-input" id="fi-${qid}" accept="image/*" capture="environment" onchange="addPhoto(this,'${qid}')">
-          <span class="cam-cnt" id="cc-${qid}"></span>
-          <div class="thumbs" id="th-${qid}"></div>
-        </div>`;
-      div.querySelector('.cat-bd').appendChild(row);
+        <div class="pc"><div class="cam-btn" id="cb-${qid}" onclick="triggerCam('${qid}')">📷</div><input type="file" class="cam-input" id="fi-${qid}" accept="image/*" capture="environment" onchange="addPhoto(this,'${qid}')"><div class="thumbs" id="th-${qid}"></div></div>
+      </div>`;
     });
+    div.innerHTML = `<div class="cat-hd open" onclick="toggleCat(this,'${cat.id}')"><div class="cat-hd-in"><div class="cat-dot" style="background:${cat.col};color:${cat.icol}">${cat.icon}</div><div class="cat-txt"><h3>${cat.title}</h3></div><div class="cat-pill" id="pill-${cat.id}">0/${cat.questions.length}</div><span class="cat-chev">▾</span></div></div><div class="cat-bd open" id="bd-${cat.id}"><div class="th-row"><span>#</span><span>Madde</span><span style="text-align:center">Cevap</span><span>Açıklama</span><span style="text-align:center">Foto</span></div>${qRows}</div>`;
     wrap.appendChild(div);
   });
   renderChips();
@@ -575,11 +283,9 @@ function setA(qid,val){
 }
 
 function triggerCam(qid){ document.getElementById('fi-'+qid).click(); }
-
 function addPhoto(inp, qid){
   if(!inp.files.length) return;
   if(!PHOTOS[qid]) PHOTOS[qid]=[];
-  var file = inp.files[0];
   var reader = new FileReader();
   reader.onload = e => {
     var img = new Image();
@@ -590,143 +296,100 @@ function addPhoto(inp, qid){
       canvas.width=w; canvas.height=h;
       canvas.getContext('2d').drawImage(img,0,0,w,h);
       PHOTOS[qid].push(canvas.toDataURL('image/jpeg',0.7));
-      refreshPhotos(qid);
+      document.getElementById('cb-'+qid).classList.add('has');
+      document.getElementById('th-'+qid).innerHTML = PHOTOS[qid].map(p=>`<img src="${p}">`).join('');
     };
     img.src = e.target.result;
   };
-  reader.readAsDataURL(file);
-}
-
-function refreshPhotos(qid){
-  var pArr = PHOTOS[qid]||[];
-  document.getElementById('cb-'+qid).classList.toggle('has', pArr.length>0);
-  document.getElementById('cc-'+qid).textContent = pArr.length ? pArr.length+' foto' : '';
-  document.getElementById('th-'+qid).innerHTML = pArr.map(p=>`<img src="${p}">`).join('');
+  reader.readAsDataURL(inp.files[0]);
 }
 
 function updateProg(){
-  var a=Object.keys(ANS).length, t=totalQ(), p=t>0?Math.round(a/t*100):0;
+  var a=Object.keys(ANS).length, t=10, p=Math.round(a/t*100);
   document.getElementById('ansCnt').textContent=a;
   document.getElementById('pFill').style.width=p+'%';
   document.getElementById('pPct').textContent='%'+p;
 }
-
 function updatePills(){
   CATS.forEach(cat=>{
     var done=cat.questions.filter((_,i)=>ANS[cat.id+'-'+i]).length;
-    var pill=document.getElementById('pill-'+cat.id);
-    if(pill){ pill.textContent=done+'/'+cat.questions.length; pill.className='cat-pill'+(done===cat.questions.length?' done':'');}
+    document.getElementById('pill-'+cat.id).textContent=done+'/'+cat.questions.length;
+    if(done===cat.questions.length) document.getElementById('pill-'+cat.id).classList.add('done');
   });
 }
-
-function totalQ(){ return CATS.reduce((s,c)=>s+c.questions.length,0); }
 function toggleCat(hd,id){ document.getElementById('bd-'+id).classList.toggle('open'); hd.classList.toggle('open'); }
 
 async function submitForm(){
   updateDateTime();
   var mudur=v('f-mudur'), magaza=v('f-magaza'), magMudur=v('f-mag-mudur'), notlar=v('f-notlar');
-
-  if(!mudur || !magaza || !magMudur){ toast('Lütfen ziyaret bilgilerini doldurun!',true); return; }
-  if(Object.keys(ANS).length < totalQ()){ toast('Tüm soruları cevaplayın!',true); return; }
-  if(notlar.length < 20){ toast('Genel gözlem alanı en az 20 karakter olmalıdır!',true); return; }
+  if(!mudur || !magaza || !magMudur){ toast('Ziyaret bilgilerini doldurun!',true); return; }
+  if(Object.keys(ANS).length < 10){ toast('Tüm soruları cevaplayın!',true); return; }
+  if(notlar.length < 20){ toast('Genel gözlem en az 20 karakter olmalı!',true); return; }
 
   for(var qid in ANS){
-    if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length===0)){
-       toast('Evet seçilen maddelerde fotoğraf zorunludur!',true); 
-       document.getElementById('r-'+qid).scrollIntoView({behavior:'smooth'}); return;
-    }
-    if(ANS[qid]==='no' && !DESC[qid]){
-       toast('Hayır seçilen maddelerde açıklama zorunludur!',true); 
-       document.getElementById('r-'+qid).scrollIntoView({behavior:'smooth'}); return;
-    }
+    if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length===0)){ toast('Evet için fotoğraf zorunludur!',true); return; }
+    if(ANS[qid]==='no' && !DESC[qid]){ toast('Hayır için açıklama zorunludur!',true); return; }
   }
 
-  spin(true);
+  document.getElementById('spinOv').classList.add('on');
   await saveToSheets();
-  spin(false);
+  document.getElementById('spinOv').classList.remove('on');
+  
+  const st = calcStats();
+  document.getElementById('sm-stats-box').innerHTML = `<div class="rsc"><div class="rv">${st.yesN}</div><div class="rl">Evet</div></div><div class="rsc"><div class="rv">${st.noN}</div><div class="rl">Hayır</div></div>`;
   document.getElementById('succOv').classList.add('on');
 }
 
 async function saveToSheets() {
   const soruCevaplar = [];
-  CATS.forEach(cat => {
-    cat.questions.forEach((q, i) => {
-      const qid = cat.id + '-' + i;
-      soruCevaplar.push({
-        soru: q.t,
-        cevap: ANS[qid] === 'yes' ? 'EVET' : 'HAYIR',
-        not: DESC[qid] || ''
-      });
-    });
-  });
-
+  CATS.forEach(cat => { cat.questions.forEach((q, i) => { const qid = cat.id + '-' + i; soruCevaplar.push({ soru: q.t, cevap: ANS[qid] === 'yes' ? 'EVET' : 'HAYIR', not: DESC[qid] || '' }); }); });
   const st = calcStats();
   const payload = {
-    tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag-mudur'),
-    sira: v('f-sira'), total: st.total, evet: st.yesN, hayir: st.noN,
-    pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'),
+    tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag-mudur'), sira: v('f-sira'),
+    total: 10, evet: st.yesN, hayir: st.noN, pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'),
     catStats: CATS.map(cat => ({ title: cat.title, u: Math.round(cat.questions.filter((_,i)=>ANS[cat.id+'-'+i]==='yes').length / cat.questions.length * 100) })),
     soruCevaplar: soruCevaplar 
   };
-
-  try {
-    await fetch(CONFIG.sheets_url, {
-      method: 'POST', mode: 'no-cors',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    });
-  } catch (e) { console.error(e); }
+  try { await fetch(CONFIG.sheets_url, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) }); } catch (e) { console.error(e); }
 }
 
 function calcStats(){
   var yesN=Object.values(ANS).filter(a=>a==='yes').length;
   var noN=Object.values(ANS).filter(a=>a==='no').length;
-  return {yesN, noN, total:totalQ(), pct:Math.round(Object.keys(ANS).length/totalQ()*100), uyum:Math.round(yesN/(yesN+noN)*100)||0};
-}
-
-function updateDateTime(){
-  var n=new Date(); 
-  var d = n.getDate().toString().padStart(2,'0')+'.'+(n.getMonth()+1).toString().padStart(2,'0')+'.'+n.getFullYear();
-  var s = n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
-  document.getElementById('f-tarih').value = d;
-  document.getElementById('f-tarih-display').textContent = d + ' ' + s;
-}
-
-function hesaplaSira(){
-  var m=v('f-mudur'), z=v('f-magaza');
-  if(!m || !z) return;
-  document.getElementById('f-sira-display').textContent = 'Hesaplanıyor...';
-  fetch(CONFIG.sheets_url+'?action=sira&mudur='+m+'&magaza='+z+'&yil='+new Date().getFullYear())
-    .then(r=>r.json()).then(data=>{
-      var s = (data.count||0)+1 + '. Ziyaret';
-      document.getElementById('f-sira').value = s;
-      document.getElementById('f-sira-display').textContent = s;
-    });
+  return {yesN, noN, pct:Math.round(Object.keys(ANS).length/10*100), uyum:Math.round(yesN/(yesN+noN)*100)||0};
 }
 
 function showReport(){
   const st = calcStats();
-  let h = `<h2>Mağaza Rapor Önizleme</h2><p>${v('f-magaza')} | ${v('f-mudur')}</p><hr>`;
+  let h = `<button class="rpt-close-btn" onclick="closeReport()">← Geri</button>
+    <div class="rpt-hd"><h2>${v('f-magaza')}</h2><p>${v('f-mudur')} | ${v('f-tarih')}</p></div>
+    <div class="rpt-scores"><div class="rsc"><div class="rv">${st.yesN}</div><div class="rl">Evet</div></div><div class="rsc"><div class="rv">${st.noN}</div><div class="rl">Hayır</div></div><div class="rsc"><div class="rv">%${st.uyum}</div><div class="rl">Uyum</div></div></div>`;
   CATS.forEach(c => {
-    h += `<h4>${c.icon} ${c.title}</h4>`;
-    c.questions.forEach((q,i) => {
-      const ans = ANS[c.id+'-'+i];
-      h += `<p style="font-size:12px">${i+1}. ${q.t} -> <b>${ans==='yes'?'EVET':'HAYIR'}</b></p>`;
-    });
+    h += `<div style="margin-top:20px; border-bottom:1px solid #ddd; padding-bottom:5px"><b>${c.title}</b></div>`;
+    c.questions.forEach((q,i) => { h += `<p style="font-size:12px; margin:5px 0">${i+1}. ${q.t} -> <b>${ANS[c.id+'-'+i]==='yes'?'EVET':'HAYIR'}</b></p>`; });
   });
   document.getElementById('rptInner').innerHTML = h;
   document.getElementById('rptPage').classList.add('on');
 }
 function closeReport(){ document.getElementById('rptPage').classList.remove('on'); }
-function downloadPDF(){ window.print(); }
-function renderChips(){
-  const c=document.getElementById('chips'); c.innerHTML='';
-  mailList.forEach((m,i)=>c.innerHTML+=`<div class="chip">✉ ${m.a}</div>`);
+
+function updateDateTime(){
+  var n=new Date(); 
+  var d = n.getDate().toString().padStart(2,'0')+'.'+(n.getMonth()+1).toString().padStart(2,'0')+'.'+n.getFullYear()+' '+n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
+  document.getElementById('f-tarih').value = d;
+  document.getElementById('f-tarih-display').textContent = d;
 }
-function addMail(){ const inp=document.getElementById('mailInp'); if(inp.value.includes('@')){ mailList.push({a:inp.value,r:'Ekip'}); inp.value=''; renderChips(); } }
-function mkd(e){ if(e.key==='Enter'){e.preventDefault();addMail();} }
+function hesaplaSira(){
+  var m=v('f-mudur'), z=v('f-magaza'); if(!m || !z) return;
+  fetch(CONFIG.sheets_url+'?action=sira&mudur='+m+'&magaza='+z+'&yil='+new Date().getFullYear()).then(r=>r.json()).then(data=>{
+    var s = (data.count||0)+1 + '. Ziyaret';
+    document.getElementById('f-sira').value = s; document.getElementById('f-sira-display').textContent = s;
+  });
+}
+function renderChips(){ document.getElementById('chips').innerHTML = mailList.map(m=>`<div class="chip">✉ ${m.a}</div>`).join(''); }
+function addMail(){ var i=document.getElementById('mailInp'); if(i.value.includes('@')){ mailList.push({a:i.value}); i.value=''; renderChips(); } }
+function mkd(e){ if(e.key==='Enter') addMail(); }
 function v(id){ var el=document.getElementById(id); return el?el.value:'' }
-function spin(on){ document.getElementById('spinOv').classList.toggle('on',on); }
 function toast(m,e){ var t=document.getElementById('toast'); t.textContent=m; t.className='toast on'+(e?' err':''); setTimeout(()=>t.classList.remove('on'),3000); }
 function adminToggle(){}
 
