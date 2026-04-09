@@ -1430,7 +1430,7 @@ async function saveToSheets(st, mudur, magaza, tarih, sira, notlar) {
     uyum: st.uyum || 0,
     notlar: notlar || '',
     catStats: st.catStats.map(cs => ({ title: cs.cat.title, u: cs.u })),
-    soruCevaplar: soruCevaplar // Tüm tablo verisi burada gidiyor
+    soruCevaplar: soruCevaplar 
   };
 
   // 3. Veriyi gönder
@@ -1441,13 +1441,11 @@ async function saveToSheets(st, mudur, magaza, tarih, sira, notlar) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    console.log("Veri başarıyla gönderildi.");
+    console.log("Veri Apps Script'e gönderildi.");
   } catch (error) {
     console.error("Gönderim hatası:", error);
-    toast("Sunucuya bağlanırken bir hata oluştu!", true);
   }
-}
-  // Tam HTML raporu oluştur (fotoğraflar dahil)
+}  // Tam HTML raporu oluştur (fotoğraflar dahil)
   var raporHtml = buildMailReport();
 
   var payload = {
