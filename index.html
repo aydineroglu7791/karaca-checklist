@@ -24,15 +24,15 @@
 html,body{-webkit-tap-highlight-color:transparent}
 body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:100px}
 
-/* ─ HEADER (Boyut Küçültüldü) ─ */
+/* ─ HEADER (Küçültülmüş ve Şık Versiyon) ─ */
 .hdr{background:var(--ink);position:relative;overflow:hidden}
-.hdr-in{max-width:980px;margin:0 auto;padding:25px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.hdr-logo{display:inline-flex;align-items:center;gap:7px;background:rgba(200,169,126,.15);border:1px solid rgba(200,169,126,.28);border-radius:20px;padding:4px 12px;margin-bottom:8px}
-.hdr-logo span{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--clay-l)}
-.hdr h1{font-family:'Playfair Display',serif;font-size:22px;color:#fff;line-height:1.1}
-.hdr h1 em{color:var(--clay);font-style:italic;font-size:20px}
-.hdr-date{background:rgba(200,169,126,.1);border:1px solid rgba(200,169,126,.22);border-radius:10px;padding:8px 14px;text-align:center}
-.hdr-date .dt{font-family:'Playfair Display',serif;font-size:14px;color:var(--clay-l)}
+.hdr-in{max-width:980px;margin:0 auto;padding:22px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.hdr-logo{display:inline-flex;align-items:center;gap:7px;background:rgba(200,169,126,.15);border:1px solid rgba(200,169,126,.22);border-radius:20px;padding:3px 10px;margin-bottom:6px}
+.hdr-logo span{font-size:9px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--clay-l)}
+.hdr h1{font-family:'Playfair Display',serif;font-size:20px;color:#fff;line-height:1.2;margin:0}
+.hdr h1 span{font-size:16px;opacity:0.85;display:block;margin-top:2px}
+.hdr-date{background:rgba(200,169,126,.1);border:1px solid rgba(200,169,126,.22);border-radius:10px;padding:8px 12px;text-align:center}
+.hdr-date .dt{font-family:'Playfair Display',serif;font-size:13px;color:var(--clay-l)}
 
 /* ─ WRAPPER ─ */
 .W{max-width:980px;margin:0 auto;padding:0 12px}
@@ -46,8 +46,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 /* ─ FORM ─ */
 .mg{display:grid;gap:13px;margin-bottom:13px}
 .mg3{grid-template-columns:1fr 1.2fr 1fr}
-.mg2{grid-template-columns:1fr 1fr}
-.fld{display:flex;flex-direction:column;gap:5px}
 .fld label{font-size:10px;font-weight:700;color:var(--ink-s);text-transform:uppercase}
 .fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:8px;padding:10px 12px;font-size:14px;background:var(--bg);outline:none;appearance:none}
 
@@ -56,20 +54,16 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .prog-info{min-width:140px}
 .prog-track{flex:1;height:10px;background:var(--bdr);border-radius:99px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--clay-d),var(--clay));width:0%;transition:0.4s}
-.prog-pct{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--clay)}
+.prog-pct{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--clay)}
 
 /* ─ SORU SATIRI ─ */
-.cat{margin-top:14px;border-radius:var(--r);overflow:hidden;box-shadow:var(--s1)}
-.cat-hd{background:var(--white);border-bottom:1px solid var(--bdr);padding:12px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
-.cat-txt h3{font-family:'Playfair Display',serif;font-size:14px}
-.cat-pill{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--bg)}
 .qr{display:grid;grid-template-columns:35px 1fr 95px 65px;border-bottom:1px solid var(--bdr);padding:12px 0;align-items:center}
 .qr.y{border-left:3px solid var(--grn);background:#f9fdfa}
 .qr.n{border-left:3px solid var(--red);background:#fefafa}
 .qn{font-size:11px;font-weight:700;color:var(--ink-s);text-align:center}
 .qt{font-size:13px;padding:0 10px;line-height:1.4}
 .yn{display:flex;gap:6px;justify-content:center}
-.yb{width:38px;height:38px;border-radius:50%;border:2.2px solid var(--bdr);background:transparent;cursor:pointer;font-weight:700;color:var(--ink-s)}
+.yb{width:38px;height:38px;border-radius:50%;border:2px solid var(--bdr);background:transparent;cursor:pointer;font-weight:700;color:var(--ink-s)}
 .yb.y.s{background:var(--grn);border-color:var(--grn);color:#fff}
 .yb.n.s{background:var(--red);border-color:var(--red);color:#fff}
 .pc{display:flex;justify-content:center}
@@ -80,40 +74,41 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .th-wrap{grid-column:2/-1;display:flex;flex-wrap:wrap;margin-top:5px;padding-left:10px}
 .th-wrap img{width:50px;height:50px;border-radius:6px;margin:2px;border:1px solid var(--bdr)}
 
-/* ─ MAİL & BUTONLAR ─ */
+/* ─ MAİL LİSTESİ (X Düzeltildi) ─ */
 .send-wrap{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .mail-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--s1)}
 .mail-hd{background:#f0ebe3;padding:12px;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--ink-s)}
 .mail-bd{padding:15px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.chip{background:var(--bg);border:1.5px solid var(--bdr);border-radius:20px;padding:5px 12px;font-size:11.5px;display:flex;align-items:center;gap:8px}
-.chip-del{cursor:pointer;font-weight:bold;color:var(--red);font-size:14px;padding:0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{background:var(--bg);border:1.5px solid var(--bdr);border-radius:20px;padding:6px 12px;font-size:11.5px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+.chip-del{cursor:pointer;font-weight:900;color:var(--red);font-size:16px;line-height:1;padding:2px 4px;border-radius:50%}
+.chip-del:hover{background:var(--red-b)}
 
 .btn-sub-wrap{display:flex;flex-direction:column;gap:10px}
 .btn-preview{background:var(--white);color:var(--ink);border:1.5px solid var(--clay);padding:12px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;width:100%}
 .btn-sub{background:linear-gradient(160deg,#1e1a16 0%,#2d261e 100%);color:#fff;border:none;border-radius:var(--r);padding:20px;cursor:pointer;box-shadow:var(--s2);display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
 
-/* ─ MODALLER ─ */
+/* ─ RAPOR ─ */
 .rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:900;overflow-y:auto;padding:20px 15px}
 .rpt-page.on{display:block}
 .rpt-inner{max-width:600px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:var(--s3)}
 .rpt-hd{background:var(--ink);color:#fff;padding:25px;border-radius:15px;margin-bottom:20px;text-align:center}
 .rpt-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:25px}
 .rsc{background:#fff;border:1px solid var(--bdr);padding:20px 10px;text-align:center;border-radius:15px}
-.rpt-cat-item{margin-bottom:15px}
 .rpt-bar-bg{height:10px;background:#eee;border-radius:10px;overflow:hidden;margin-top:5px}
 .rpt-bar-fill{height:100%;border-radius:10px;transition:1s width}
 
+/* ─ MODALLER ─ */
 .sov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center}
 .sov.on{display:flex}
-.smodal{background:#fff;border-radius:20px;width:90%;max-width:400px;overflow:hidden;text-align:center}
+.smodal{background:#fff;border-radius:20px;width:92%;max-width:440px;overflow:hidden;box-shadow:var(--s3);text-align:center}
 .sm-hd{background:var(--ink);padding:30px;color:#fff}
 .sm-ft{padding:20px;display:flex;gap:10px}
 .btn-smc{flex:1;background:var(--clay);color:#1e1a16;border:none;border-radius:10px;padding:14px;font-weight:700;cursor:pointer}
 .btn-smn{flex:1;background:var(--ink);color:#fff;border:none;border-radius:10px;padding:14px;font-weight:700;cursor:pointer}
 
 .spin-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;flex-direction:column}
-.spinner{width:42px;height:42px;border:4px solid rgba(255,255,255,0.3);border-top-color:var(--clay);border-radius:50%;animation:spin 0.8s linear infinite}
+.spinner{width:40px;height:40px;border:4px solid #fff;border-top-color:var(--clay);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:#fff;padding:12px 25px;border-radius:50px;transition:0.3s;z-index:3000;font-size:13px;font-weight:700}
 .toast.on{transform:translateX(-50%) translateY(0)}
@@ -130,7 +125,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
   <div class="hdr-in">
     <div>
       <div class="hdr-logo"><span>✦ Mağaza Operasyon</span></div>
-      <h1>KARACA ZÜCCACİYE<br>Mağaza Ziyaret<br><em>Checklist</em></h1>
+      <h1>KARACA ZÜCCACİYE<span>Mağaza Ziyaret Checklist</span></h1>
     </div>
     <div class="hdr-date"><div class="dt" id="hdrDate">—</div></div>
   </div>
@@ -153,7 +148,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
           <option value="Ank.Acity Krc.2014">Ank.Acity Krc.2014</option>
           <option value="Izm.Agora Krc.2010">Izm.Agora Krc.2010</option>
           <option value="Mrs.Saya Park Krc.2020">Mrs.Saya Park Krc.2020</option>
-          <option value="Trb.Forum Krc.2010">Trb.Forum Krc.2010</option>
+          <option value="Sms.Piazza Krc.2013">Sms.Piazza Krc.2013</option>
         </select></div>
         <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Sorumlu kişi"></div>
       </div>
@@ -182,7 +177,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
       <div class="mail-hd">✉️ Rapor Gönderilecek Kişiler</div>
       <div class="mail-bd">
         <div class="chips" id="chips"></div>
-        <div style="display:flex; gap:7px"><input type="email" id="mailInp" placeholder="ad@karaca.com" style="flex:1; border:1.5px solid var(--bdr); border-radius:8px; padding:10px"><button onclick="addMail()" style="background:var(--clay); border:none; border-radius:8px; padding:0 15px; cursor:pointer; font-weight:bold">+</button></div>
+        <div style="display:flex; gap:7px"><input type="email" id="mailInp" placeholder="ad@karaca.com"><button onclick="addMail()" style="background:var(--clay); border:none; border-radius:8px; padding:0 15px; cursor:pointer; font-weight:bold">+</button></div>
       </div>
     </div>
     <div class="btn-sub-wrap">
@@ -247,7 +242,7 @@ function render(){
         <div class="qt">${q.t}</div>
         <div class="yn"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div>
         <div class="pc"><div class="cam-btn" id="cb-${qid}" onclick="triggerCam('${qid}')">📷</div><input type="file" class="cam-input" id="fi-${qid}" accept="image/*" capture="environment" onchange="addPhoto(this,'${qid}')"></div>
-        <div class="dc"><input type="text" placeholder="Açıklama..." oninput="DESC['${qid}']=this.value"></div>
+        <div class="dc"><input type="text" placeholder="Aciklama..." oninput="DESC['${qid}']=this.value"></div>
         <div id="th-${qid}" class="th-wrap"></div>
       </div>`;
     });
@@ -326,7 +321,7 @@ async function saveToSheets() {
   CATS.forEach(cat => { cat.questions.forEach((q, i) => { const qid = cat.id + '-' + i; soruCevaplar.push({ soru: q.t, cevap: ANS[qid] === 'yes' ? 'EVET' : 'HAYIR', not: DESC[qid] || '' }); }); });
   const st = calcStats();
   const payload = {
-    tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag_mudur'), sira: v('f-sira'),
+    tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag-mudur'), sira: v('f-sira'),
     total: 10, evet: st.yesN, hayir: st.noN, pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'),
     catStats: CATS.map(cat => {
         var cy = cat.questions.filter((_,i)=>ANS[cat.id+'-'+i]==='yes').length;
