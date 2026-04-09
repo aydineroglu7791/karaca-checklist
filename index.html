@@ -1403,7 +1403,7 @@ async function submitForm(){
 async function saveToSheets(st, mudur, magaza, tarih, sira, notlar) {
   if (!CONFIG.sheets_url) return;
 
-  // 1. Şablondaki {{Tablo}} kısmına gidecek tüm soru ve cevapları topla
+  // 1. Şablondaki {{Tablo}} kısmına gidecek tüm soru ve cevapları paketle
   const soruCevaplar = [];
   CATS.forEach(cat => {
     cat.questions.forEach((q, i) => {
@@ -1416,7 +1416,7 @@ async function saveToSheets(st, mudur, magaza, tarih, sira, notlar) {
     });
   });
 
-  // 2. Apps Script'e (Kod.gs) gidecek veri paketini hazırla
+  // 2. Apps Script'e (Kod.gs) gidecek hafif veri paketini hazırla
   const payload = {
     tarih: tarih || '',
     mudur: mudur || '',
@@ -1433,7 +1433,7 @@ async function saveToSheets(st, mudur, magaza, tarih, sira, notlar) {
     soruCevaplar: soruCevaplar 
   };
 
-  // 3. Veriyi gönder
+  // 3. Veriyi Apps Script'e gönder
   try {
     await fetch(CONFIG.sheets_url, {
       method: 'POST',
@@ -1441,10 +1441,11 @@ async function saveToSheets(st, mudur, magaza, tarih, sira, notlar) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    console.log("Veri Apps Script'e gönderildi.");
+    console.log("Veri başarıyla iletildi.");
   } catch (error) {
-    console.error("Gönderim hatası:", error);
+    console.error("Hata oluştu:", error);
   }
+  
 }  // Tam HTML raporu oluştur (fotoğraflar dahil)
   var raporHtml = buildMailReport();
 
