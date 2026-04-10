@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Mağaza Ziyaret Checklist v4</title>
+<title>Karaca Mağaza Ziyaret Checklist v4.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -72,14 +72,12 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .actions{margin-top:35px; display:grid; gap:15px}
 .btn-row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
 .btn-secondary{background:#fff; border:2.5px solid var(--clay); color:var(--ink); padding:18px; border-radius:var(--r); font-weight:900; cursor:pointer; font-size:14px; transition:0.3s}
-.btn-secondary:active{transform:scale(0.96); background:#fdf8ee}
 .btn-primary{background:linear-gradient(160deg,#1e1a16, #3a332c); color:#fff; border:none; border-radius:var(--r); padding:22px; font-weight:900; font-size:17px; cursor:pointer; box-shadow:var(--s2); transition:0.3s}
 
 /* MODALS */
 .modal{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:2000; padding:20px; overflow-y:auto; backdrop-filter:blur(8px)}
 .modal.on{display:flex; align-items:center; justify-content:center}
-.m-box{background:#fff; border-radius:28px; width:100%; max-width:550px; overflow:hidden; animation:mIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
-@keyframes mIn{from{transform:translateY(50px); opacity:0} to{transform:translateY(0); opacity:1}}
+.m-box{background:#fff; border-radius:28px; width:100%; max-width:550px; overflow:hidden}
 .m-hd{background:var(--ink); color:#fff; padding:30px; text-align:center}
 .m-bd{padding:35px}
 .m-ft{padding:25px; background:#f9f9f9; display:flex; gap:12px}
@@ -88,11 +86,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .spinner{width:70px; height:70px; border:7px solid rgba(255,255,255,0.1); border-top-color:var(--clay); border-radius:50%; animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-@media(max-width:600px){
-    .mg2{grid-template-columns: 1fr}
-    .qr{grid-template-columns: 35px 1fr 100px 55px}
-    .btn-row{grid-template-columns: 1fr}
-}
+@media(max-width:600px){ .mg2{grid-template-columns: 1fr} .qr{grid-template-columns: 35px 1fr 100px 55px} .btn-row{grid-template-columns: 1fr} }
 </style>
 </head>
 <body>
@@ -104,7 +98,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 </header>
 
 <div class="W">
-    <!-- 1. BİLGİLER -->
     <div class="card">
         <div class="card-hd">📋 Ziyaret Bilgileri</div>
         <div class="card-body">
@@ -135,14 +128,13 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
             <div class="mg mg2">
                 <div class="fld"><label>Ziyaret Tarihi & Saati</label><input type="text" id="f-tarih-full" readonly style="background:#f4f4f4"></div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
-                    <div class="fld"><label>Aylık Sıra</label><input type="text" id="f-ay-sira" readonly style="background:#fdf8ee; color:var(--clay-d); font-weight:900"></div>
-                    <div class="fld"><label>Yıllık Sıra</label><input type="text" id="f-sira" readonly style="background:#fdf8ee; color:var(--clay-d); font-weight:900"></div>
+                    <div class="fld"><label>Aylık Sıra</label><input type="text" id="f-ay-sira" readonly style="background:#fdf8ee; color:var(--clay-d); font-weight:900" placeholder="..."></div>
+                    <div class="fld"><label>Yıllık Sıra</label><input type="text" id="f-sira" readonly style="background:#fdf8ee; color:var(--clay-d); font-weight:900" placeholder="..."></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 2. PROGRESS -->
     <div class="prog-sticky">
         <div class="prog-card">
             <div class="prog-pct" id="pPct">%0</div>
@@ -151,18 +143,15 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
         </div>
     </div>
 
-    <!-- 3. SORULAR -->
     <div id="catWrap"></div>
 
-    <!-- 4. NOTLAR -->
     <div class="card">
         <div class="card-hd">📝 Genel Gözlem & Aksiyon Planı</div>
         <div class="card-body">
-            <textarea id="f-notlar" rows="5" placeholder="Gözlemlerinizi ve acil aksiyon planlarını buraya yazınız (Min. 20 karakter)..."></textarea>
+            <textarea id="f-notlar" rows="5" placeholder="Gözlemlerinizi yazınız (Min. 20 karakter)..."></textarea>
         </div>
     </div>
 
-    <!-- 5. BUTONLAR -->
     <div class="actions">
         <div class="btn-row">
             <button class="btn-secondary" onclick="showPreview()">📊 Raporu Önizle</button>
@@ -172,7 +161,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     </div>
 </div>
 
-<!-- ÖNİZLEME MODALI -->
+<!-- MODALLER -->
 <div class="modal" id="modalPreview">
     <div class="m-box">
         <div class="m-hd"><h2>Ziyaret Özeti</h2></div>
@@ -184,7 +173,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     </div>
 </div>
 
-<!-- ÖZEL UYARI MODALI -->
 <div class="modal" id="modalAlert">
     <div class="m-box" style="max-width:420px; text-align:center">
         <div class="m-bd">
@@ -201,26 +189,11 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 <div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:25px; font-weight:700">İŞLENİYOR...</p></div>
 
 <script>
-// --- KONFİGÜRASYON ---
 const CONFIG = {
-    url: 'https://script.google.com/macros/s/AKfycbKM2uebScRmo0gMbk8GPMGUAg7uobNKoSZk0f4Agnqzq8vjJF710h5an4F07OEIpaR/exec'
+    url: 'https://script.google.com/macros/s/AKfycbw4vgnnIztpsqVUR1nt7TTXv9rUrEhWOISspvMZOJAPKibLUkexGoffi8kxe46O0ADQ/exec'
 };
 
-// TAM MAĞAZA LİSTESİ (162 MAĞAZA)
-const MAG_LIST = [
-    "ADA.ADANACADDE-CONT.KRC.2025", "AMS.AMASYA.CADDE.KRC.2025", "Afy.Park Krc.2015", "Ank.Ankamall Krc.2011", 
-    "Mrs.Saya Park Krc.2020", "Izm.Agora Krc.2010", "Sms.Piazza Krc.2013", "Sms.Lovelet Krc.2014",
-    "Ada.Burda Krc.2019", "Ank.Acity Krc.2014", "Ank.Antares Krc.2012", "Ank.Armada Krc.2011",
-    "Ank.Atlantis Krc.2011", "Ank.Cepa Krc.2011", "Ank.Gordion Krc.2011", "Ank.Kentpark Krc.2011",
-    "Ank.Nata Vega Krc.2011", "Ank.Optimum Krc.2011", "Ank.Panora Krc.2011", "Ank.Podium Krc.2015",
-    "Ank.Taurus Krc.2013", "Ant.Markantalya Krc.2013", "Ant.Terracity Krc.2011", "Ayd.Kuşadası Krc.2012",
-    "Bal.Yaylada Krc.2011", "Bur.Korupark Krc.2011", "Den.Forum Krc.2012", "Diy.Forum Krc.2011",
-    "Edi.Erasta Krc.2017", "Erz.MNG Krc.2017", "Esc.Espark Krc.2010", "Gazi.Sanko Krc.2011",
-    "Ist.Akasya Krc.2014", "Ist.Capacity Krc.2011", "Ist.Cevahir Krc.2012", "Ist.Istinye Park Krc.2011",
-    "Ist.Mall of Istanbul Krc.2014", "Ist.Marmara Forum Krc.2011", "Ist.Palladium Krc.2011", "Ist.Viaport Krc.2010",
-    "Izm.Forum Bornova Krc.2011", "Izm.Optimum Krc.2012", "Kon.Kule Site Krc.2011", "Kay.Kayseri Park Krc.2010",
-    "Tra.Forum Krc.2010" // Buraya listenizin kalanını eklemeye devam edebilirsiniz.
-];
+const MAG_LIST = ["ADA.ADANACADDE-CONT.KRC.2025", "AMS.AMASYA.CADDE.KRC.2025", "Afy.Park Krc.2015", "Ank.Ankamall Krc.2011", "Mrs.Saya Park Krc.2020", "Izm.Agora Krc.2010", "Sms.Piazza Krc.2013", "Tra.Forum Krc.2010", "Esc.Espark Krc.2010", "Ant.Markantalya Krc.2013"];
 
 const CATS = [
     {id:'c1', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[{t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?'},{t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor)'},{t:'Mağaza içi depolama alanları düzenli mi?'},{t:'Kasa bölgesi temiz ve düzenli mi?'},{t:'Mağazada yeterli sarf malzeme mevcut mu?'}]},
@@ -229,12 +202,10 @@ const CATS = [
 
 var ANS={}, DESC={}, PHOTOS={};
 
-// --- BAŞLATICI ---
 function init() {
     renderQuestions();
     initMagaza();
     updateTime();
-    setInterval(updateTime, 30000);
 }
 
 function renderQuestions() {
@@ -244,22 +215,12 @@ function renderQuestions() {
         let qRows = '';
         cat.questions.forEach((q, i) => {
             let qid = cat.id+'-'+i;
-            qRows += `
-            <div class="qr" id="r-${qid}">
+            qRows += `<div class="qr" id="r-${qid}">
                 <div style="font-size:12px; font-weight:900; color:#bbb; text-align:center">${i+1}</div>
                 <div class="qt">${q.t}</div>
-                <div style="display:flex; gap:10px">
-                    <button class="yb y" onclick="setA('${qid}','yes')">E</button>
-                    <button class="yb n" onclick="setA('${qid}','no')">H</button>
-                </div>
-                <div style="display:flex; justify-content:center">
-                    <div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div>
-                    <input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')">
-                </div>
-                <div class="dc">
-                    <input type="text" placeholder="Açıklama (Hayır için zorunludur)..." oninput="DESC['${qid}']=this.value">
-                    <div id="th-${qid}" class="th-wrap"></div>
-                </div>
+                <div style="display:flex; gap:10px"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div>
+                <div style="display:flex; justify-content:center"><div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div><input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')"></div>
+                <div class="dc"><input type="text" placeholder="Açıklama (Hayır için zorunlu)..." oninput="DESC['${qid}']=this.value"><div id="th-${qid}" class="th-wrap"></div></div>
             </div>`;
         });
         wrap.innerHTML += `<div class="card"><div class="card-hd">${cat.title}</div><div class="card-body">${qRows}</div></div>`;
@@ -289,7 +250,7 @@ function handlePhoto(inp, qid){
             if(!PHOTOS[qid]) PHOTOS[qid]=[];
             PHOTOS[qid].push(cv.toDataURL('image/jpeg', 0.7));
             document.getElementById(`cb-${qid}`).classList.add('has');
-            document.getElementById(`th-${qid}`).innerHTML += `<img src="${cv.toDataURL('image/jpeg', 0.3)}">`;
+            document.getElementById(`th-${qid}`).innerHTML += `<img src="${cv.toDataURL('image/jpeg', 0.2)}">`;
         };
         img.src = e.target.result;
     };
@@ -303,30 +264,33 @@ function updateProg(){
     document.getElementById('pPct').textContent = '%'+(a*10);
 }
 
-// --- VERİ ÇEKME VE GÖNDERME ---
 async function hesaplaSira() {
-    let m = document.getElementById('f-mudur').value;
     let z = document.getElementById('f-magaza').value;
-    if(!m || !z) return;
+    if(!z) return;
+    document.getElementById('f-ay-sira').value = "Bekleyin...";
+    document.getElementById('f-sira').value = "Bekleyin...";
     try {
         const res = await fetch(`${CONFIG.url}?action=sira&magaza=${encodeURIComponent(z)}`);
         const d = await res.json();
         document.getElementById('f-ay-sira').value = (d.monthly + 1) + '. Ziyaret';
         document.getElementById('f-sira').value = (d.yearly + 1) + '. Ziyaret';
-    } catch(e) { console.error("Sıra hatası"); }
+    } catch(e) { 
+        document.getElementById('f-ay-sira').value = "Hata";
+        document.getElementById('f-sira').value = "Hata";
+    }
 }
 
 async function submitForm(){
-    if(!v('f-mudur') || !v('f-magaza')) { showAlert("Eksik","Müdür ve Mağaza seçiniz!","❌"); return; }
-    if(Object.keys(ANS).length < 10) { showAlert("Eksik","Tüm soruları cevaplayın!","📝"); return; }
+    if(!v('f-mudur') || !v('f-magaza')) { showAlert("Eksik Bilgi","Müdür ve Mağaza seçiniz!","❌"); return; }
+    if(Object.keys(ANS).length < 10) { showAlert("Eksik Cevap","Tüm maddeleri cevaplayın!","📝"); return; }
     if(v('f-notlar').length < 20) { showAlert("Notlar","Gözlem notunuz çok kısa!","✍️"); return; }
 
     for(let qid in ANS){
         if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){
-            showAlert("Fotoğraf","'Evet' için fotoğraf zorunludur.","📸"); return;
+            showAlert("Fotoğraf Zorunlu","'Evet' için fotoğraf gereklidir.","📸"); return;
         }
         if(ANS[qid]==='no' && (!DESC[qid] || DESC[qid].length < 3)){
-            showAlert("Açıklama","'Hayır' için açıklama zorunludur.","⚠️"); return;
+            showAlert("Açıklama Zorunlu","'Hayır' için açıklama gereklidir.","⚠️"); return;
         }
     }
 
@@ -341,9 +305,7 @@ async function submitForm(){
         magazaMuduru: v('f-mag-mudur'),
         aylikZiyaret: v('f-ay-sira'),
         yillikZiyaret: v('f-sira'),
-        evet: st.yes,
-        hayir: st.no,
-        uyum: st.uyum,
+        evet: st.yes, hayir: st.no, uyum: st.uyum,
         notlar: v('f-notlar'),
         kategoriDetay: CATS.map(c => {
             let p = Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100);
@@ -357,7 +319,7 @@ async function submitForm(){
         setTimeout(() => location.reload(), 3000);
     } catch(e) { 
         document.getElementById('spinOv').style.display='none';
-        showAlert("Hata","Gönderim hatası oluştu!","🌐");
+        showAlert("Hata","Gönderim hatası!","🌐");
     }
 }
 
@@ -366,12 +328,10 @@ function calcStats(){
     return { yes:y, no:10-y, uyum:Math.round(y/10*100) };
 }
 
-// --- MODERN UI ARAÇLARI ---
 function showAlert(title, msg, icon){
     document.getElementById('alert-title').innerText = title;
     document.getElementById('alert-msg').innerText = msg;
     document.getElementById('alert-icon').innerText = icon;
-    document.getElementById('alert-footer').innerHTML = `<button class="btn-primary" style="margin:0; width:100%" onclick="closeModal('modalAlert')">Tamam</button>`;
     document.getElementById('modalAlert').classList.add('on');
 }
 
@@ -389,16 +349,7 @@ function confirmReset(){
 function showPreview(){
     let st = calcStats();
     let n = new Date();
-    let html = `
-    <div style="border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px; text-align:center">
-        <h1 style="color:var(--clay); font-size:32px">%${st.uyum} Uyum</h1>
-        <p style="color:#666">${st.yes} Evet / ${st.no} Hayır</p>
-    </div>
-    <div style="font-size:14px; line-height:1.6">
-        <p><b>Mağaza:</b> ${document.getElementById('f-magaza-display').value}</p>
-        <p><b>Tarih:</b> ${n.toLocaleDateString('tr-TR')} ${n.getHours()}:${n.getMinutes()}</p>
-        <p><b>Gözlem:</b> ${v('f-notlar')}</p>
-    </div>`;
+    let html = `<div style="text-align:center; margin-bottom:20px"><h1 style="color:var(--clay)">%${st.uyum} Uyum</h1><p>${st.yes} Evet / ${st.no} Hayır</p></div><div style="font-size:14px"><b>Mağaza:</b> ${v('f-magaza')}<br><b>Bölge Müdürü:</b> ${v('f-mudur')}</div>`;
     document.getElementById('m-content').innerHTML = html;
     document.getElementById('modalPreview').classList.add('on');
 }
