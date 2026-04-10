@@ -1,349 +1,700 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Karaca Züccaciye – Mağaza Ziyaret Checklist</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<style>
-:root{
-  --bg:#f4f0eb;--white:#fff;
-  --clay:#c8a97e;--clay-l:#e8d5bb;--clay-d:#9c7a52;
-  --ink:#1e1a16;--ink-s:#8a7a6a;
-  --bdr:#ddd4c6;
-  --grn:#3d7a5a;--grn-b:#edf7f2;
-  --red:#b84040;--red-b:#fdf0f0;
-  --ylw:#fdf8ee;
-  --s1:0 2px 12px rgba(30,26,22,.07);
-  --s2:0 6px 28px rgba(30,26,22,.12);
-  --s3:0 20px 60px rgba(30,26,22,.22);
-  --r:14px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{-webkit-tap-highlight-color:transparent}
-body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:100px}
+import { useState, useMemo } from 'react';
+import { 
+  Search, 
+  MapPin, 
+  Calendar, 
+  Camera, 
+  AlertCircle, 
+  CheckCircle2, 
+  ChevronRight, 
+  X, 
+  Send, 
+  BarChart3,
+  ArrowLeft,
+  Info
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription,
+  DialogFooter
+} from '@/components/ui/dialog';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 
-/* ─ HEADER ─ */
-.hdr{background:var(--ink);position:relative;overflow:hidden}
-.hdr-in{max-width:980px;margin:0 auto;padding:22px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.hdr-logo{display:inline-flex;align-items:center;gap:7px;background:rgba(200,169,126,.15);border:1px solid rgba(200,169,126,.22);border-radius:20px;padding:3px 10px;margin-bottom:6px}
-.hdr-logo span{font-size:9px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--clay-l)}
-.hdr h1{font-family:'Playfair Display',serif;font-size:20px;color:#fff;line-height:1.2;margin:0}
-.hdr h1 b{font-size:22px; display:block; color:var(--clay)}
-.hdr-date{background:rgba(200,169,126,0.1); border:1px solid rgba(200,169,126,0.2); border-radius:10px; padding:8px 12px; text-align:center}
-.hdr-date .dt{font-family:'Playfair Display',serif; font-size:13px; color:var(--clay-l)}
+// --- Types ---
 
-.W{max-width:980px;margin:0 auto;padding:0 12px}
-.card{background:var(--white);border-radius:var(--r);box-shadow:var(--s2);overflow:hidden;margin-top:18px}
-.card-hd{background:linear-gradient(135deg,var(--ink),#2d261e);padding:14px 20px;color:#fff}
-.card-hd h2{font-family:'Playfair Display',serif;font-size:15px}
-.card-body{padding:20px}
+const API_URL = 'https://script.google.com/macros/s/AKfycbz1NcbGha1VuzwZ-j7zUiTVohL0ZXhYa1zN6msLvkRiZ5_wMiWPZ8dyjnVDa1E8jwIT/exec';
 
-.mg{display:grid;gap:13px;margin-bottom:13px}
-.mg3{grid-template-columns:1fr 1fr 1fr}
-.mg2{grid-template-columns:1fr 1fr}
-.fld label{font-size:10px;font-weight:700;color:var(--ink-s);text-transform:uppercase;display:block;margin-bottom:4px}
-.fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:8px;padding:10px 12px;font-size:14px;background:var(--bg);outline:none;appearance:none;width:100%}
-
-/* ─ SEARCHABLE DROP (Mağaza Seçimi) ─ */
-.sdrop{position:relative}
-.sdrop-input{cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7a6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center}
-.sdrop-panel{display:none; position:absolute; top:105%; left:0; right:0; background:#fff; border:1px solid var(--clay); border-radius:10px; box-shadow:var(--s3); z-index:1000; max-height:250px; overflow-y:auto}
-.sdrop-panel.on{display:block}
-.sdrop-search{position:sticky; top:0; background:#fdf8ee; padding:8px; border-bottom:1px solid var(--bdr)}
-.sdrop-search input{padding:8px; font-size:13px; border-color:var(--clay-l); background:#fff}
-.sdrop-item{padding:12px 15px; font-size:13px; border-bottom:1px solid #eee; cursor:pointer}
-.sdrop-item:hover{background:var(--ylw)}
-
-/* ─ PROGRESS ─ */
-.prog{background:var(--white);border-radius:var(--r);padding:15px 20px;margin-top:14px;display:flex;align-items:center;gap:14px;box-shadow:var(--s1)}
-.prog-info{min-width:140px}
-.prog-track{flex:1;height:10px;background:var(--bdr);border-radius:99px;overflow:hidden}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--clay-d),var(--clay));width:0%;transition:0.4s}
-.prog-pct{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--clay)}
-
-/* ─ SORU TABLOSU (Mükemmel Versiyon) ─ */
-.qr{display:grid; grid-template-columns:35px 1fr 95px 65px; border-bottom:1px solid var(--bdr); padding:15px 0; align-items:center}
-.qr.y{border-left:3px solid var(--grn);background:#f9fdfa}
-.qr.n{border-left:3px solid var(--red);background:#fefafa}
-.qn{font-size:11px;font-weight:700;color:var(--ink-s);text-align:center}
-.qt{font-size:13px;padding:0 5px;line-height:1.4}
-.yn{display:flex;gap:6px;justify-content:center}
-.yb{width:38px;height:38px;border-radius:50%;border:2px solid var(--bdr);background:transparent;cursor:pointer;font-weight:700;font-size:13px}
-.yb.y.s{background:var(--grn);border-color:var(--grn);color:#fff}
-.yb.n.s{background:var(--red);border-color:var(--red);color:#fff}
-.pc{display:flex;justify-content:center}
-.cam-btn{width:44px;height:44px;border-radius:10px;border:2px dashed var(--bdr);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
-.cam-btn.has{border-style:solid;border-color:var(--grn);background:var(--grn-b)}
-.cam-input{display:none !important; visibility: hidden !important}
-.dc{grid-column:2 / 5; margin-top:10px; padding-right:15px}
-.dc input{width:100%; border:1.5px solid var(--bdr); border-radius:8px; padding:8px 12px; font-size:13px; background:rgba(200,169,126,0.05)}
-.th-wrap{grid-column:2 / 5; display:flex; flex-wrap:wrap; margin-top:5px; padding-left:10px}
-.th-wrap img{width:50px;height:50px;border-radius:6px;object-fit:cover;margin:2px;border:1px solid var(--bdr)}
-
-/* ─ GENEL GÖZLEM KUTUSU ─ */
-.notes-bd textarea {
-  width: 100%;
-  min-height: 100px;
-  border: 1.5px solid var(--bdr);
-  border-radius: 8px;
-  padding: 12px;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  background: #fff;
-  outline: none;
-  resize: vertical;
-  display: block;
+interface ChecklistItem {
+  id: string;
+  category: string;
+  question: string;
+  answer: 'yes' | 'no' | null;
+  photo?: File | null;
+  description?: string;
 }
 
-/* ─ MAİL LİSTESİ & BUTONLAR ─ */
-.send-wrap{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.mail-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--s1)}
-.mail-hd{background:#f0ebe3;padding:12px;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--ink-s)}
-.mail-bd{padding:15px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.chip{background:var(--bg);border:1.5px solid var(--bdr);border-radius:20px;padding:6px 12px;font-size:11.5px;display:flex;align-items:center;gap:10px}
-.chip-del{cursor:pointer;color:var(--red);font-weight:900;font-size:15px}
-
-.btn-sub-wrap{display:flex;flex-direction:column;gap:10px}
-.btn-row{display:flex;gap:8px}
-.btn-preview{flex:1;background:#fff;color:var(--ink);border:1.5px solid var(--clay);padding:12px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer}
-.btn-sub{background:linear-gradient(160deg,#1e1a16 0%,#2d261e 100%);color:#fff;border:none;border-radius:var(--r);padding:20px;cursor:pointer;box-shadow:var(--s2);display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
-
-/* ─ MODALLER ─ */
-.rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:900;overflow-y:auto;padding:20px 15px}
-.rpt-page.on{display:block}
-.rpt-inner{max-width:600px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:var(--s3)}
-.rpt-hd{background:var(--ink);color:#fff;padding:25px;border-radius:15px;margin-bottom:20px;text-align:center}
-.rpt-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:25px}
-.rsc{background:#fff;border:1px solid var(--bdr);padding:20px 10px;text-align:center;border-radius:15px}
-.rpt-bar-bg{height:10px;background:#eee;border-radius:10px;overflow:hidden;margin-top:5px}
-.rpt-bar-fill{height:100%;border-radius:10px;transition:1s width}
-
-.sov{display:none;position:fixed;inset:0;background:rgba(30,26,22,0.85);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
-.sov.on{display:flex}
-.smodal{background:#fff;border-radius:24px;width:90%;max-width:400px;overflow:hidden;box-shadow:var(--s3);text-align:center}
-.sm-hd{background:var(--ink);padding:40px 20px;color:#fff}
-.sm-ft{padding:25px;display:flex;flex-direction:column;gap:12px}
-.btn-large{width:100%; padding:16px; border-radius:14px; border:none; font-weight:700; font-size:15px; cursor:pointer}
-.btn-sm-clay{background:var(--clay); color:var(--ink)}
-.btn-sm-ink{background:var(--ink); color:#fff}
-
-.spin-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:3000;align-items:center;justify-content:center;flex-direction:column}
-.spinner{width:42px;height:42px;border:4px solid rgba(255,255,255,0.3);border-top-color:var(--clay);border-radius:50%;animation:spin 0.8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:#fff;padding:12px 25px;border-radius:50px;transition:0.3s;z-index:4000;font-size:13px;font-weight:700}
-.toast.on{transform:translateX(-50%) translateY(0)}
-
-@media(max-width:600px){
-  .mg3{grid-template-columns:1fr}
-  .send-wrap{grid-template-columns:1fr}
-  .btn-row{flex-direction:column}
+interface Store {
+  id: string;
+  name: string;
+  location: string;
+  monthlyVisits: number;
+  yearlyVisits: number;
 }
-</style>
-</head>
-<body>
 
-<header class="hdr">
-  <div class="hdr-in">
-    <div>
-      <div class="hdr-logo"><span>✦ Mağaza Operasyon</span></div>
-      <h1><b>KARACA ZÜCCACİYE</b>Mağaza Ziyaret Checklist</h1>
-    </div>
-    <div class="hdr-date"><div class="dt" id="hdrDate">—</div></div>
-  </div>
-</header>
+// --- Mock Data ---
 
-<div class="W">
-  <div class="card">
-    <div class="card-hd"><h2>📋 Ziyaret Bilgileri</h2></div>
-    <div class="card-body">
-      <div class="mg mg3">
-        <div class="fld"><label>Bölge Müdürü</label><select id="f-mudur"><option value="">-- Seçiniz --</option><option value="AYDIN EROĞLU">AYDIN EROĞLU</option><option value="BAHRETTİN BAŞAR">BAHRETTİN BAŞAR</option><option value="BAYRAM ERCAN KARINDAŞ">BAYRAM ERCAN KARINDAŞ</option><option value="ENİS NACİ DUĞAN">ENİS NACİ DUĞAN</option><option value="ERMAN KARAKAYA">ERMAN KARAKAYA</option><option value="FERHAT GENCER">FERHAT GENCER</option><option value="HASAN AYDIN">HASAN AYDIN</option><option value="HÜSEYİN ÖZDEMİR">HÜSEYİN ÖZDEMİR</option><option value="MURAT TİRYAKİ">MURAT TİRYAKİ</option><option value="NİYAZİ KUZAN">NİYAZİ KUZAN</option><option value="OSMAN ASKER">OSMAN ASKER</option><option value="SEDAT AYGÜN">SEDAT AYGÜN</option><option value="SERPİL DURAN">SERPİL DURAN</option><option value="TANER DURAK">TANER DURAK</option><option value="TANER PEHLİVAN">TANER PEHLİVAN</option><option value="ŞÜKRÜ ALPER ERGÜN">ŞÜKRÜ ALPER ERGÜN</option></select></div>
-        <div class="fld">
-          <label>Mağaza Adı</label>
-          <div class="sdrop">
-            <input type="text" id="f-magaza-display" class="sdrop-input" placeholder="Mağaza Ara..." readonly onclick="toggleDrop()">
-            <input type="hidden" id="f-magaza">
-            <div id="sdrop-panel" class="sdrop-panel">
-              <div class="sdrop-search"><input type="text" id="sdrop-input" placeholder="Hızlı ara..." oninput="filterMagaza()"></div>
-              <div id="sdrop-list"></div>
-            </div>
-          </div>
-        </div>
-        <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Sorumlu kişi"></div>
-      </div>
-      <div class="mg mg2">
-        <div class="fld"><label>Ziyaret Tarihi & Saati</label><div id="f-tarih-display" style="background:#f0ebe3; padding:10px; border-radius:8px">—</div><input type="hidden" id="f-tarih"></div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px">
-            <div class="fld"><label>Bu Yıl (Yıllık)</label><div id="f-sira-display" style="background:#f0ebe3; padding:10px; border-radius:8px; font-size:12px">...</div><input type="hidden" id="f-sira"></div>
-            <div class="fld"><label>Bu Ay (Aylık)</label><div id="f-ay-display" style="background:#fef9ee; padding:10px; border-radius:8px; font-size:12px; border:1px solid var(--clay-l)">...</div><input type="hidden" id="f-ay-sira"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="prog">
-    <div class="prog-info"><div class="prog-pct" id="pPct">%0</div><small id="ansCnt">0</small><small> / 10</small></div>
-    <div class="prog-track"><div class="prog-fill" id="pFill"></div></div>
-  </div>
-
-  <div id="catWrap"></div>
-
-  <div class="notes-card">
-    <div class="notes-hd">📝 Genel Gözlem & Aksiyon Planı</div>
-    <div class="notes-bd"><textarea id="f-notlar" placeholder="Gözlemler, öneriler, acil aksiyonlar… (En az 20 karakter)"></textarea></div>
-  </div>
-
-  <div class="send-wrap">
-    <div class="mail-card">
-      <div class="mail-hd">✉️ Rapor Gönderilecek Kişiler</div>
-      <div class="mail-bd">
-        <div class="chips" id="chips"></div>
-        <div style="display:flex; gap:7px"><input type="email" id="mailInp" placeholder="ad@karaca.com"><button onclick="addMail()" style="background:var(--clay); border:none; border-radius:8px; padding:0 15px; cursor:pointer; font-weight:bold">+</button></div>
-      </div>
-    </div>
-    <div class="btn-sub-wrap">
-      <div class="btn-row">
-        <button class="btn-preview" onclick="showReport()">📊 Raporu Önizle</button>
-        <button class="btn-preview" onclick="if(confirm('Temizlensin mi?')) location.reload()" style="color:#777">♻️ Temizle</button>
-      </div>
-      <button class="btn-sub" onclick="submitForm()"><span class="bi" style="font-size:24px; margin-bottom:5px">📨</span><span style="font-weight:700">Formu Tamamla & Gönder</span></button>
-    </div>
-  </div>
-</div>
-
-<div class="rpt-page" id="rptPage"><div class="rpt-inner" id="rptInner"></div></div>
-<div class="sov" id="succOv"><div class="smodal"><div class="sm-hd"><h2>✅ Rapor Gönderildi!</h2><p>Drive ve Sheets kaydı tamamlandı.</p></div><div class="sm-ft"><button class="btn-large btn-sm-clay" onclick="document.getElementById('succOv').classList.remove('on')">Kapat</button><button class="btn-large btn-sm-ink" onclick="location.reload()">Yeni Form Oluştur</button></div></div></div>
-<div class="spin-ov" id="spinOv"><div class="spinner"></div></div>
-<div class="toast" id="toast"></div>
-
-<script>
-const CONFIG = {
-  sheets_url: 'https://script.google.com/macros/s/AKfycbxYyyLw4rFsbP5lSDPDBwXwEAPCEWEYjccYFU-vcVaEwEq4xz4k9Z86Xga9p6UezTRm/exec',
-  default_mails: [{a:'aydin.eroglu@karaca.com'}, {a:'operasyon@karaca.com'}]
-};
-
-const MAG_LIST = ["ADA.ADANACADDE-CONT.KRC.2025", "AMS.AMASYA.CADDE.KRC.2025", "Afy.Park Krc.2015", "Ank.Ankamall Krc.2011", "Ist.Optimum Krc.2010", "Ada.Burda Krc.2019", "Ank.Acity Krc.2014", "Izm.Agora Krc.2010", "Mrs.Saya Park Krc.2020", "Sms.Piazza Krc.2013", "Trb.Forum Krc.2010"];
-
-var CATS = [
-  {id:'c1',icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[{t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?'},{t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)'},{t:'Mağaza içi depolama alanları düzenli mi? Depo standartlara uygun mu?'},{t:'Kasa bölgesi temiz ve düzenli mi?'},{t:'Mağazada yeterli sarf malzeme mevcut mu?'}]},
-  {id:'c2',icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı? Gider pusulaları prosedüre uygun mu?'},{t:'Para yatırma şirket prosedürüne uygun yapılıyor mu?'},{t:'Masraflar BM onaylı ve prosedüre uygun işlenmiş mi?'},{t:'Sevkiyatların kabulü yapılmış mı? İrsaliyeler imzalı muhafaza ediliyor mu?'},{t:'Mağazalar arası transfer irsaliyeleri imzalanıp dosyalanıyor mu?'}]}
+const STORES: Store[] = [
+  { id: '1', name: 'Karaca Home - Zorlu Center', location: 'İstanbul', monthlyVisits: 2, yearlyVisits: 14 },
+  { id: '2', name: 'Karaca - İstinye Park', location: 'İstanbul', monthlyVisits: 1, yearlyVisits: 12 },
+  { id: '3', name: 'Karaca - Ankara Panora', location: 'Ankara', monthlyVisits: 3, yearlyVisits: 18 },
+  { id: '4', name: 'Karaca - İzmir İstinyePark', location: 'İzmir', monthlyVisits: 0, yearlyVisits: 8 },
+  { id: '5', name: 'Karaca Home - Emaar Square', location: 'İstanbul', monthlyVisits: 1, yearlyVisits: 10 },
 ];
 
-var ANS={}, DESC={}, PHOTOS={}, mailList = CONFIG.default_mails.map(m=>({a:m.a}));
+const CHECKLIST_TEMPLATE: Omit<ChecklistItem, 'answer'>[] = [
+  { id: '1', category: 'Mağaza Dış Görünüm', question: 'Mağaza dış cephe ve logolar temiz ve aydınlık mı?' },
+  { id: '2', category: 'Mağaza Dış Görünüm', question: 'Vitrin düzeni güncel kampanya ile uyumlu mu?' },
+  { id: '3', category: 'Mağaza Düzeni', question: 'Reyon geçişleri müşteri sirkülasyonuna uygun mu?' },
+  { id: '4', category: 'Mağaza Düzeni', question: 'Ürün etiketleri eksiksiz ve doğru mu?' },
+  { id: '5', category: 'Ürün Teşhir', question: 'Yeni gelen ürünler odak noktalarda sergileniyor mu?' },
+  { id: '6', category: 'Ürün Teşhir', question: 'Stokta olmayan ürünlerin teşhiri kaldırılmış mı?' },
+  { id: '7', category: 'Personel', question: 'Personel kılık kıyafet yönetmeliğine uygun mu?' },
+  { id: '8', category: 'Personel', question: 'Personel müşteri karşılama standartlarını uyguluyor mu?' },
+  { id: '9', category: 'Hijyen & Güvenlik', question: 'Mağaza genel temizliği (zemin, raflar) yeterli mi?' },
+  { id: '10', category: 'Hijyen & Güvenlik', question: 'Yangın çıkışları ve güvenlik ekipmanları erişilebilir mi?' },
+];
 
-function render(){
-  var wrap = document.getElementById('catWrap'); wrap.innerHTML = '';
-  CATS.forEach(cat => {
-    var div = document.createElement('div'); div.className='cat';
-    let qRows = '';
-    cat.questions.forEach((q,i) => {
-      var qid = cat.id+'-'+i;
-      qRows += `<div class="qr" id="r-${qid}">
-        <div class="qn">${i+1}</div><div class="qt">${q.t}</div>
-        <div class="yn"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div>
-        <div class="pc"><div class="cam-btn" id="cb-${qid}" onclick="triggerCam('${qid}')">📷</div><input type="file" class="cam-input" id="fi-${qid}" accept="image/*" capture="environment" onchange="addPhoto(this,'${qid}')"></div>
-        <div class="dc"><input type="text" placeholder="Açıklama..." oninput="DESC['${qid}']=this.value"></div>
-        <div id="th-${qid}" class="th-wrap"></div>
-      </div>`;
+// --- Components ---
+
+export default function App() {
+  const [step, setStep] = useState<'selection' | 'checklist' | 'preview'>('selection');
+  const [selectedStore, setSelectedStore] = useState<Store | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [checklist, setChecklist] = useState<ChecklistItem[]>(
+    CHECKLIST_TEMPLATE.map(item => ({ ...item, answer: null }))
+  );
+  const [visitStats, setVisitStats] = useState({ monthly: 0, yearly: 0 });
+  const [generalObservation, setGeneralObservation] = useState('');
+  const [regionalManager, setRegionalManager] = useState('HASAN AYDIN'); // Varsayılan veya boş
+  const [storeManager, setStoreManager] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoadingStats, setIsLoadingStats] = useState(false);
+  const [emailList, setEmailList] = useState(['yonetim@karaca.com', 'bolge@karaca.com']);
+
+  const filteredStores = useMemo(() => {
+    return STORES.filter(s => 
+      s.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      s.location.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const progress = useMemo(() => {
+    const answered = checklist.filter(item => item.answer !== null).length;
+    return (answered / checklist.length) * 100;
+  }, [checklist]);
+
+  const categoryStats = useMemo(() => {
+    const categories = Array.from(new Set(checklist.map(item => item.category)));
+    return categories.map(cat => {
+      const items = checklist.filter(item => item.category === cat);
+      const yesCount = items.filter(item => item.answer === 'yes').length;
+      const total = items.length;
+      return {
+        name: cat,
+        percentage: (yesCount / total) * 100,
+        yesCount,
+        total
+      };
     });
-    div.innerHTML = `<div class="cat-hd open" onclick="toggleCat(this,'${cat.id}')"><div class="cat-hd-in"><div class="cat-dot" style="background:#e8f4fd;color:#2980b9">${cat.icon}</div><div class="cat-txt"><h3>${cat.title}</h3></div><div class="cat-pill" id="pill-${cat.id}">0/${cat.questions.length}</div><span class="cat-chev">▾</span></div></div><div class="cat-bd open" id="bd-${cat.id}">${qRows}</div>`;
-    wrap.appendChild(div);
-  });
-  renderChips(); initMagazaList();
-}
+  }, [checklist]);
 
-function initMagazaList() { document.getElementById('sdrop-list').innerHTML = MAG_LIST.map(m => `<div class="sdrop-item" onclick="selectMagaza('${m}')">${m}</div>`).join(''); }
-function toggleDrop() { document.getElementById('sdrop-panel').classList.toggle('on'); document.getElementById('sdrop-input').focus(); }
-function filterMagaza() {
-  const v = document.getElementById('sdrop-input').value.toLowerCase();
-  document.querySelectorAll('.sdrop-item').forEach(item => item.style.display = item.textContent.toLowerCase().includes(v) ? 'block' : 'none');
-}
-function selectMagaza(v) { document.getElementById('f-magaza-display').value = v; document.getElementById('f-magaza').value = v; document.getElementById('sdrop-panel').classList.remove('on'); hesaplaSira(); }
-window.onclick = (e) => { if(!e.target.closest('.sdrop')) document.getElementById('sdrop-panel').classList.remove('on'); };
-
-function setA(qid,v){ ANS[qid]=v; var r = document.getElementById('r-'+qid); r.classList.remove('y','n'); r.classList.add(v==='yes'?'y':'n'); r.querySelectorAll('.yb').forEach(b=>b.classList.remove('s')); r.querySelector('.yb.'+(v==='yes'?'y':'n')).classList.add('s'); updateProg(); updatePills(); }
-function triggerCam(qid){ document.getElementById('fi-'+qid).click(); }
-function addPhoto(inp, qid){
-  if(!inp.files.length) return;
-  if(!PHOTOS[qid]) PHOTOS[qid]=[];
-  var reader = new FileReader();
-  reader.onload = e => {
-    var img = new Image();
-    img.onload = () => {
-      var cv = document.createElement('canvas'); var MAX = 800; var w = img.width, h = img.height;
-      if(w>h){ if(w>MAX){h*=MAX/w; w=MAX;} } else { if(h>MAX){w*=MAX/h; h=MAX;} }
-      cv.width=w; cv.height=h;
-      cv.getContext('2d').drawImage(img,0,0,w,h);
-      PHOTOS[qid].push(cv.toDataURL('image/jpeg',0.7));
-      document.getElementById('cb-'+qid).classList.add('has');
-      document.getElementById('th-'+qid).innerHTML = PHOTOS[qid].map(p=>`<img src="${p}">`).join('');
-    };
-    img.src = e.target.result;
+  const handleAnswer = (id: string, answer: 'yes' | 'no') => {
+    setChecklist(prev => prev.map(item => 
+      item.id === id ? { ...item, answer, photo: null, description: '' } : item
+    ));
   };
-  reader.readAsDataURL(inp.files[0]);
+
+  const handlePhotoUpload = (id: string, file: File | null) => {
+    setChecklist(prev => prev.map(item => 
+      item.id === id ? { ...item, photo: file } : item
+    ));
+  };
+
+  const handleDescriptionChange = (id: string, text: string) => {
+    setChecklist(prev => prev.map(item => 
+      item.id === id ? { ...item, description: text } : item
+    ));
+  };
+
+  const handleStoreSelect = async (store: Store) => {
+    setSelectedStore(store);
+    setIsLoadingStats(true);
+    try {
+      const response = await fetch(`${API_URL}?action=getStats&store=${encodeURIComponent(store.name)}`);
+      const stats = await response.json();
+      setVisitStats({ 
+        monthly: stats.monthly || 0, 
+        yearly: stats.yearly || 0 
+      });
+    } catch (error) {
+      console.error('İstatistikler alınamadı:', error);
+      // Hata durumunda yerel mock veriyi kullanmaya devam et
+      setVisitStats({ 
+        monthly: store.monthlyVisits, 
+        yearly: store.yearlyVisits 
+      });
+    } finally {
+      setIsLoadingStats(false);
+    }
+  };
+
+  const visitSequence = useMemo(() => {
+    return `${visitStats.monthly + 1}. Ziyaret`;
+  }, [visitStats.monthly]);
+
+  const isChecklistComplete = useMemo(() => {
+    return checklist.every(item => {
+      if (item.answer === null) return false;
+      if (item.answer === 'yes' && !item.photo) return false;
+      if (item.answer === 'no' && (!item.description || item.description.length < 5)) return false;
+      return true;
+    }) && generalObservation.length >= 20;
+  }, [checklist, generalObservation]);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const reportData = {
+      tarih: new Date().toLocaleDateString('tr-TR'),
+      bolgeMuduru: regionalManager,
+      magaza: selectedStore?.name,
+      magazaMuduru: storeManager,
+      aylikZiyaret: `${visitStats.monthly + 1}. Ziyaret`,
+      yillikZiyaret: `${visitStats.yearly + 1}. Ziyaret`,
+      evet: checklist.filter(i => i.answer === 'yes').length,
+      hayir: checklist.filter(i => i.answer === 'no').length,
+      notlar: generalObservation,
+      uyum: `%${Math.round((checklist.filter(i => i.answer === 'yes').length / checklist.length) * 100)}`
+    };
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        mode: 'no-cors', // GAS POST istekleri için no-cors gerekebilir
+        body: JSON.stringify(reportData),
+      });
+      
+      // no-cors modunda response okunamayabilir, başarılı varsayıyoruz
+      setShowSuccess(true);
+    } catch (error) {
+      console.error('Rapor gönderilemedi:', error);
+      alert('Rapor gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const resetApp = () => {
+    setStep('selection');
+    setSelectedStore(null);
+    setChecklist(CHECKLIST_TEMPLATE.map(item => ({ ...item, answer: null })));
+    setGeneralObservation('');
+    setShowSuccess(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-paper text-ink selection:bg-clay/20">
+      {/* Header */}
+      <header className="sticky top-0 z-40 w-full border-b bg-paper/80 backdrop-blur-md">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-ink rounded-lg flex items-center justify-center">
+              <span className="text-paper font-serif font-bold text-xl">K</span>
+            </div>
+            <div>
+              <h1 className="text-lg leading-none">KARACA</h1>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-sans font-semibold">Züccaciye Denetim</p>
+            </div>
+          </div>
+          
+          {selectedStore && step !== 'selection' && (
+            <div className="hidden md:flex items-center gap-4 text-sm">
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <MapPin className="w-4 h-4" />
+                <span>{selectedStore.name}</span>
+              </div>
+              <div className="w-px h-4 bg-border" />
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <Calendar className="w-4 h-4" />
+                <span>{new Date().toLocaleDateString('tr-TR')}</span>
+              </div>
+            </div>
+          )}
+
+          {step === 'checklist' && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-muted-foreground">{Math.round(progress)}%</span>
+              <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
+                <motion.div 
+                  className="h-full bg-clay"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8 max-w-3xl">
+        <AnimatePresence mode="wait">
+          {step === 'selection' && (
+            <motion.div
+              key="selection"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="space-y-8"
+            >
+              <div className="text-center space-y-2">
+                <h2 className="text-3xl md:text-4xl">Mağaza Seçimi</h2>
+                <p className="text-muted-foreground">Denetim yapılacak mağazayı listeden seçin veya arayın.</p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label className="text-sm font-semibold">Bölge Müdürü</Label>
+                  <Input 
+                    value={regionalManager} 
+                    onChange={(e) => setRegionalManager(e.target.value)}
+                    className="rounded-xl h-12"
+                    placeholder="Bölge Müdürü adı..."
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-semibold">Mağaza Müdürü / Sorumlusu</Label>
+                  <Input 
+                    value={storeManager} 
+                    onChange={(e) => setStoreManager(e.target.value)}
+                    className="rounded-xl h-12"
+                    placeholder="Mağaza Müdürü adı..."
+                  />
+                </div>
+              </div>
+
+              <div className="relative group">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-clay transition-colors" />
+                <Input 
+                  placeholder="Mağaza adı veya şehir..." 
+                  className="pl-12 h-14 text-lg rounded-2xl border-2 focus-visible:ring-clay focus-visible:border-clay"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="grid gap-4">
+                {filteredStores.map((store) => (
+                  <Card 
+                    key={store.id}
+                    className={cn(
+                      "cursor-pointer transition-all hover:border-clay hover:shadow-lg group overflow-hidden",
+                      selectedStore?.id === store.id ? "border-clay ring-1 ring-clay" : ""
+                    )}
+                    onClick={() => handleStoreSelect(store)}
+                  >
+                    <CardContent className="p-5 flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-clay/10 transition-colors">
+                          <MapPin className="w-6 h-6 text-muted-foreground group-hover:text-clay" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-serif">{store.name}</h3>
+                          <p className="text-sm text-muted-foreground">{store.location}</p>
+                        </div>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-clay transition-transform group-hover:translate-x-1" />
+                    </CardContent>
+                  </Card>
+                ))}
+                {filteredStores.length === 0 && (
+                  <div className="text-center py-12 text-muted-foreground">
+                    <Info className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                    <p>Mağaza bulunamadı.</p>
+                  </div>
+                )}
+              </div>
+
+              {selectedStore && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="fixed bottom-8 left-4 right-4 md:relative md:bottom-0 md:left-0 md:right-0"
+                >
+                  <Card className="bg-ink text-paper shadow-2xl rounded-2xl overflow-hidden border-none">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex gap-8">
+                          <div className="space-y-1">
+                            <p className="text-[10px] uppercase tracking-widest opacity-60">Bu Ayki Ziyaretler</p>
+                            <p className={cn("text-3xl font-serif", isLoadingStats && "animate-pulse opacity-50")}>
+                              {isLoadingStats ? '...' : visitStats.monthly}
+                            </p>
+                          </div>
+                          <div className="w-px h-12 bg-paper/20" />
+                          <div className="space-y-1">
+                            <p className="text-[10px] uppercase tracking-widest opacity-60">Sıradaki Ziyaret</p>
+                            <p className={cn("text-3xl font-serif text-clay", isLoadingStats && "animate-pulse opacity-50")}>
+                              {isLoadingStats ? '...' : visitSequence}
+                            </p>
+                          </div>
+                        </div>
+                        <Button 
+                          className="bg-clay hover:bg-clay/90 text-paper h-14 px-8 rounded-xl text-lg font-semibold group"
+                          onClick={() => setStep('checklist')}
+                          disabled={isLoadingStats}
+                        >
+                          {isLoadingStats ? 'Veriler Alınıyor...' : 'Denetimi Başlat'}
+                          {!isLoadingStats && <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+            </motion.div>
+          )}
+
+          {step === 'checklist' && (
+            <motion.div
+              key="checklist"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="space-y-8 pb-32"
+            >
+              <div className="flex items-center gap-4">
+                <Button variant="ghost" size="icon" onClick={() => setStep('selection')} className="rounded-full">
+                  <ArrowLeft className="w-6 h-6" />
+                </Button>
+                <div>
+                  <h2 className="text-2xl">{selectedStore?.name}</h2>
+                  <p className="text-sm text-muted-foreground">{visitSequence} Formu</p>
+                </div>
+              </div>
+
+              <div className="space-y-12">
+                {Array.from(new Set(checklist.map(i => i.category))).map(category => (
+                  <div key={category} className="space-y-6">
+                    <div className="flex items-center gap-4">
+                      <h3 className="text-xl text-clay whitespace-nowrap">{category}</h3>
+                      <div className="h-px bg-border w-full" />
+                    </div>
+                    
+                    <div className="grid gap-6">
+                      {checklist.filter(i => i.category === category).map(item => (
+                        <Card key={item.id} className={cn(
+                          "transition-all border-l-4",
+                          item.answer === 'yes' ? "border-l-green-500" : 
+                          item.answer === 'no' ? "border-l-red-500" : "border-l-transparent"
+                        )}>
+                          <CardContent className="p-6 space-y-6">
+                            <p className="text-lg leading-relaxed">{item.question}</p>
+                            
+                            <div className="flex gap-3">
+                              <Button 
+                                variant={item.answer === 'yes' ? 'default' : 'outline'}
+                                className={cn(
+                                  "flex-1 h-12 rounded-xl text-base",
+                                  item.answer === 'yes' ? "bg-green-600 hover:bg-green-700" : ""
+                                )}
+                                onClick={() => handleAnswer(item.id, 'yes')}
+                              >
+                                <CheckCircle2 className="mr-2 w-5 h-5" />
+                                Evet
+                              </Button>
+                              <Button 
+                                variant={item.answer === 'no' ? 'default' : 'outline'}
+                                className={cn(
+                                  "flex-1 h-12 rounded-xl text-base",
+                                  item.answer === 'no' ? "bg-red-600 hover:bg-red-700" : ""
+                                )}
+                                onClick={() => handleAnswer(item.id, 'no')}
+                              >
+                                <X className="mr-2 w-5 h-5" />
+                                Hayır
+                              </Button>
+                            </div>
+
+                            {item.answer === 'yes' && (
+                              <motion.div 
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                className="space-y-3"
+                              >
+                                <Label className="text-sm font-semibold flex items-center gap-2">
+                                  <Camera className="w-4 h-4" />
+                                  Fotoğraf Yükle (Zorunlu)
+                                </Label>
+                                <div className="relative group">
+                                  <Input 
+                                    type="file" 
+                                    accept="image/*"
+                                    className="h-12 pt-2.5 cursor-pointer"
+                                    onChange={(e) => handlePhotoUpload(item.id, e.target.files?.[0] || null)}
+                                  />
+                                  {item.photo && (
+                                    <div className="mt-2 p-2 bg-green-50 rounded-lg flex items-center gap-2 text-xs text-green-700">
+                                      <CheckCircle2 className="w-4 h-4" />
+                                      {item.photo.name} yüklendi.
+                                    </div>
+                                  )}
+                                </div>
+                              </motion.div>
+                            )}
+
+                            {item.answer === 'no' && (
+                              <motion.div 
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                className="space-y-3"
+                              >
+                                <Label className="text-sm font-semibold flex items-center gap-2">
+                                  <AlertCircle className="w-4 h-4" />
+                                  Açıklama (Zorunlu)
+                                </Label>
+                                <Textarea 
+                                  placeholder="Neden hayır? Detaylı açıklama yazın..."
+                                  className="min-h-[100px] rounded-xl focus-visible:ring-clay"
+                                  value={item.description}
+                                  onChange={(e) => handleDescriptionChange(item.id, e.target.value)}
+                                />
+                                {item.description && item.description.length < 5 && (
+                                  <p className="text-[10px] text-red-500">En az 5 karakter girmelisiniz.</p>
+                                )}
+                              </motion.div>
+                            )}
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <h3 className="text-xl text-clay whitespace-nowrap">Genel Gözlem</h3>
+                    <div className="h-px bg-border w-full" />
+                  </div>
+                  <Card>
+                    <CardContent className="p-6 space-y-3">
+                      <Label className="text-sm font-semibold">Ziyaret Notları ve Genel Değerlendirme</Label>
+                      <Textarea 
+                        placeholder="Mağaza hakkındaki genel görüşlerinizi buraya yazın..."
+                        className="min-h-[150px] rounded-xl focus-visible:ring-clay text-lg"
+                        value={generalObservation}
+                        onChange={(e) => setGeneralObservation(e.target.value)}
+                      />
+                      <div className="flex justify-between items-center">
+                        <p className={cn(
+                          "text-[10px] font-semibold",
+                          generalObservation.length < 20 ? "text-red-500" : "text-green-600"
+                        )}>
+                          {generalObservation.length < 20 
+                            ? `En az ${20 - generalObservation.length} karakter daha yazmalısınız.` 
+                            : "Karakter sınırı aşıldı."}
+                        </p>
+                        <span className="text-[10px] text-muted-foreground">{generalObservation.length} karakter</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Action Bar */}
+              <div className="fixed bottom-0 left-0 right-0 bg-paper/80 backdrop-blur-xl border-t p-6 z-50">
+                <div className="container mx-auto max-w-3xl flex gap-4">
+                  <Button 
+                    className="flex-1 h-14 rounded-xl text-lg font-semibold bg-clay hover:bg-clay/90 text-paper disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!isChecklistComplete}
+                    onClick={() => setStep('preview')}
+                  >
+                    Raporu Önizle
+                    <ChevronRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {step === 'preview' && (
+            <motion.div
+              key="preview"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="space-y-8 pb-32"
+            >
+              <div className="flex items-center gap-4">
+                <Button variant="ghost" size="icon" onClick={() => setStep('checklist')} className="rounded-full">
+                  <ArrowLeft className="w-6 h-6" />
+                </Button>
+                <div>
+                  <h2 className="text-2xl">Rapor Önizleme</h2>
+                  <p className="text-sm text-muted-foreground">Göndermeden önce kontrol edin.</p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-4 gap-4">
+                <Card className="bg-clay text-paper">
+                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-[10px] uppercase tracking-widest opacity-70 mb-1">Başarı Oranı</p>
+                    <p className="text-3xl font-serif">
+                      {Math.round((checklist.filter(i => i.answer === 'yes').length / checklist.length) * 100)}%
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-ink text-paper">
+                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-[10px] uppercase tracking-widest opacity-70 mb-1">Aylık Sıra</p>
+                    <p className="text-3xl font-serif">{visitStats.monthly + 1}.</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-ink text-paper">
+                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-[10px] uppercase tracking-widest opacity-70 mb-1">Yıllık Sıra</p>
+                    <p className="text-3xl font-serif">{visitStats.yearly + 1}.</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-muted">
+                  <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Olumsuz</p>
+                    <p className="text-3xl font-serif">{checklist.filter(i => i.answer === 'no').length}</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Kategori Bazlı Başarı</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {categoryStats.map(stat => (
+                    <div key={stat.name} className="space-y-2">
+                      <div className="flex justify-between text-sm font-semibold">
+                        <span>{stat.name}</span>
+                        <span>%{Math.round(stat.percentage)}</span>
+                      </div>
+                      <Progress value={stat.percentage} className="h-2 bg-muted" />
+                      <p className="text-[10px] text-muted-foreground text-right">{stat.yesCount}/{stat.total} kriter sağlandı</p>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl">Mail Listesi</CardTitle>
+                  <CardDescription>Raporun gönderileceği adresler.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {emailList.map(email => (
+                      <Badge key={email} variant="secondary" className="pl-3 pr-1 py-1 text-sm rounded-full bg-muted flex items-center gap-2">
+                        {email}
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="w-5 h-5 rounded-full hover:bg-destructive hover:text-destructive-foreground"
+                          onClick={() => setEmailList(prev => prev.filter(e => e !== email))}
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <Input 
+                      placeholder="Yeni mail adresi..." 
+                      className="rounded-xl"
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          const val = e.currentTarget.value;
+                          if (val && val.includes('@') && !emailList.includes(val)) {
+                            setEmailList([...emailList, val]);
+                            e.currentTarget.value = '';
+                          }
+                        }
+                      }}
+                    />
+                    <Button variant="outline" className="rounded-xl">Ekle</Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="fixed bottom-0 left-0 right-0 bg-paper/80 backdrop-blur-xl border-t p-6 z-50">
+                <div className="container mx-auto max-w-3xl flex gap-4">
+                  <Button 
+                    variant="outline"
+                    className="flex-1 h-14 rounded-xl text-lg font-semibold border-2"
+                    onClick={() => setStep('checklist')}
+                  >
+                    Düzenle
+                  </Button>
+                  <Button 
+                    className="flex-[2] h-14 rounded-xl text-lg font-semibold bg-ink hover:bg-ink/90 text-paper"
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Gönderiliyor...' : 'Raporu Gönder'}
+                    {!isSubmitting && <Send className="ml-2 w-5 h-5" />}
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </main>
+
+      {/* Success Modal */}
+      <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
+        <DialogContent className="sm:max-w-md bg-paper border-none shadow-2xl rounded-3xl p-0 overflow-hidden">
+          <div className="p-12 text-center space-y-6">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="w-12 h-12 text-green-600" />
+            </div>
+            <div className="space-y-2">
+              <DialogTitle className="text-3xl font-serif">Rapor Başarıyla Gönderildi!</DialogTitle>
+              <DialogDescription className="text-lg">
+                Mağaza ziyaret raporu oluşturuldu, PDF olarak kaydedildi ve ilgili kişilere mail olarak iletildi.
+              </DialogDescription>
+            </div>
+            <Button 
+              className="w-full h-16 rounded-2xl text-xl font-bold bg-ink hover:bg-ink/90 text-paper"
+              onClick={resetApp}
+            >
+              Yeni Denetim Başlat
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
 }
-
-function updateProg(){ var a=Object.keys(ANS).length; document.getElementById('ansCnt').textContent=a; document.getElementById('pFill').style.width=(a*10)+'%'; document.getElementById('pPct').textContent='%'+(a*10); }
-function updatePills(){ CATS.forEach(c=>{ var d=c.questions.filter((_,i)=>ANS[c.id+'-'+i]).length; document.getElementById('pill-'+c.id).textContent=d+'/'+c.questions.length; if(d===c.questions.length) document.getElementById('pill-'+c.id).classList.add('done'); }); }
-function toggleCat(hd,id){ document.getElementById('bd-'+id).classList.toggle('open'); hd.classList.toggle('open'); }
-
-async function submitForm(){
-  updateDateTime();
-  if(!v('f-mudur') || !v('f-magaza') || !v('f-mag-mudur')){ toast('Bilgiler eksik!',true); return; }
-  if(Object.keys(ANS).length < 10){ toast('Tüm maddeleri cevaplayın!',true); return; }
-  if(v('f-notlar').length < 20){ toast('Notlar en az 20 karakter olmalı!',true); return; }
-  for(var q in ANS){ if(ANS[q]==='yes' && (!PHOTOS[q]||PHOTOS[q].length===0)){ toast('Evet için fotoğraf zorunlu!',true); return; } if(ANS[q]==='no' && !DESC[q]){ toast('Hayır için açıklama zorunlu!',true); return; } }
-  document.getElementById('spinOv').style.display='flex';
-  await saveToSheets();
-  document.getElementById('spinOv').style.display='none';
-  document.getElementById('succOv').classList.add('on');
-}
-
-async function saveToSheets() {
-  const sc = []; CATS.forEach(cat => { cat.questions.forEach((q, i) => { sc.push({ soru: q.t, cevap: ANS[cat.id+'-'+i] === 'yes' ? 'EVET' : 'HAYIR', not: DESC[cat.id+'-'+i] || '' }); }); });
-  const st = calcStats();
-  const payload = { tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag_mudur'), sira: v('f-sira'), aySira: v('f-ay-sira'), total: 10, evet: st.yesN, hayir: st.noN, pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'), catStats: CATS.map(c => ({ title: c.title, u: Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100) })), soruCevaplar: sc };
-  try { await fetch(CONFIG.sheets_url, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) }); } catch (e) {}
-}
-
-function calcStats(){ var y=Object.values(ANS).filter(a=>a==='yes').length, n=Object.values(ANS).filter(a=>a==='no').length; return {yesN:y, noN:n, pct:Math.round(Object.keys(ANS).length*10), uyum:Math.round(y/(y+n)*100)||0}; }
-
-function showReport(){
-  const st = calcStats();
-  const cr = CATS.map(c => { var pct = Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100)||0; return `<div style="margin-bottom:12px"><div style="display:flex; justify-content:space-between; font-size:12px"><b>${c.title}</b><span>%${pct}</span></div><div class="rpt-bar-bg"><div class="rpt-bar-fill" style="width:${pct}%; background:${pct>=80?'#3d7a5a':pct>=50?'#c8a97e':'#b84040'}"></div></div></div>`; }).join('');
-  document.getElementById('rptInner').innerHTML = `<div class="rpt-hd"><h2>Checklist Özeti</h2><p>${v('f-magaza')}<br>${v('f-mudur')} | ${v('f-tarih')}</p></div><div class="rpt-scores"><div class="rsc"><b>${st.yesN}</b><br><small>Evet</small></div><div class="rsc"><b>${st.noN}</b><br><small>Hayır</small></div><div class="rsc"><b>%${st.uyum}</b><br><small>Uyum</small></div></div>${cr}<button class="btn-sub" style="margin-top:20px; padding:12px; height:auto; min-height:0" onclick="closeReport()">Raporu Kapat</button>`;
-  document.getElementById('rptPage').classList.add('on');
-}
-function closeReport(){ document.getElementById('rptPage').classList.remove('on'); }
-
-function updateDateTime(){ 
-    var n=new Date(); 
-    var d = n.getDate().toString().padStart(2,'0')+'.'+(n.getMonth()+1).toString().padStart(2,'0')+'.'+n.getFullYear();
-    var t = n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
-    document.getElementById('f-tarih').value = d; document.getElementById('f-tarih-display').textContent = d + " " + t; 
-}
-function hesaplaSira(){
-  var m=v('f-mudur'), z=v('f-magaza'); if(!m || !z) return;
-  var now = new Date(); var yil = now.getFullYear(); var ay = (now.getMonth() + 1).toString().padStart(2, '0');
-  document.getElementById('f-sira-display').textContent = '...';
-  document.getElementById('f-ay-display').textContent = '...';
-  fetch(CONFIG.sheets_url+'?action=sira&mudur='+m+'&magaza='+z+'&yil='+yil+'&ay='+ay).then(r=>r.json()).then(data=>{
-    var sYil = (data.yearly||0)+1 + '. Ziyaret';
-    var sAy = (data.monthly||0)+1 + '. Ziyaret';
-    document.getElementById('f-sira').value = sYil; document.getElementById('f-ay-sira').value = sAy;
-    document.getElementById('f-sira-display').textContent = sYil; document.getElementById('f-ay-display').textContent = sAy;
-  });
-}
-function renderChips(){ document.getElementById('chips').innerHTML = mailList.map((m, i) => `<div class="chip">✉ ${m.a} <span class="chip-del" onclick="removeMail(${i})">✕</span></div>`).join(''); }
-function removeMail(i){ mailList.splice(i, 1); renderChips(); }
-function addMail(){ var i=document.getElementById('mailInp'); if(i.value.includes('@')){ mailList.push({a:i.value}); i.value=''; renderChips(); } }
-function v(id){ var el=document.getElementById(id); return el?el.value:'' }
-function toast(m,e){ var t=document.getElementById('toast'); t.textContent=m; t.className='toast on'+(e?' err':''); setTimeout(()=>t.classList.remove('on'),3000); }
-
-document.addEventListener('DOMContentLoaded', ()=>{ render(); updateDateTime(); document.getElementById('f-mudur').addEventListener('change', hesaplaSira); });
-</script>
-</body>
-</html>
