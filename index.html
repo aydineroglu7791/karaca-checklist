@@ -22,7 +22,7 @@
 body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:100px}
 
 /* HEADER */
-.hdr{background:var(--ink);padding:30px 20px;color:#fff;border-bottom:5px solid var(--clay);position:relative;overflow:hidden}
+.hdr{background:var(--ink);padding:30px 20px;color:#fff;border-bottom:5px solid var(--clay);position:relative}
 .hdr-in{max-width:980px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
 .hdr h1{font-family:'Playfair Display',serif;font-size:20px;line-height:1.2}
 .hdr h1 b{color:var(--clay);display:block;font-size:26px;letter-spacing:1px}
@@ -40,7 +40,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:10px;padding:12px;font-size:14px;background:#fafafa;outline:none;width:100%;transition:0.3s}
 .fld input:focus{border-color:var(--clay);background:#fff}
 
-/* SEARCHABLE DROP */
+/* SEARCHABLE DROP (Mağaza) */
 .sdrop{position:relative}
 .sdrop-input{cursor:pointer; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7a6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center}
 .sdrop-panel{display:none; position:absolute; top:105%; left:0; right:0; background:#fff; border:1px solid var(--clay); border-radius:12px; box-shadow:var(--s3); z-index:1000; max-height:280px; overflow-y:auto; padding:10px}
@@ -48,18 +48,18 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .sdrop-item{padding:12px; font-size:14px; border-bottom:1px solid #f0f0f0; cursor:pointer; border-radius:8px}
 .sdrop-item:hover{background:#fdf8ee; color:var(--clay-d)}
 
-/* PROGRESS BAR */
+/* PROGRESS BAR (Sticky) */
 .prog-wrap{position:sticky; top:10px; z-index:900; margin-top:15px}
 .prog{background:var(--white);border-radius:var(--r);padding:15px 20px;display:flex;align-items:center;gap:15px;box-shadow:var(--s2);border:1px solid var(--clay-l)}
 .prog-pct{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--clay);min-width:60px}
 .prog-track{flex:1;height:12px;background:#eee;border-radius:10px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--clay-d),var(--clay));width:0%;transition:0.6s cubic-bezier(0.17, 0.67, 0.83, 0.67)}
 
-/* QUESTION DESIGN */
+/* QUESTION ROW DESIGN */
 .qr{display:grid; grid-template-columns:40px 1fr 100px 60px; border-bottom:1px solid #eee; padding:20px 0; align-items:center; transition:0.3s}
 .qr.y{border-left:4px solid var(--grn); background:#f9fdfa}
 .qr.n{border-left:4px solid var(--red); background:#fefafa}
-.qt{font-size:14px; padding:0 10px; font-weight:500}
+.qt{font-size:14px; padding:0 10px; font-weight:500; line-height:1.4}
 .yb{width:42px; height:42px; border-radius:50%; border:2px solid var(--bdr); background:#fff; cursor:pointer; font-weight:900; transition:0.2s}
 .yb.y.s{background:var(--grn); border-color:var(--grn); color:#fff; box-shadow:0 4px 10px rgba(61,122,90,0.3)}
 .yb.n.s{background:var(--red); border-color:var(--red); color:#fff; box-shadow:0 4px 10px rgba(184,64,64,0.3)}
@@ -67,14 +67,15 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .cam-btn.has{border-style:solid; border-color:var(--grn); background:var(--grn-b); color:var(--grn)}
 .dc{grid-column: 2 / 5; margin-top:12px}
 .th-wrap{grid-column: 2 / 5; display:flex; flex-wrap:wrap; margin-top:8px; gap:8px}
-.th-wrap img{width:60px; height:60px; border-radius:8px; object-fit:cover; border:1.5px solid var(--clay-l)}
+.th-wrap img{width:65px; height:65px; border-radius:8px; object-fit:cover; border:1.5px solid var(--clay-l)}
 
 /* BUTTONS */
 .btn-row{display:grid; grid-template-columns: 1fr 2fr; gap:15px; margin-top:25px}
-.btn-pre{background:#fff; border:2px solid var(--clay); color:var(--ink); padding:18px; border-radius:var(--r); font-weight:700; cursor:pointer}
+.btn-pre{background:#fff; border:2px solid var(--clay); color:var(--ink); padding:18px; border-radius:var(--r); font-weight:700; cursor:pointer; transition:0.3s}
+.btn-pre:hover{background:var(--ylw)}
 .btn-sub{background:linear-gradient(160deg,#1e1a16, #3a332c); color:#fff; border:none; border-radius:var(--r); padding:18px; font-weight:700; font-size:16px; cursor:pointer; box-shadow:var(--s2)}
 
-/* MODAL / REPORT */
+/* MODAL / REPORT PREVIEW */
 .rpt-page{display:none; position:fixed; inset:0; background:rgba(30,26,22,0.95); z-index:2000; overflow-y:auto; padding:20px}
 .rpt-page.on{display:block}
 .rpt-box{max-width:600px; margin:40px auto; background:#fff; border-radius:24px; overflow:hidden; animation:slideUp 0.4s ease}
@@ -84,11 +85,16 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .rsc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin:20px 0}
 .rsc{background:#f8f5f0; padding:20px; border-radius:15px; text-align:center; border:1px solid var(--clay-l)}
 
+/* LOADING SPINNER */
 .spin-ov{display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:3000; align-items:center; justify-content:center; flex-direction:column; color:#fff}
 .spinner{width:50px; height:50px; border:5px solid rgba(255,255,255,0.2); border-top-color:var(--clay); border-radius:50%; animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-@media(max-width:600px){ .mg3{grid-template-columns:1fr} .qr{grid-template-columns:30px 1fr 90px 50px} }
+@media(max-width:600px){ 
+  .mg3{grid-template-columns:1fr} 
+  .qr{grid-template-columns:30px 1fr 90px 50px}
+  .btn-row{grid-template-columns: 1fr}
+}
 </style>
 </head>
 <body>
@@ -96,14 +102,14 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 <header class="hdr">
   <div class="hdr-in">
     <h1><b>KARACA ZÜCCACİYE</b>Mağaza Ziyaret Checklist</h1>
-    <div style="text-align:right"><small style="color:var(--clay-l)">Sürüm 2.4</small></div>
+    <div style="text-align:right"><small style="color:var(--clay-l)">Sürüm 2.6</small></div>
   </div>
 </header>
 
 <div class="W">
   <!-- ZİYARET BİLGİLERİ -->
   <div class="card">
-    <div class="card-hd"><h2>📋 Ziyaret Detayları</h2></div>
+    <div class="card-hd"><h2>📋 Ziyaret Bilgileri</h2></div>
     <div class="card-body">
       <div class="mg mg3">
         <div class="fld">
@@ -114,12 +120,14 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
             </select>
         </div>
         <div class="fld">
-          <label>Mağaza</label>
+          <label>Mağaza Adı</label>
           <div class="sdrop">
-            <input type="text" id="f-magaza-display" class="sdrop-input" placeholder="Mağaza ara..." readonly onclick="toggleDrop()">
+            <input type="text" id="f-magaza-display" class="sdrop-input" placeholder="Mağaza seçin..." readonly onclick="toggleDrop()">
             <input type="hidden" id="f-magaza">
             <div id="sdrop-panel" class="sdrop-panel">
-              <input type="text" id="sdrop-search" placeholder="Hızlı ara..." oninput="filterMagaza()" style="margin-bottom:10px; border-radius:8px">
+              <div style="padding:10px; background:#fff; position:sticky; top:0; z-index:10">
+                <input type="text" id="sdrop-search" placeholder="Hızlı ara..." oninput="filterMagaza()">
+              </div>
               <div id="sdrop-list"></div>
             </div>
           </div>
@@ -127,9 +135,9 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
         <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Sorumlu Kişi"></div>
       </div>
       <div class="mg mg3">
-        <div class="fld"><label>Ziyaret Tarihi</label><input type="text" id="f-tarih" readonly style="background:#f0f0f0; color:#666"></div>
-        <div class="fld"><label>Aylık Sıra</label><input type="text" id="f-ay-sira" readonly style="background:#fdf8ee; color:var(--clay-d); font-weight:700"></div>
-        <div class="fld"><label>Yıllık Sıra</label><input type="text" id="f-sira" readonly style="background:#fdf8ee; color:var(--clay-d); font-weight:700"></div>
+        <div class="fld"><label>Ziyaret Tarihi</label><input type="text" id="f-tarih" readonly style="background:#f5f5f5; color:#888"></div>
+        <div class="fld"><label>Bu Ay (Aylık)</label><input type="text" id="f-ay-sira" readonly style="background:#fef9ee; color:var(--clay-d); font-weight:700"></div>
+        <div class="fld"><label>Bu Yıl (Yıllık)</label><input type="text" id="f-sira" readonly style="background:#fef9ee; color:var(--clay-d); font-weight:700"></div>
       </div>
     </div>
   </div>
@@ -143,20 +151,20 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     </div>
   </div>
 
-  <!-- SORULAR -->
+  <!-- SORU KATEGORİLERİ -->
   <div id="catWrap"></div>
 
   <!-- NOTLAR -->
   <div class="card">
     <div class="card-hd"><h2>📝 Genel Gözlem & Aksiyon Planı</h2></div>
     <div class="card-body">
-      <textarea id="f-notlar" rows="5" placeholder="Mağaza hakkındaki genel görüşlerinizi ve acil aksiyon planlarını buraya yazınız (En az 20 karakter)..."></textarea>
+      <textarea id="f-notlar" rows="5" placeholder="Genel görüşleriniz, önerileriniz ve acil aksiyon planları (Minimum 20 karakter)..."></textarea>
     </div>
   </div>
 
   <!-- BUTONLAR -->
   <div class="btn-row">
-    <button class="btn-pre" onclick="showReport()">📊 Ön İzleme</button>
+    <button class="btn-pre" onclick="showReport()">📊 Rapor Ön İzleme</button>
     <button class="btn-sub" onclick="submitForm()">📨 Formu Tamamla & Gönder</button>
   </div>
 </div>
@@ -165,23 +173,23 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 <div class="rpt-page" id="rptPage">
   <div class="rpt-box">
     <div class="rpt-hd">
-      <h2 id="r-magaza">Mağaza Adı</h2>
-      <p id="r-tarih">Tarih</p>
+      <h2 id="r-magaza">MAĞAZA ADI</h2>
+      <p id="r-tarih">12.04.2024</p>
     </div>
-    <div class="rpt-bd" id="rptContent">
-      <!-- Dinamik İçerik -->
-    </div>
+    <div class="rpt-bd" id="rptContent"></div>
     <div style="padding:20px; background:#f9f9f9; text-align:center">
-      <button class="btn-sub" style="margin:0; width:200px" onclick="document.getElementById('rptPage').classList.remove('on')">Kapat</button>
+      <button class="btn-sub" style="margin:0; width:100%; max-width:250px" onclick="document.getElementById('rptPage').classList.remove('on')">Ön İzlemeyi Kapat</button>
     </div>
   </div>
 </div>
 
-<div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px; font-weight:700">Rapor Oluşturuluyor ve Gönderiliyor...</p></div>
+<!-- SPINNER -->
+<div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px; font-weight:700; letter-spacing:1px">SİSTEME KAYDEDİLİYOR...</p></div>
 
 <script>
+// --- CONFIGURATION ---
 const CONFIG = {
-  sheets_url: 'https://script.google.com/macros/s/AKfycbwlSa77UPYqODMRK36xbBzJI8qPAmQaoyULzMQ2uJSlHQz14m-VnGO_ruTay4Az0qE4/exec'
+  sheets_url: 'https://script.google.com/macros/s/AKfycbKM2uebScRmo0gMbk8GPMGUAg7uobNKoSZk0f4Agnqzq8vjJF710h5an4F07OEIpaR/exec'
 };
 
 const MAG_LIST = ["ADA.ADANACADDE-CONT.KRC.2025", "AMS.AMASYA.CADDE.KRC.2025", "Afy.Park Krc.2015", "Ank.Ankamall Krc.2011", "Mrs.Saya Park Krc.2020", "Izm.Agora Krc.2010", "Sms.Piazza Krc.2013"];
@@ -193,15 +201,23 @@ const CATS = [
 
 var ANS={}, DESC={}, PHOTOS={};
 
-function render(){
+// --- RENDER FUNCTIONS ---
+function init() {
+  renderQuestions();
+  updateDateTime();
+  initMagazaList();
+}
+
+function renderQuestions() {
   const wrap = document.getElementById('catWrap');
+  wrap.innerHTML = '';
   CATS.forEach(cat => {
     let qRows = '';
     cat.questions.forEach((q, i) => {
       let qid = cat.id+'-'+i;
       qRows += `
       <div class="qr" id="r-${qid}">
-        <div style="font-size:12px; font-weight:900; color:#bbb; text-align:center">${i+1}</div>
+        <div style="font-size:11px; font-weight:900; color:#ccc; text-align:center">${i+1}</div>
         <div class="qt">${q.t}</div>
         <div style="display:flex; gap:6px">
           <button class="yb y" onclick="setA('${qid}','yes')">E</button>
@@ -211,13 +227,12 @@ function render(){
           <div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div>
           <input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="addPhoto(this,'${qid}')">
         </div>
-        <div class="dc"><input type="text" placeholder="Not/Açıklama (Hayır ise zorunlu)..." oninput="DESC['${qid}']=this.value"></div>
+        <div class="dc"><input type="text" id="desc-${qid}" placeholder="Not ekle (Hayır için zorunludur)..." oninput="DESC['${qid}']=this.value"></div>
         <div id="th-${qid}" class="th-wrap"></div>
       </div>`;
     });
     wrap.innerHTML += `<div class="card"><div class="card-hd"><h2>${cat.icon} ${cat.title}</h2></div><div class="card-body">${qRows}</div></div>`;
   });
-  initMagaza();
 }
 
 function setA(qid, v){
@@ -257,9 +272,10 @@ function updateProg(){
   document.getElementById('pPct').textContent = '%'+(a*10);
 }
 
+// --- REPORT PREVIEW ---
 function showReport(){
   const st = calcStats();
-  document.getElementById('r-magaza').textContent = document.getElementById('f-magaza-display').value || "Mağaza Seçilmedi";
+  document.getElementById('r-magaza').textContent = document.getElementById('f-magaza-display').value || "MAĞAZA SEÇİLMEDİ";
   document.getElementById('r-tarih').textContent = v('f-tarih');
   
   let catHtml = CATS.map(c => {
@@ -276,22 +292,25 @@ function showReport(){
       <div class="rsc"><small>Hayır</small><br><b>${st.noN}</b></div>
       <div class="rsc"><small>Uyum</small><br><b>%${st.uyum}</b></div>
     </div>
-    <div style="margin-top:20px">${catHtml}</div>
-    <div style="margin-top:20px; padding:15px; background:#fdf8ee; border-radius:10px; font-size:13px"><b>Notlar:</b><br>${v('f-notlar') || '-'}</div>
+    ${catHtml}
+    <div style="margin-top:20px; padding:15px; background:#fdf8ee; border-radius:10px; font-size:13px; border:1px solid var(--clay-l)">
+      <b>Genel Notlar:</b><br>${v('f-notlar') || '-'}
+    </div>
   `;
   document.getElementById('rptPage').classList.add('on');
 }
 
+// --- SUBMISSION ---
 async function submitForm(){
-  // ZORUNLULUK KONTROLLERİ
-  if(!v('f-mudur') || !v('f-magaza')){ alert("Lütfen Müdür ve Mağaza seçiniz!"); return; }
+  // 1. TEMEL KONTROLLER
+  if(!v('f-mudur') || !v('f-magaza')){ alert("Müdür ve Mağaza seçimi zorunludur!"); return; }
   if(Object.keys(ANS).length < 10){ alert("Lütfen tüm soruları yanıtlayınız!"); return; }
   if(v('f-notlar').length < 20){ alert("Genel gözlem notu çok kısa (En az 20 karakter)!"); return; }
 
-  // EVET -> Fotoğraf, HAYIR -> Açıklama Kontrolü
+  // 2. EVET=FOTOĞRAF, HAYIR=AÇIKLAMA ZORUNLULUĞU
   for(let qid in ANS){
     if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){
-      alert("Cevabı 'Evet' olan maddeler için fotoğraf çekmek zorunludur!"); return;
+      alert("Cevabı 'Evet' olan maddeler için en az 1 fotoğraf çekmek zorunludur!"); return;
     }
     if(ANS[qid]==='no' && (!DESC[qid] || DESC[qid].length < 3)){
       alert("Cevabı 'Hayır' olan maddeler için açıklama yazmak zorunludur!"); return;
@@ -325,28 +344,37 @@ async function submitForm(){
   };
 
   try {
-    await fetch(CONFIG.sheets_url, { method:'POST', mode:'no-cors', body:JSON.stringify(payload) });
-    alert("Rapor Başarıyla Gönderildi! Drive ve Sheet kayıtları tamamlandı.");
+    await fetch(CONFIG.sheets_url, { 
+      method:'POST', 
+      mode:'no-cors', 
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload) 
+    });
+    alert("KAYIT BAŞARILI!\nSheet'e kaydedildi, PDF oluşturuldu ve mail gönderildi.");
     location.reload();
-  } catch(e) { alert("Bir hata oluştu!"); }
-  document.getElementById('spinOv').style.display='none';
+  } catch(e) { 
+    alert("Hata oluştu, tekrar deneyin."); 
+  } finally {
+    document.getElementById('spinOv').style.display='none';
+  }
 }
 
+// --- UTILS ---
 function calcStats(){
   let y = Object.values(ANS).filter(x=>x==='yes').length;
   return { yesN: y, noN: 10-y, uyum: Math.round(y/10*100) };
 }
 
 function hesaplaSira(){
-  let m = v('f-mudur'), z = v('f-magaza'); if(!m || !z) return;
+  let z = v('f-magaza'); if(!z) return;
   fetch(CONFIG.sheets_url + '?action=sira&magaza=' + encodeURIComponent(z))
     .then(r=>r.json()).then(d => {
       document.getElementById('f-ay-sira').value = (d.monthly + 1) + '. Ziyaret';
       document.getElementById('f-sira').value = (d.yearly + 1) + '. Ziyaret';
-    });
+    }).catch(e => console.error("Sıra çekilemedi."));
 }
 
-function initMagaza(){
+function initMagazaList(){
   document.getElementById('sdrop-list').innerHTML = MAG_LIST.map(m => `<div class="sdrop-item" onclick="selectMagaza('${m}')">${m}</div>`).join('');
 }
 function toggleDrop(){ document.getElementById('sdrop-panel').classList.toggle('on'); }
@@ -367,7 +395,7 @@ function updateDateTime(){
   let n = new Date();
   document.getElementById('f-tarih').value = n.getDate().toString().padStart(2,'0')+'.'+(n.getMonth()+1).toString().padStart(2,'0')+'.'+n.getFullYear();
 }
-document.addEventListener('DOMContentLoaded', ()=>{ render(); updateDateTime(); });
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
