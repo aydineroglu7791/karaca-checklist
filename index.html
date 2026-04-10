@@ -58,72 +58,88 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 
 /* ─ PROGRESS ─ */
 .prog{background:var(--white);border-radius:var(--r);padding:15px 20px;margin-top:14px;display:flex;align-items:center;gap:14px;box-shadow:var(--s1)}
+.prog-info{min-width:140px}
 .prog-track{flex:1;height:10px;background:var(--bdr);border-radius:99px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--clay-d),var(--clay));width:0%;transition:0.4s}
 .prog-pct{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--clay)}
 
-/* ─ SORU TABLOSU ─ */
-.cat{margin-top:14px;border-radius:var(--r);overflow:hidden;box-shadow:var(--s1)}
-.cat-hd{background:var(--white);border-bottom:1px solid var(--bdr);padding:12px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
-.cat-hd-in{display:flex;align-items:center;gap:10px}
-.cat-dot{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.cat-txt h3{font-family:'Playfair Display',serif;font-size:14px}
-.cat-pill{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;background:var(--bg)}
-
-.qr{display:grid; grid-template-columns:35px 1fr 95px 65px; border-bottom:1px solid var(--bdr); padding:15px 0; align-items:center; position:relative}
+/* ─ SORU TABLOSU (Mükemmel Versiyon) ─ */
+.qr{display:grid; grid-template-columns:35px 1fr 95px 65px; border-bottom:1px solid var(--bdr); padding:15px 0; align-items:center}
 .qr.y{border-left:3px solid var(--grn);background:#f9fdfa}
 .qr.n{border-left:3px solid var(--red);background:#fefafa}
 .qn{font-size:11px;font-weight:700;color:var(--ink-s);text-align:center}
 .qt{font-size:13px;padding:0 5px;line-height:1.4}
 .yn{display:flex;gap:6px;justify-content:center}
-.yb{width:38px;height:38px;border-radius:50%;border:2px solid var(--bdr);background:transparent;cursor:pointer;font-weight:700;transition:0.2s}
+.yb{width:38px;height:38px;border-radius:50%;border:2px solid var(--bdr);background:transparent;cursor:pointer;font-weight:700;font-size:13px}
 .yb.y.s{background:var(--grn);border-color:var(--grn);color:#fff}
 .yb.n.s{background:var(--red);border-color:var(--red);color:#fff}
 .pc{display:flex;justify-content:center}
 .cam-btn{width:44px;height:44px;border-radius:10px;border:2px dashed var(--bdr);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
 .cam-btn.has{border-style:solid;border-color:var(--grn);background:var(--grn-b)}
-.cam-input{display:none !important; visibility: hidden !important} 
+.cam-input{display:none !important; visibility: hidden !important}
 .dc{grid-column:2 / 5; margin-top:10px; padding-right:15px}
 .dc input{width:100%; border:1.5px solid var(--bdr); border-radius:8px; padding:8px 12px; font-size:13px; background:rgba(200,169,126,0.05)}
 .th-wrap{grid-column:2 / 5; display:flex; flex-wrap:wrap; margin-top:5px; padding-left:10px}
 .th-wrap img{width:50px;height:50px;border-radius:6px;object-fit:cover;margin:2px;border:1px solid var(--bdr)}
 
-/* ─ ALT BÖLÜM ─ */
+/* ─ GENEL GÖZLEM KUTUSU ─ */
+.notes-bd textarea {
+  width: 100%;
+  min-height: 100px;
+  border: 1.5px solid var(--bdr);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+  resize: vertical;
+  display: block;
+}
+
+/* ─ MAİL LİSTESİ & BUTONLAR ─ */
 .send-wrap{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .mail-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--s1)}
 .mail-hd{background:#f0ebe3;padding:12px;font-size:10px;font-weight:700;text-transform:uppercase;color:var(--ink-s)}
 .mail-bd{padding:15px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 .chip{background:var(--bg);border:1.5px solid var(--bdr);border-radius:20px;padding:6px 12px;font-size:11.5px;display:flex;align-items:center;gap:10px}
-.chip-del{cursor:pointer;color:var(--red);font-weight:900;font-size:16px}
+.chip-del{cursor:pointer;color:var(--red);font-weight:900;font-size:15px}
 
 .btn-sub-wrap{display:flex;flex-direction:column;gap:10px}
 .btn-row{display:flex;gap:8px}
 .btn-preview{flex:1;background:#fff;color:var(--ink);border:1.5px solid var(--clay);padding:12px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer}
 .btn-sub{background:linear-gradient(160deg,#1e1a16 0%,#2d261e 100%);color:#fff;border:none;border-radius:var(--r);padding:20px;cursor:pointer;box-shadow:var(--s2);display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
 
-/* ─ SUCCESS MODAL ─ */
+/* ─ MODALLER ─ */
+.rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:900;overflow-y:auto;padding:20px 15px}
+.rpt-page.on{display:block}
+.rpt-inner{max-width:600px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:var(--s3)}
+.rpt-hd{background:var(--ink);color:#fff;padding:25px;border-radius:15px;margin-bottom:20px;text-align:center}
+.rpt-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:25px}
+.rsc{background:#fff;border:1px solid var(--bdr);padding:20px 10px;text-align:center;border-radius:15px}
+.rpt-bar-bg{height:10px;background:#eee;border-radius:10px;overflow:hidden;margin-top:5px}
+.rpt-bar-fill{height:100%;border-radius:10px;transition:1s width}
+
 .sov{display:none;position:fixed;inset:0;background:rgba(30,26,22,0.85);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
 .sov.on{display:flex}
 .smodal{background:#fff;border-radius:24px;width:90%;max-width:400px;overflow:hidden;box-shadow:var(--s3);text-align:center}
 .sm-hd{background:var(--ink);padding:40px 20px;color:#fff}
 .sm-ft{padding:25px;display:flex;flex-direction:column;gap:12px}
 .btn-large{width:100%; padding:16px; border-radius:14px; border:none; font-weight:700; font-size:15px; cursor:pointer}
-
-.rpt-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:900;overflow-y:auto;padding:20px 15px}
-.rpt-page.on{display:block}
-.rpt-inner{max-width:600px;margin:0 auto;background:#fff;border-radius:20px;padding:30px;box-shadow:var(--s3)}
+.btn-sm-clay{background:var(--clay); color:var(--ink)}
+.btn-sm-ink{background:var(--ink); color:#fff}
 
 .spin-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:3000;align-items:center;justify-content:center;flex-direction:column}
-.spinner{width:40px;height:40px;border:4px solid #fff;border-top-color:var(--clay);border-radius:50%;animation:spin 1s linear infinite}
+.spinner{width:42px;height:42px;border:4px solid rgba(255,255,255,0.3);border-top-color:var(--clay);border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ink);color:#fff;padding:12px 25px;border-radius:50px;transition:0.3s;z-index:4000;font-size:13px;font-weight:700}
 .toast.on{transform:translateX(-50%) translateY(0)}
 
 @media(max-width:600px){
   .mg3{grid-template-columns:1fr}
-  .mg2{grid-template-columns:1fr}
   .send-wrap{grid-template-columns:1fr}
+  .btn-row{flex-direction:column}
 }
 </style>
 </head>
@@ -177,7 +193,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 
   <div class="notes-card">
     <div class="notes-hd">📝 Genel Gözlem & Aksiyon Planı</div>
-    <div class="notes-bd"><textarea id="f-notlar" placeholder="Gözlemler, öneriler, acil aksiyonlar… (En az 20 karakter)" style="min-height:100px; width:100%; border:1.5px solid var(--bdr); border-radius:8px; padding:12px; display:block"></textarea></div>
+    <div class="notes-bd"><textarea id="f-notlar" placeholder="Gözlemler, öneriler, acil aksiyonlar… (En az 20 karakter)"></textarea></div>
   </div>
 
   <div class="send-wrap">
@@ -185,13 +201,13 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
       <div class="mail-hd">✉️ Rapor Gönderilecek Kişiler</div>
       <div class="mail-bd">
         <div class="chips" id="chips"></div>
-        <div style="display:flex; gap:7px"><input type="email" id="mailInp" placeholder="ad@karaca.com" style="flex:1; border:1.5px solid var(--bdr); border-radius:8px; padding:10px"><button onclick="addMail()" style="background:var(--clay); border:none; border-radius:8px; padding:0 15px; cursor:pointer; font-weight:bold">+</button></div>
+        <div style="display:flex; gap:7px"><input type="email" id="mailInp" placeholder="ad@karaca.com"><button onclick="addMail()" style="background:var(--clay); border:none; border-radius:8px; padding:0 15px; cursor:pointer; font-weight:bold">+</button></div>
       </div>
     </div>
     <div class="btn-sub-wrap">
       <div class="btn-row">
         <button class="btn-preview" onclick="showReport()">📊 Raporu Önizle</button>
-        <button class="btn-preview" onclick="if(confirm('Tüm formu temizlemek istediğinize emin misiniz?')) location.reload()" style="color:#777">♻️ Temizle</button>
+        <button class="btn-preview" onclick="if(confirm('Temizlensin mi?')) location.reload()" style="color:#777">♻️ Temizle</button>
       </div>
       <button class="btn-sub" onclick="submitForm()"><span class="bi" style="font-size:24px; margin-bottom:5px">📨</span><span style="font-weight:700">Formu Tamamla & Gönder</span></button>
     </div>
@@ -199,13 +215,13 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 </div>
 
 <div class="rpt-page" id="rptPage"><div class="rpt-inner" id="rptInner"></div></div>
-<div class="sov" id="succOv"><div class="smodal"><div class="sm-hd"><h2>✅ Rapor Gönderildi!</h2><p>Drive ve Sheets kaydı tamamlandı.</p></div><div class="sm-ft"><button class="btn-large" style="background:var(--clay)" onclick="document.getElementById('succOv').classList.remove('on')">Kapat</button><button class="btn-large" style="background:var(--ink); color:#fff" onclick="location.reload()">Yeni Form Oluştur</button></div></div></div>
+<div class="sov" id="succOv"><div class="smodal"><div class="sm-hd"><h2>✅ Rapor Gönderildi!</h2><p>Drive ve Sheets kaydı tamamlandı.</p></div><div class="sm-ft"><button class="btn-large btn-sm-clay" onclick="document.getElementById('succOv').classList.remove('on')">Kapat</button><button class="btn-large btn-sm-ink" onclick="location.reload()">Yeni Form Oluştur</button></div></div></div>
 <div class="spin-ov" id="spinOv"><div class="spinner"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const CONFIG = {
-  sheets_url: 'https://script.google.com/macros/s/AKfycbz2MsSCMqK5mkCV_abrb9nQA1fUTGfNQS4ZJgOckTCKUNR6byeZPLFgCB_-wbA7rZ3m/exec',
+  sheets_url: 'https://script.google.com/macros/s/AKfycbxYyyLw4rFsbP5lSDPDBwXwEAPCEWEYjccYFU-vcVaEwEq4xz4k9Z86Xga9p6UezTRm/exec',
   default_mails: [{a:'aydin.eroglu@karaca.com'}, {a:'operasyon@karaca.com'}]
 };
 
@@ -229,7 +245,7 @@ function render(){
         <div class="qn">${i+1}</div><div class="qt">${q.t}</div>
         <div class="yn"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div>
         <div class="pc"><div class="cam-btn" id="cb-${qid}" onclick="triggerCam('${qid}')">📷</div><input type="file" class="cam-input" id="fi-${qid}" accept="image/*" capture="environment" onchange="addPhoto(this,'${qid}')"></div>
-        <div class="dc"><input type="text" placeholder="Açıklama zorunlu..." oninput="DESC['${qid}']=this.value"></div>
+        <div class="dc"><input type="text" placeholder="Açıklama..." oninput="DESC['${qid}']=this.value"></div>
         <div id="th-${qid}" class="th-wrap"></div>
       </div>`;
     });
@@ -289,7 +305,7 @@ async function submitForm(){
 async function saveToSheets() {
   const sc = []; CATS.forEach(cat => { cat.questions.forEach((q, i) => { sc.push({ soru: q.t, cevap: ANS[cat.id+'-'+i] === 'yes' ? 'EVET' : 'HAYIR', not: DESC[cat.id+'-'+i] || '' }); }); });
   const st = calcStats();
-  const payload = { tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag-mudur'), sira: v('f-sira'), aySira: v('f-ay-sira'), total: 10, evet: st.yesN, hayir: st.noN, pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'), catStats: CATS.map(c => ({ title: c.title, u: Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100) })), soruCevaplar: sc };
+  const payload = { tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag_mudur'), sira: v('f-sira'), aySira: v('f-ay-sira'), total: 10, evet: st.yesN, hayir: st.noN, pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'), catStats: CATS.map(c => ({ title: c.title, u: Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100) })), soruCevaplar: sc };
   try { await fetch(CONFIG.sheets_url, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) }); } catch (e) {}
 }
 
@@ -297,10 +313,11 @@ function calcStats(){ var y=Object.values(ANS).filter(a=>a==='yes').length, n=Ob
 
 function showReport(){
   const st = calcStats();
-  const cr = CATS.map(c => { var pct = Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100)||0; return `<div style="margin-bottom:10px"><div style="display:flex; justify-content:space-between; font-size:12px"><b>${c.title}</b><span>%${pct}</span></div><div class="rpt-bar-bg"><div class="rpt-bar-fill" style="width:${pct}%; background:${pct>=80?'#3d7a5a':pct>=50?'#c8a97e':'#b84040'}"></div></div></div>`; }).join('');
-  document.getElementById('rptInner').innerHTML = `<div class="rpt-hd"><h2>Rapor Özeti</h2><p>${v('f-magaza')}<br>${v('f-mudur')} | ${v('f-tarih')}</p></div><div class="rpt-scores"><div class="rsc"><b>${st.yesN}</b><br><small>Evet</small></div><div class="rsc"><b>${st.noN}</b><br><small>Hayır</small></div><div class="rsc"><b>%${st.uyum}</b><br><small>Uyum</small></div></div>${cr}<button class="btn-sub" style="margin-top:20px; padding:10px; height:auto; min-height:0" onclick="document.getElementById('rptPage').classList.remove('on')">Raporu Kapat</button>`;
+  const cr = CATS.map(c => { var pct = Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100)||0; return `<div style="margin-bottom:12px"><div style="display:flex; justify-content:space-between; font-size:12px"><b>${c.title}</b><span>%${pct}</span></div><div class="rpt-bar-bg"><div class="rpt-bar-fill" style="width:${pct}%; background:${pct>=80?'#3d7a5a':pct>=50?'#c8a97e':'#b84040'}"></div></div></div>`; }).join('');
+  document.getElementById('rptInner').innerHTML = `<div class="rpt-hd"><h2>Checklist Özeti</h2><p>${v('f-magaza')}<br>${v('f-mudur')} | ${v('f-tarih')}</p></div><div class="rpt-scores"><div class="rsc"><b>${st.yesN}</b><br><small>Evet</small></div><div class="rsc"><b>${st.noN}</b><br><small>Hayır</small></div><div class="rsc"><b>%${st.uyum}</b><br><small>Uyum</small></div></div>${cr}<button class="btn-sub" style="margin-top:20px; padding:12px; height:auto; min-height:0" onclick="closeReport()">Raporu Kapat</button>`;
   document.getElementById('rptPage').classList.add('on');
 }
+function closeReport(){ document.getElementById('rptPage').classList.remove('on'); }
 
 function updateDateTime(){ 
     var n=new Date(); 
