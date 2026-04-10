@@ -303,10 +303,41 @@ async function submitForm(){
 }
 
 async function saveToSheets() {
-  const sc = []; CATS.forEach(cat => { cat.questions.forEach((q, i) => { sc.push({ soru: q.t, cevap: ANS[cat.id+'-'+i] === 'yes' ? 'EVET' : 'HAYIR', not: DESC[cat.id+'-'+i] || '' }); }); });
   const st = calcStats();
-  const payload = { tarih: v('f-tarih'), mudur: v('f-mudur'), magaza: v('f-magaza'), mag_mudur: v('f-mag_mudur'), sira: v('f-sira'), aySira: v('f-ay-sira'), total: 10, evet: st.yesN, hayir: st.noN, pct: st.pct, uyum: st.uyum, notlar: v('f-notlar'), catStats: CATS.map(c => ({ title: c.title, u: Math.round(c.questions.filter((_,i)=>ANS[c.id+'-'+i]==='yes').length / c.questions.length * 100) })), soruCevaplar: sc };
-  try { await fetch(CONFIG.sheets_url, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) }); } catch (e) {}
+  
+  // Kategori detaylarını Sheet'teki M sütunu için metne dönüştür
+  const kategoriDetaylari = CATS.map(c => {
+    const qCount = c.questions.length;
+    const yesCount = c.questions.filter((_, i) => ANS[c.id + '-' + i] === 'yes').length;
+    const pct = Math.round((yesCount / qCount) * 100);
+    return `${c.title}: %${pct}`;
+  }).join(' | ');
+
+  // Apps Script'teki data.XXXX isimleriyle birebir aynı olmalı
+  const payload = {
+    tarih: v('f-tarih'),
+    bolgeMuduru: v('f-mudur'),
+    magaza: v('f-magaza'),
+    magazaMuduru: v('f-mag-mudur'),
+    aylikZiyaret: v('f-ay-sira'),
+    yillikZiyaret: v('f-sira'),
+    evet: st.yesN,
+    hayir: st.noN,
+    uyum: st.uyum,
+    notlar: v('f-notlar'),
+    kategoriDetay: kategoriDetaylari // Kategori yüzdelerini metin olarak gönderiyoruz
+  };
+
+  try {
+    await fetch(CONFIG.sheets_url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch (e) {
+    console.error("Hata:", e);
+  }
 }
 
 function calcStats(){ var y=Object.values(ANS).filter(a=>a==='yes').length, n=Object.values(ANS).filter(a=>a==='no').length; return {yesN:y, noN:n, pct:Math.round(Object.keys(ANS).length*10), uyum:Math.round(y/(y+n)*100)||0}; }
