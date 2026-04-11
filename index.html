@@ -312,7 +312,7 @@ function showAlert(title, msg, icon, type){
 function confirmReset(){ showAlert("Formu Temizle","Tüm verileriniz silinecek?","♻️","confirm"); }
 
 async function submitForm(){
-    if(!v('f-mudur') || !v('f-magaza')) { showAlert("Hata","Müdür ve Mağaza seçiniz!","❌"); return; }
+    if(!v('f-mudur') || !v('f-magaza') || !v('f-mag-mudur')) { showAlert("Hata","Müdür, Mağaza ve Mağaza Müdürü seçiniz!","❌"); return; }
     if(Object.keys(ANS).length < TOTAL_QUESTIONS) { showAlert("Hata","Tüm soruları yanıtlayın!","📝"); return; }
     if(v('f-notlar').length < 10) { showAlert("Hata","Gözlem notu çok kısa!","✍️"); return; }
 
