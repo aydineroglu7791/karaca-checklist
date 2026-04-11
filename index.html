@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Mağaza Ziyaret Checklist v6.1</title>
+<title>Karaca Mağaza Ziyaret Checklist v6.2</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -26,14 +26,14 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 
 /* CARDS */
 .card{background:var(--white);border-radius:var(--r);box-shadow:var(--s2);overflow:hidden;margin-top:25px;border:1px solid rgba(0,0,0,0.03)}
-.card-hd{background:#2d261e;padding:20px 25px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.card-hd{background:#2d261e;padding:18px 25px;color:#fff;display:flex;align-items:center;justify-content:space-between}
 .card-hd h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:600}
 .card-body{padding:20px}
 
 /* FORM FIELDS */
 .fld-row{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px}
 .fld label{font-size:10px;font-weight:900;color:var(--ink-s);text-transform:uppercase;display:block;margin-bottom:5px}
-.fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:10px;padding:12px;font-size:14px;width:100%;outline:none;background:#fafafa}
+.fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:10px;padding:12px;font-size:14px;width:100%;outline:none;background:#fafafa;font-family:inherit}
 
 /* SEARCHABLE DROP */
 .sdrop{position:relative}
@@ -53,7 +53,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .q-metin{font-size:16px;font-weight:700;color:#222;margin-bottom:15px;display:flex;gap:10px}
 .q-num{color:var(--clay);font-family:'Playfair Display',serif}
 .q-aksiyon{display:flex;align-items:center;gap:15px;margin-bottom:15px}
-.yb-group{display:flex;gap:8px;background:#f0f0f0;padding:5px;border-radius:40px}
+.yb-group{display:flex;gap:8px;background:#f0f0f0;padding:4px;border-radius:40px}
 .yb{width:42px;height:42px;border-radius:50%;border:none;background:#fff;cursor:pointer;font-weight:900;font-size:15px;box-shadow:0 2px 5px rgba(0,0,0,0.05);transition:0.2s;color:#555}
 .yb.y.s{background:var(--grn);color:#fff}
 .yb.n.s{background:var(--red);color:#fff}
@@ -61,12 +61,14 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .cam-btn.has{background:var(--clay-l);border-style:solid;color:var(--clay-d)}
 .q-not-alanı input{width:100%;border:1px solid #e0e0e0;border-radius:10px;padding:12px 15px;font-size:14px;background:#f8f8f8;outline:none}
 
-/* FOOTER BUTTONS ( Premium Düzeltme ) */
+.qr.y{border-left:6px solid var(--grn);background:#fafffb}
+.qr.n{border-left:6px solid var(--red);background:#fffafa}
+
+/* FOOTER BUTTONS */
 .actions{margin-top:30px;display:grid;gap:12px}
 .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .btn-sec{background:#fff;border:2px solid var(--clay);color:var(--ink);padding:18px;border-radius:12px;font-weight:700;cursor:pointer; font-size: 14px;}
 .btn-pri{background:linear-gradient(160deg,#1e1a16, #3a332c); color:#fff; border:none; border-radius:16px; padding:22px; font-weight:700; font-size:17px; cursor:pointer; box-shadow:var(--s2); width:100%; transition: 0.3s;}
-.btn-pri:active { transform: scale(0.98); }
 
 /* MODALS */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
@@ -108,7 +110,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
                     <input type="text" id="f-magaza-display" class="sdrop-input" placeholder="Mağaza ara..." readonly onclick="toggleDrop()">
                     <input type="hidden" id="f-magaza">
                     <div id="sdrop-panel" class="sdrop-panel">
-                        <input type="text" id="sdrop-search" placeholder="Listede ara..." oninput="filterMagaza()" style="margin-bottom:10px;width:100%;padding:10px;border:1px solid #ddd">
+                        <input type="text" id="sdrop-search" placeholder="Listede ara..." oninput="filterMagaza()" style="margin-bottom:10px;width:100%;padding:10px;border-radius:8px;border:1px solid #ddd">
                         <div id="sdrop-list"></div>
                     </div>
                 </div>
@@ -178,7 +180,7 @@ const MAG_LIST = ["ADA.ADANACADDE-CONT.KRC.2025", "AMS.AMASYA.CADDE.KRC.2025", "
 
 const CATS = [
     {id:'c1', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[{t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?'},{t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor)'},{t:'Mağaza içi depolama alanları düzenli mi?'},{t:'Kasa bölgesi temiz ve düzenli mi?'},{t:'Mağazada yeterli sarf malzeme mevcut mu?'}]},
-    {id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı?'},{t:'Para yatırma şirket prosedürüne uygun mu?'},{t:'Masraflar BM onaylı mı?'},{t:'Sevkiyat kabulü yapılmış mı?'},{t:'Transfer irsaliyeleri imzalı mı?'}]}
+    {id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı?'},{t:'Para yatırma şirket prosedürüne uygun mu?'},{t:'Masraflar BM onaylı mı?'},{t:'Sevkiyat kabulü ve irsaliyeler düzenli mi?'},{t:'Mağazalar arası transfer evrakları imzalı mı?'}]}
 ];
 
 var ANS={}, DESC={}, PHOTOS={};
@@ -322,8 +324,10 @@ async function submitForm(){
 
     try {
         await fetch(CONFIG.url, { method:'POST', mode:'no-cors', body:JSON.stringify(payload) });
-        showAlert("Başarılı","Rapor başarıyla gönderildi!","✅");
-        setTimeout(() => location.reload(), 3000);
+        // --- BURASI GÜNCELLENDİ ---
+        document.getElementById('spinOv').style.display='none'; // Önce spinner'ı kapat
+        showAlert("Form Gönderildi","Ziyaret raporunuz başarıyla sisteme kaydedilmiştir!","✅");
+        setTimeout(() => location.reload(), 3500); // Kullanıcı mesajı okusun diye 3.5 sn bekle
     } catch(e) { 
         document.getElementById('spinOv').style.display='none';
         showAlert("Hata","Gönderim hatası!","🌐");
