@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Ziyaret Checklist v5.5</title>
+<title>Karaca Mağaza Ziyaret Checklist v6.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -15,7 +15,7 @@
   --s2:0 8px 30px rgba(30,26,22,.12);--r:16px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:120px;line-height:1.5}
+body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:140px;line-height:1.5}
 
 /* HEADER */
 .hdr{background:var(--ink);padding:40px 20px;color:#fff;border-bottom:5px solid var(--clay);text-align:center}
@@ -33,7 +33,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 /* FORM FIELDS */
 .fld-row{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px}
 .fld label{font-size:10px;font-weight:900;color:var(--ink-s);text-transform:uppercase;display:block;margin-bottom:5px}
-.fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:10px;padding:12px;font-size:14px;width:100%;outline:none;background:#fafafa}
+.fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:10px;padding:12px;font-size:14px;width:100%;outline:none;background:#fafafa;font-family:inherit}
 
 /* SEARCHABLE DROP */
 .sdrop{position:relative}
@@ -54,12 +54,12 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .q-num{color:var(--clay);font-family:'Playfair Display',serif}
 
 .q-aksiyon{display:flex;align-items:center;gap:15px;margin-bottom:15px}
-.yb-group{display:flex;gap:8px;background:#f0f0f0;padding:5px;border-radius:40px}
-.yb{width:50px;height:50px;border-radius:50%;border:none;background:#fff;cursor:pointer;font-weight:900;font-size:16px;box-shadow:0 2px 5px rgba(0,0,0,0.05);transition:0.2s}
+.yb-group{display:flex;gap:8px;background:#f0f0f0;padding:4px;border-radius:40px}
+.yb{width:42px;height:42px;border-radius:50%;border:none;background:#fff;cursor:pointer;font-weight:900;font-size:15px;box-shadow:0 2px 5px rgba(0,0,0,0.05);transition:0.2s;color:#555}
 .yb.y.s{background:var(--grn);color:#fff}
 .yb.n.s{background:var(--red);color:#fff}
 
-.cam-btn{width:50px;height:50px;border-radius:12px;border:2px dashed var(--bdr);background:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer}
+.cam-btn{width:44px;height:44px;border-radius:10px;border:2px dashed var(--bdr);background:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
 .cam-btn.has{background:var(--clay-l);border-style:solid;color:var(--clay-d)}
 
 .q-not-alanı input{width:100%;border:1px solid #e0e0e0;border-radius:10px;padding:12px 15px;font-size:14px;background:#f8f8f8;outline:none}
@@ -104,7 +104,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
                 <label>Bölge Müdürü</label>
                 <select id="f-mudur" onchange="hesaplaSira()">
                     <option value="">-- Seçiniz --</option>
-                    <option>AYDIN EROĞLU</option><option>BAHRETTİN BAŞAR</option><option>ENİS NACİ DUĞAN</option><option>ERMAN KARAKAYA</option><option>FERHAT GENCER</option><option>HASAN AYDIN</option><option>HÜSEYİN ÖZDEMİR</option><option>MURAT TİRYAKİ</option><option>NİYAZİ KUZAN</option><option>OSMAN ASKER</option><option>SEDAT AYGÜN</option><option>SERPİL DURAN</option><option>TANER DURAK</option><option>TANER PEHLİVAN</option><option>ŞÜKRÜ ALPER ERGÜN</option>
+                    <option>AYDIN EROĞLU</option><option>BAHRETTİN BAŞAR</option><option>BAYRAM ERCAN KARINDAŞ</option><option>ENİS NACİ DUĞAN</option><option>ERMAN KARAKAYA</option><option>FERHAT GENCER</option><option>HASAN AYDIN</option><option>HÜSEYİN ÖZDEMİR</option><option>MURAT TİRYAKİ</option><option>NİYAZİ KUZAN</option><option>OSMAN ASKER</option><option>SEDAT AYGÜN</option><option>SERPİL DURAN</option><option>TANER DURAK</option><option>TANER PEHLİVAN</option><option>ŞÜKRÜ ALPER ERGÜN</option>
                 </select>
             </div>
             <div class="fld">
@@ -139,10 +139,10 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     <!-- 3. SORULAR -->
     <div id="catWrap"></div>
 
-    <!-- 4. NOTLAR -->
+    <!-- 4. NOTLAR (Tam Genişlikte Düzeltildi) -->
     <div class="card" style="padding:20px">
-        <label style="font-size:11px;font-weight:900;color:var(--ink-s);text-transform:uppercase;margin-bottom:10px;display:block">Genel Gözlem & Aksiyon Planı</label>
-        <textarea id="f-notlar" rows="5" placeholder="En az 20 karakter..."></textarea>
+        <label style="font-size:11px;font-weight:900;color:var(--ink-s);text-transform:uppercase;margin-bottom:10px;display:block;letter-spacing:1px">Genel Gözlem & Aksiyon Planı</label>
+        <textarea id="f-notlar" rows="6" placeholder="Mağaza hakkındaki genel görüşlerinizi buraya yazınız (Min. 20 karakter)..." style="width:100%; border:1px solid var(--bdr); border-radius:12px; padding:15px; font-size:15px; background:#fafafa; resize:none;"></textarea>
     </div>
 
     <!-- 5. BUTONLAR -->
@@ -151,7 +151,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
             <button class="btn-sec" onclick="showPreview()">📊 Rapor Önizle</button>
             <button class="btn-sec" onclick="confirmReset()" style="color:#999;border-color:#ddd">♻️ Temizle</button>
         </div>
-        <button class="btn-pri" onclick="submitForm()">📨 Formu Tamamla ve Gönder</button>
+        <button class="btn-primary" onclick="submitForm()">📨 Formu Tamamla ve Gönder</button>
     </div>
 </div>
 
@@ -160,7 +160,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     <div class="m-box">
         <div class="m-hd"><h2>Önizleme</h2></div>
         <div class="m-bd" id="m-content"></div>
-        <div class="m-ft"><button class="btn-pri" style="width:100%" onclick="closeModal('modalPreview')">Kapat</button></div>
+        <div class="m-ft"><button class="btn-primary" style="width:100%" onclick="closeModal('modalPreview')">Kapat</button></div>
     </div>
 </div>
 
@@ -175,7 +175,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     </div>
 </div>
 
-<div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px">İŞLENİYOR...</p></div>
+<div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px; font-weight:700">İŞLENİYOR...</p></div>
 
 <script>
 const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbw4vgnnIztpsqVUR1nt7TTXv9rUrEhWOISspvMZOJAPKibLUkexGoffi8kxe46O0ADQ/exec' };
@@ -184,7 +184,7 @@ const MAG_LIST = ["ADA.ADANACADDE-CONT.KRC.2025", "AMS.AMASYA.CADDE.KRC.2025", "
 
 const CATS = [
     {id:'c1', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[{t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?'},{t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor)'},{t:'Mağaza içi depolama alanları düzenli mi?'},{t:'Kasa bölgesi temiz ve düzenli mi?'},{t:'Mağazada yeterli sarf malzeme mevcut mu?'}]},
-    {id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı?'},{t:'Para yatırma şirket prosedürüne uygun mu?'},{t:'Masraflar BM onaylı mı?'},{t:'Sevkiyat kabulü yapılmış mı?'},{t:'Transfer irsaliyeleri imzalı mı?'}]}
+    {id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı?'},{t:'Para yatırma şirket prosedürüne uygun mu?'},{t:'Masraflar BM onaylı mı?'},{t:'Sevkiyat kabulü ve irsaliyeler düzenli mi?'},{t:'Mağazalar arası transfer evrakları imzalı mı?'}]}
 ];
 
 var ANS={}, DESC={}, PHOTOS={};
@@ -211,7 +211,7 @@ function renderQuestions() {
                 </div>
                 <div class="q-not-alanı">
                     <input type="text" placeholder="Açıklama/Not ekleyin..." oninput="DESC['${qid}']=this.value">
-                    <div id="th-${qid}" style="display:flex;gap:5px;margin-top:10px;flex-wrap:wrap"></div>
+                    <div id="th-${qid}" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"></div>
                 </div>
             </div>`;
         });
@@ -246,7 +246,7 @@ function handlePhoto(inp, qid){
             let b64 = cv.toDataURL('image/jpeg', 0.7);
             PHOTOS[qid].push(b64);
             document.getElementById(`cb-${qid}`).classList.add('has');
-            document.getElementById(`th-${qid}`).innerHTML += `<img src="${b64}" style="width:60px;height:60px;object-fit:cover;border-radius:8px">`;
+            document.getElementById(`th-${qid}`).innerHTML += `<img src="${b64}" style="width:65px;height:65px;object-fit:cover;border-radius:10px; border:1px solid #ddd">`;
         };
         img.src = e.target.result;
     };
@@ -294,16 +294,16 @@ function showAlert(title, msg, icon, type){
 function confirmReset(){ showAlert("Formu Temizle","Tüm verileriniz silinecek?","♻️","confirm"); }
 
 async function submitForm(){
-    if(!v('f-mudur') || !v('f-magaza')) { showAlert("Hata","Müdür ve Mağaza seçiniz!","❌"); return; }
-    if(Object.keys(ANS).length < 10) { showAlert("Hata","Tüm soruları yanıtlayın!","📝"); return; }
-    if(v('f-notlar').length < 20) { showAlert("Hata","Gözlem notu çok kısa!","✍️"); return; }
+    if(!v('f-mudur') || !v('f-magaza')) { showAlert("Eksik Bilgi","Müdür ve Mağaza seçiniz!","❌"); return; }
+    if(Object.keys(ANS).length < 10) { showAlert("Eksik Cevap","Tüm maddeleri yanıtlayın!","📝"); return; }
+    if(v('f-notlar').length < 20) { showAlert("Notlar Kısa","Gözlem notunuz en az 20 karakter olmalı!","✍️"); return; }
 
     for(let qid in ANS){
         if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){
-            showAlert("Hata","'Evet' için fotoğraf zorunlu!","📸"); return;
+            showAlert("Eksik Fotoğraf","'Evet' cevabı verdiğiniz maddeler için fotoğraf çekmelisiniz.","📸"); return;
         }
         if(ANS[qid]==='no' && (!DESC[qid] || DESC[qid].length < 3)){
-            showAlert("Hata","'Hayır' için açıklama zorunlu!","⚠️"); return;
+            showAlert("Eksik Açıklama","'Hayır' cevabı verdiğiniz maddeler için açıklama girmelisiniz.","⚠️"); return;
         }
     }
 
@@ -328,11 +328,11 @@ async function submitForm(){
 
     try {
         await fetch(CONFIG.url, { method:'POST', mode:'no-cors', body:JSON.stringify(payload) });
-        showAlert("Başarılı","Rapor başarıyla gönderildi!","✅");
-        setTimeout(() => location.reload(), 3000);
+        showAlert("Başarılı","Rapor kaydedildi, PDF oluşturuldu ve mail gönderildi!","✅");
+        setTimeout(() => location.reload(), 3500);
     } catch(e) { 
         document.getElementById('spinOv').style.display='none';
-        showAlert("Hata","Gönderim hatası!","🌐");
+        showAlert("Hata","Bağlantı sorunu oluştu!","🌐");
     }
 }
 
@@ -343,7 +343,17 @@ function calcStats(){
 
 function showPreview(){
     let st = calcStats();
-    let html = `<div style="text-align:center;margin-bottom:20px"><h1 style="color:var(--clay)">%${st.uyum} Uyum</h1><p>${st.yes} Evet / ${st.no} Hayır</p></div><div style="font-size:14px"><b>Mağaza:</b> ${v('f-magaza')}<br><b>Müdür:</b> ${v('f-mudur')}</div>`;
+    let n = new Date();
+    let html = `
+    <div style="border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:15px; text-align:center">
+        <h2 style="color:var(--clay); font-size:24px">%${st.uyum} Uyum</h2>
+        <p style="color:#666">${st.yes} Evet / ${st.no} Hayır</p>
+    </div>
+    <div style="font-size:14px; line-height:1.6">
+        <b>Müdür:</b> ${v('f-mudur')}<br>
+        <b>Mağaza:</b> ${document.getElementById('f-magaza-display').value}<br>
+        <b>Notlar:</b> ${v('f-notlar')}
+    </div>`;
     document.getElementById('m-content').innerHTML = html;
     document.getElementById('modalPreview').classList.add('on');
 }
