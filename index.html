@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Mağaza Ziyaret Checklist v6.3 - Test</title>
+<title>Karaca Mağaza Ziyaret Checklist v6.4</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -28,7 +28,6 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .card{background:var(--white);border-radius:var(--r);box-shadow:var(--s2);overflow:hidden;margin-top:25px;border:1px solid rgba(0,0,0,0.03)}
 .card-hd{background:#2d261e;padding:20px 25px;color:#fff;display:flex;align-items:center;justify-content:space-between}
 .card-hd h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:600}
-.card-body{padding:20px}
 
 /* FORM FIELDS */
 .fld-row{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px}
@@ -50,7 +49,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 
 /* QUESTION ROW */
 .qr{padding:25px 15px;border-bottom:1.5px solid #f0f0f0;transition:0.3s}
-.q-metin{font-size:16px;font-weight:700;color:#222;margin-bottom:15px;display:flex;gap:10px}
+.q-metin{font-size:15px;font-weight:700;color:#222;margin-bottom:15px;display:flex;gap:10px}
 .q-num{color:var(--clay);font-family:'Playfair Display',serif}
 .q-aksiyon{display:flex;align-items:center;gap:15px;margin-bottom:15px}
 .yb-group{display:flex;gap:8px;background:#f0f0f0;padding:4px;border-radius:40px}
@@ -94,7 +93,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 </header>
 
 <div class="W">
-    <!-- 1. BILGILER -->
+    <!-- BILGILER -->
     <div class="card" style="padding:20px">
         <div class="fld-row">
             <div class="fld">
@@ -117,7 +116,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
             </div>
         </div>
         <div class="fld-row">
-            <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Ad Soyad"></div>
+            <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Ad Soyad Giriniz"></div>
             <div class="fld"><label>Ziyaret Zamanı</label><input type="text" id="f-tarih-full" readonly style="background:#eee"></div>
         </div>
         <div class="fld-row" style="margin-bottom:0">
@@ -130,7 +129,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     <div class="prog-card">
         <div class="prog-pct" id="pPct">%0</div>
         <div class="prog-track"><div class="prog-fill" id="pFill"></div></div>
-        <div style="font-size:14px;font-weight:700" id="ansCnt">0 / 0</div>
+        <div style="font-size:14px;font-weight:700" id="ansCnt">0 / 16</div>
     </div>
 
     <div id="catWrap"></div>
@@ -138,7 +137,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     <!-- NOTLAR -->
     <div class="card" style="padding:20px">
         <label style="font-size:11px;font-weight:900;color:var(--ink-s);text-transform:uppercase;margin-bottom:10px;display:block">Genel Gözlem & Aksiyon Planı</label>
-        <textarea id="f-notlar" rows="6" placeholder="Mağaza hakkındaki görüşleriniz..." style="width:100%; border:1px solid var(--bdr); border-radius:12px; padding:15px; font-size:15px; background:#fafafa; outline:none;"></textarea>
+        <textarea id="f-notlar" rows="6" placeholder="Mağaza hakkındaki genel görüşleriniz..." style="width:100%; border:1px solid var(--bdr); border-radius:12px; padding:15px; font-size:15px; background:#fafafa; outline:none;"></textarea>
     </div>
 
     <!-- BUTONLAR -->
@@ -147,14 +146,14 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
             <button class="btn-sec" onclick="showPreview()">📊 Rapor Önizle</button>
             <button class="btn-sec" onclick="confirmReset()" style="color:#999;border-color:#ddd">♻️ Temizle</button>
         </div>
-        <button class="btn-pri" onclick="submitForm()">📨 Formu Tamamla ve Gönder</button>
+        <button class="btn-pri" id="btnSubmit" onclick="submitForm()">📨 Formu Tamamla ve Gönder</button>
     </div>
 </div>
 
 <!-- MODALS -->
 <div class="modal" id="modalPreview">
     <div class="m-box">
-        <div class="m-hd"><h2>Önizleme</h2></div>
+        <div class="m-hd"><h2>Rapor Önizleme</h2></div>
         <div class="m-bd" id="m-content"></div>
         <div class="m-ft"><button class="btn-pri" style="width:100%; padding:15px;" onclick="closeModal('modalPreview')">Kapat</button></div>
     </div>
@@ -171,77 +170,25 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     </div>
 </div>
 
-<div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px; font-weight:700">KAYDEDİLİYOR...</p></div>
+<div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px; font-weight:700">RAPOR HAZIRLANIYOR...</p></div>
 
 <script>
-const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbw4vgnnIztpsqVUR1nt7TTXv9rUrEhWOISspvMZOJAPKibLUkexGoffi8kxe46O0ADQ/exec' };
+const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbwDeJY8gJKEbNnBQJqmfNOgguoDSJslxZStJxHP117IzSI5h19H4YO-m3tN-fVkSPnZ/exec' };
 
-const MAG_LIST = [
-"ADA.ADANACADDE-CONT.KRC.2025","Ada.Burda Krc.2019","Ada.M1Real Krc.2010","Ada.Optimum Krc.2011","Afy.Afiumoutlet Krc.2017","Afy.Park Krc.2015","AMS.AMASYA.CADDE.KRC.2025","Ank.Acity Krc.2014","Ank.Anatolium Krc.2011","Ank.Ankamall Krc.2011","Ank.Antares Krc.2010","Ank.Cepa Krc.2016","Ank.Forum Krc.2010","Ank.Gordion Krc.2011","Ank.Kuzu Effect Krc.2019","Ank.Metromall Krc.2017","Ank.Optimum Krc.2012","Ank.Podium Krc.2020","Ank.Taurus Krc.2014","Ant.Deepo Krc.2010","Ant.Markantalya Krc.2013","Ant.Migros Krc.2012","Ant.Novada Manavgat Krc.2016","Ant.Terracity Krc.2017","Ayd.Forum Krc.2010","AYD.OPSMALL.KRC.2024","BLK.AYVALIK MARINA KRC.2024","Blk.Burda Krc.2018","Blk.Novada Edremit Krc.2015","Blu.Burda Krc.2015","BRS.ANATOLIUM CONTAINER KRC.20","Brs.Downtown Krc.2023","BRS.INEGOL KRC.2024","Brs.Kentmeydanı Krc.2014","Brs.Korupark Krc.2017","Brs.Marka Krc.2017","Brs.Zaferplaza Krc.2017","Btm.Petrol Krc.2021","Ckk.Forum Krc.2015","Cor.Ahlpark Krc.2016","Dıy.Ninovapark Krc.2011","Diy.Ceylan Krc.2019","Diy.Forum Krc.2015","DNZ. BAYRAMYERI KRC.2024","Dnz.Forum Krc.2010","Edr.Bendis Kesan Krc.2016","Edr.Erasta Krc.2017","Edr.Margi Krc.2011","Elz.Elysium Krc.2021","Erc.Park Krc.2015","Erz.Mng Krc.2019","Esk.Espark Krc.2010","Gzt.Forum Krc.2021","Gzt.Sankopark Krc.2010","HTY.ANTAKYA CONTAINER.KRC.2025","Hty.Forbes Iskenderun Krc.2016","Hty.Prime Iskenderun Krc.2011","Isp.Iyaspark.Krc.2023","Ist.Akasya Krc.2014","IST.AKBATI-CONT.KRC.2025","Ist.Arenapark Krc.2011","Ist.Armonipark Krc.2010","Ist.Atirus Krc.2010","Ist.Atlas Sbeylı Krc.2015","Ist.Basınekspres Container Krc","Ist.Buyaka Krc.2015","Ist.Canpark Krc.2014","Ist.Carousel Krc.2011","Ist.Carrefour Maltepe Krc.2012","Ist.Cevahir Krc.2012","IST.CITYS KOZYATAGI.KRC.2025","Ist.Emaar Kadıkoy Krc.2017","Ist.Forum Bpasa Krc.2010","Ist.Galataport Krc.2021","Ist.Hilltown Kyalı Krc.2017","Ist.Historia Fatih Krc.2010","Ist.Istinyepark Krc.2017","Ist.Kalecenter Krc.2014","IST.LIMONUBAHCE.CONT.KRC.2025","Ist.Mallof Krc.2014","Ist.Marina Tuzla Krc.2015","IST.MARMAR-FRM.CONTAINER.KRC.2","Ist.Marpark Krc.2012","Ist.Meydan Krc.2021","Ist.Nautilus Krc.2010","Ist.Olivium Krc.2014","Ist.Optimum Krc.2010","Ist.Özdilek Krc.2014","Ist.Palladium Atasehır Krc.201","Ist.PelicanMall Krc.2010","IST.PENDORYA CONTAINER KRC.202","Ist.Perlavista Krc.2016","Ist.Piazza Maltepe Krc.2018","Ist.Starcity Krc.2014","IST.TEMAWORLD KRC.2024","Ist.Torium Container Krc.2023","Ist.Vadi Krc.2020","Ist.Venezia Krc.2015","Ist.Vialand Krc.2013","Ist.Viaport Container Krc.2022","Izm.Agora Krc.2010","Izm.Forumbornova Krc.2020","Izm.Gaziemir Container Krc.202","Izm.Hilltown K.Yaka Krc.2019","Izm.Istinye Krc.2021","Izm.Mavibahce Krc.2015","Izm.Menemen Krc.2019","Izm.Optimum Krc.2012","Izm.Point Bornova Krc.2015","Izm.Westpark Krc.2018","Kcl.Arasta Krc.2021","Kcl.Burda Krc.2015","Kcl.Gebzecenter Krc.2010","Kcl.Symbol Krc.2015","Khm.Piazza Krc.2013","Kır.Podium Krc.2020","Kny.Kentplaza Krc.2016","Kny.Kulesite Krc.2018","Kny.M1 Real Krc.2010","Kny.Novada Krc.2016","KNY.SELÇUKER.KRC.2025","KRB. KARES KRC.2024","Krk.Burda Luleburgaz Krc.2018","Krn.Karaman Krc.2021","Kst.Kastamall Krc.2021","Kth.Sera Krc.2021","Kys.Forum Krc.2012","Kys.Park Krc.2012","Mgl.Bodrum Avenue Krc.2016","Mlt.Park Krc.2010","Mns.Magnesia Krc.2012","Mrd.Mardian Mall Krc.2021","Mrd.Movapark Krc.2012","Mrs.Carrefour Krc.2012","Mrs.Forum Krc.2010","Mrs.Novada Erdemli Krc.2020","Mrs.Saya Park Krc.2020","Mrs.Tarsus Krc.2012","Nev.Forum Krc.2011","NIG.TEMAPARK.KRC.2025","Ord.Novada Krc.2017","Osm.Park Krc.2011","Riz.Simal Krc.2021","Sak.Agora Krc.2015","Sak.Cadde Krc.2021","Sak.Serdivan Krc.2011","SMS.BULVAR-CONT.KRC.2025","SMS.LOVELETOUTLET.KRC.2025","Sms.Piazza Krc.2013","Sms.Yeşilyurt Krc.2010","Snf.Piazza Krc.2013","Srt.Park Krc.2023","Svs.Park Krc.2016","Tkr.Orion Corlu Krc.2010","Tkr.Tekira Krc.2010","Tkt.Novada Krc.2014","Trb.Forum Krc.2010","VAN. VANMALL KRC.2024","Van.Avm Krc.2015","Yzg.Novada Krc.2016","Zon.Burda Krc.2019"
-];
+const MAG_LIST = ["ADA.ADANACADDE-CONT.KRC.2025","Ada.Burda Krc.2019","Ada.M1Real Krc.2010","Ada.Optimum Krc.2011","Afy.Afiumoutlet Krc.2017","Afy.Park Krc.2015","AMS.AMASYA.CADDE.KRC.2025","Ank.Acity Krc.2014","Ank.Anatolium Krc.2011","Ank.Ankamall Krc.2011","Ank.Antares Krc.2010","Ank.Cepa Krc.2016","Ank.Forum Krc.2010","Ank.Gordion Krc.2011","Ank.Kuzu Effect Krc.2019","Ank.Metromall Krc.2017","Ank.Optimum Krc.2012","Ank.Podium Krc.2020","Ank.Taurus Krc.2014","Ant.Deepo Krc.2010","Ant.Markantalya Krc.2013","Ant.Migros Krc.2012","Ant.Novada Manavgat Krc.2016","Ant.Terracity Krc.2017","Ayd.Forum Krc.2010","AYD.OPSMALL.KRC.2024","BLK.AYVALIK MARINA KRC.2024","Blk.Burda Krc.2018","Blk.Novada Edremit Krc.2015","Blu.Burda Krc.2015","BRS.ANATOLIUM CONTAINER KRC.20","Brs.Downtown Krc.2023","BRS.INEGOL KRC.2024","Brs.Kentmeydanı Krc.2014","Brs.Korupark Krc.2017","Brs.Marka Krc.2017","Brs.Zaferplaza Krc.2017","Btm.Petrol Krc.2021","Ckk.Forum Krc.2015","Cor.Ahlpark Krc.2016","Dıy.Ninovapark Krc.2011","Diy.Ceylan Krc.2019","Diy.Forum Krc.2015","DNZ. BAYRAMYERI KRC.2024","Dnz.Forum Krc.2010","Edr.Bendis Kesan Krc.2016","Edr.Erasta Krc.2017","Edr.Margi Krc.2011","Elz.Elysium Krc.2021","Erc.Park Krc.2015","Erz.Mng Krc.2019","Esk.Espark Krc.2010","Gzt.Forum Krc.2021","Gzt.Sankopark Krc.2010","HTY.ANTAKYA CONTAINER.KRC.2025","Hty.Forbes Iskenderun Krc.2016","Hty.Prime Iskenderun Krc.2011","Isp.Iyaspark.Krc.2023","Ist.Akasya Krc.2014","IST.AKBATI-CONT.KRC.2025","Ist.Arenapark Krc.2011","Ist.Armonipark Krc.2010","Ist.Atirus Krc.2010","Ist.Atlas Sbeylı Krc.2015","Ist.Basınekspres Container Krc","Ist.Buyaka Krc.2015","Ist.Canpark Krc.2014","Ist.Carousel Krc.2011","Ist.Carrefour Maltepe Krc.2012","Ist.Cevahir Krc.2012","IST.CITYS KOZYATAGI.KRC.2025","Ist.Emaar Kadıkoy Krc.2017","Ist.Forum Bpasa Krc.2010","Ist.Galataport Krc.2021","Ist.Hilltown Kyalı Krc.2017","Ist.Historia Fatih Krc.2010","Ist.Istinyepark Krc.2017","Ist.Kalecenter Krc.2014","IST.LIMONUBAHCE.CONT.KRC.2025","Ist.Mallof Krc.2014","Ist.Marina Tuzla Krc.2015","IST.MARMAR-FRM.CONTAINER.KRC.2","Ist.Marpark Krc.2012","Ist.Meydan Krc.2021","Ist.Nautilus Krc.2010","Ist.Olivium Krc.2014","Ist.Optimum Krc.2010","Ist.Özdilek Krc.2014","Ist.Palladium Atasehır Krc.201","Ist.PelicanMall Krc.2010","IST.PENDORYA CONTAINER KRC.202","Ist.Perlavista Krc.2016","Ist.Piazza Maltepe Krc.2018","Ist.Starcity Krc.2014","IST.TEMAWORLD KRC.2024","Ist.Torium Container Krc.2023","Ist.Vadi Krc.2020","Ist.Venezia Krc.2015","Ist.Vialand Krc.2013","Ist.Viaport Container Krc.2022","Izm.Agora Krc.2010","Izm.Forumbornova Krc.2020","Izm.Gaziemir Container Krc.202","Izm.Hilltown K.Yaka Krc.2019","Izm.Istinye Krc.2021","Izm.Mavibahce Krc.2015","Izm.Menemen Krc.2019","Izm.Optimum Krc.2012","Izm.Point Bornova Krc.2015","Izm.Westpark Krc.2018","Kcl.Arasta Krc.2021","Kcl.Burda Krc.2015","Kcl.Gebzecenter Krc.2010","Kcl.Symbol Krc.2015","Khm.Piazza Krc.2013","Kır.Podium Krc.2020","Kny.Kentplaza Krc.2016","Kny.Kulesite Krc.2018","Kny.M1 Real Krc.2010","Kny.Novada Krc.2016","KNY.SELÇUKER.KRC.2025","KRB. KARES KRC.2024","Krk.Burda Luleburgaz Krc.2018","Krn.Karaman Krc.2021","Kst.Kastamall Krc.2021","Kth.Sera Krc.2021","Kys.Forum Krc.2012","Kys.Park Krc.2012","Mgl.Bodrum Avenue Krc.2016","Mlt.Park Krc.2010","Mns.Magnesia Krc.2012","Mrd.Mardian Mall Krc.2021","Mrd.Movapark Krc.2012","Mrs.Carrefour Krc.2012","Mrs.Forum Krc.2010","Mrs.Novada Erdemli Krc.2020","Mrs.Saya Park Krc.2020","Mrs.Tarsus Krc.2012","Nev.Forum Krc.2011","NIG.TEMAPARK.KRC.2025","Ord.Novada Krc.2017","Osm.Park Krc.2011","Riz.Simal Krc.2021","Sak.Agora Krc.2015","Sak.Cadde Krc.2021","Sak.Serdivan Krc.2011","SMS.BULVAR-CONT.KRC.2025","SMS.LOVELETOUTLET.KRC.2025","Sms.Piazza Krc.2013","Sms.Yeşilyurt Krc.2010","Snf.Piazza Krc.2013","Srt.Park Krc.2023","Svs.Park Krc.2016","Tkr.Orion Corlu Krc.2010","Tkr.Tekira Krc.2010","Tkt.Novada Krc.2014","Trb.Forum Krc.2010","VAN. VANMALL KRC.2024","Van.Avm Krc.2015","Yzg.Novada Krc.2016","Zon.Burda Krc.2019"];
 
-// TEST İÇİN 2 KATEGORİ, TOPLAM 4 SORU
 const CATS = [
-    {
-        id:'c1', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', 
-        questions:[
-            {t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?'},
-            {t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)'}
-        ]
-    },
-    {
-        id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', 
-        questions:[
-            {t:'Kasa nakiti tutarlı mı? (Kasa tutanağı eklenecek) Gider pusulaları prosedüre uygun mu?'},
-            {t:'Para yatırma şirket prosedürüne uygun yapılıyor mu?'}
-        ]
-    },
-    {
-        id:'c3', icon:'🚚', title:'Eve Teslim / Servis / İade Süreçleri', 
-        questions:[
-            {t:'Eve teslim iade ekranında bekleyen işlem var mı? (7 günden eski)'},
-            {t:'Eve teslimlerde 2 aydan eski satınalma bekleyen ürün kontrol ve teyidi yapıldı mı?'}
-        ]
-    },
-    {
-        id:'c4', icon:'🤝', title:'Müşteri İlişkileri ve CRM', 
-        questions:[
-            {t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?'},
-            {t:'Ordavo, Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?'}
-        ]
-    },
-    {
-        id:'c5', icon:'👥', title:'Personel ve İletişim', 
-        questions:[
-            {t:'Personel shifte uygun mu? Shift mağaza trafiğine uygun mu?'},
-            {t:'Personel kıyafeti ve yaka kartı tam mı?'}
-        ]
-    },
-    {
-        id:'c6', icon:'✨', title:'Mağaza Yerleşim & Görsel Standartlar', 
-        questions:[
-            {t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı Guide’a uyuyor mu?'},
-            {t:'Teşhirde ayıplı ürün kontrolü yapıldı mı?'}
-        ]
-    },
-    {
-        id:'c7', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', 
-        questions:[
-            {t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı?'},
-            {t:'Mağazanın donanımsal aksamları çalışıyor mu? (Kasa, terminal, bilgisayar vb.)'}
-        ]
-    },
-    {
-        id:'c8', icon:'🏷️', title:'Fiyat, Etiket ve Ürün Kontrolleri', 
-        questions:[
-            {t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu? (100 ürün kontrolü)'},
-            {t:'Sevkiyat doğru teslim alınmış mı? (Son sevkiyattan 10 ürün stok sayımı)'}
-        ]
-    }
+    {id:'c1', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[{t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?'},{t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)'}]},
+    {id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı? (Kasa tutanağı eklenecek) Gider pusulaları prosedüre uygun mu?'},{t:'Para yatırma şirket prosedürüne uygun yapılıyor mu?'}]},
+    {id:'c3', icon:'🚚', title:'Eve Teslim / Servis / İade Süreçleri', questions:[{t:'Eve teslim iade ekranında bekleyen işlem var mı? (7 günden eski)'},{t:'Eve teslimlerde 2 aydan eski satınalma bekleyen ürün kontrol ve teyidi yapıldı mı?'}]},
+    {id:'c4', icon:'🤝', title:'Müşteri İlişkileri ve CRM', questions:[{t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?'},{t:'Ordavo, Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?'}]},
+    {id:'c5', icon:'👥', title:'Personel ve İletişim', questions:[{t:'Personel shifte uygun mu? Shift mağaza trafiğine uygun mu?'},{t:'Personel kıyafeti ve yaka kartı tam mı?'}]},
+    {id:'c6', icon:'✨', title:'Mağaza Yerleşim & Görsel Standartlar', questions:[{t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı Guide’a uyuyor mu?'},{t:'Teşhirde ayıplı ürün kontrolü yapıldı mı?'}]},
+    {id:'c7', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[{t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı?'},{t:'Mağazanın donanımsal aksamları çalışıyor mu? (Kasa, terminal vb.)'}]},
+    {id:'c8', icon:'🏷️', title:'Fiyat, Etiket ve Ürün Kontrolleri', questions:[{t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu?'},{t:'Sevkiyat doğru teslim alınmış mı? (Son sevkiyattan 10 ürün stok sayımı)'}]}
 ];
 
 const TOTAL_QUESTIONS = CATS.reduce((acc, cat) => acc + cat.questions.length, 0);
-
 var ANS={}, DESC={}, PHOTOS={};
 
 function init() { renderQuestions(); initMagaza(); updateTime(); updateProg(); }
@@ -265,15 +212,12 @@ function renderQuestions() {
                     <input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')">
                 </div>
                 <div class="q-not-alanı">
-                    <input type="text" placeholder="Açıklama/Not ekleyin..." oninput="DESC['${qid}']=this.value">
+                    <input type="text" placeholder="Not/Açıklama..." oninput="DESC['${qid}']=this.value">
                     <div id="th-${qid}" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"></div>
                 </div>
             </div>`;
         });
-        wrap.innerHTML += `<div class="card">
-            <div class="card-hd"><h2>${cat.icon} ${cat.title}</h2><span id="pill-${cat.id}" style="font-size:12px;opacity:0.8">0/${cat.questions.length}</span></div>
-            ${qRows}
-        </div>`;
+        wrap.innerHTML += `<div class="card"><div class="card-hd"><h2>${cat.icon} ${cat.title}</h2><span id="pill-${cat.id}" style="font-size:12px;opacity:0.8">0/${cat.questions.length}</span></div>${qRows}</div>`;
     });
 }
 
@@ -350,17 +294,13 @@ function showAlert(title, msg, icon, type){
 function confirmReset(){ showAlert("Formu Temizle","Tüm verileriniz silinecek?","♻️","confirm"); }
 
 async function submitForm(){
-    if(!v('f-mudur') || !v('f-magaza') || !v('f-mag-mudur')) { showAlert("Hata","Müdür, Mağaza ve Mağaza Müdürü seçiniz!","❌"); return; }
-    if(Object.keys(ANS).length < TOTAL_QUESTIONS) { showAlert("Hata","Tüm soruları yanıtlayın!","📝"); return; }
-    if(v('f-notlar').length < 10) { showAlert("Hata","Gözlem notu çok kısa!","✍️"); return; }
+    if(!v('f-mudur') || !v('f-magaza') || !v('f-mag-mudur')) { showAlert("Hata","Bölge Müdürü, Mağaza ve Mağaza Müdürü bilgilerini doldurunuz!","❌"); return; }
+    if(Object.keys(ANS).length < TOTAL_QUESTIONS) { showAlert("Hata","Lütfen tüm soruları yanıtlayın!","📝"); return; }
+    if(v('f-notlar').length < 10) { showAlert("Hata","Genel gözlem notu çok kısa!","✍️"); return; }
 
     for(let qid in ANS){
-        if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){
-            showAlert("Hata","'Evet' için fotoğraf zorunlu!","📸"); return;
-        }
-        if(ANS[qid]==='no' && (!DESC[qid] || DESC[qid].length < 3)){
-            showAlert("Hata","'Hayır' için açıklama zorunlu!","⚠️"); return;
-        }
+        if(ANS[qid]==='yes' && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){ showAlert("Hata","'Evet' için fotoğraf zorunlu!","📸"); return; }
+        if(ANS[qid]==='no' && (!DESC[qid] || DESC[qid].length < 3)){ showAlert("Hata","'Hayır' için açıklama zorunlu!","⚠️"); return; }
     }
 
     document.getElementById('spinOv').style.display='flex';
@@ -377,21 +317,19 @@ async function submitForm(){
         evet: st.yes, hayir: st.no, uyum: st.uyum,
         notlar: v('f-notlar'),
         kategoriDetay: CATS.map(c => {
-            let catTotal = c.questions.length;
             let catYes = c.questions.filter((_,i) => ANS[c.id+'-'+i]==='yes').length;
-            let catPct = Math.round((catYes / catTotal) * 100);
-            return `${c.title}: %${catPct}`;
+            return `${c.title}: %${Math.round(catYes/c.questions.length*100)}`;
         }).join(' | ')
     };
 
     try {
         await fetch(CONFIG.url, { method:'POST', mode:'no-cors', body:JSON.stringify(payload) });
         document.getElementById('spinOv').style.display='none';
-        showAlert("Form Gönderildi","Ziyaret raporunuz başarıyla sisteme kaydedilmiştir!","✅");
-        setTimeout(() => location.reload(), 3500);
+        showAlert("Rapor Gönderildi","Ziyaret başarıyla kaydedildi. PDF raporu oluşturulup mail adresinize gönderilmiştir.","✅");
+        setTimeout(() => location.reload(), 4000);
     } catch(e) { 
         document.getElementById('spinOv').style.display='none';
-        showAlert("Hata","Gönderim hatası!","🌐");
+        showAlert("Hata","Bağlantı hatası!","🌐");
     }
 }
 
@@ -402,7 +340,7 @@ function calcStats(){
 
 function showPreview(){
     let st = calcStats();
-    let html = `<div style="text-align:center;margin-bottom:20px"><h1 style="color:var(--clay)">%${st.uyum} Uyum</h1><p>${st.yes} Evet / ${st.no} Hayır</p></div><div style="font-size:14px"><b>Mağaza:</b> ${v('f-magaza')}<br><b>Müdür:</b> ${v('f-mudur')}</div>`;
+    let html = `<div style="text-align:center;margin-bottom:20px"><h1 style="color:var(--clay)">%${st.uyum} Uyum</h1><p>${st.yes} Evet / ${st.no} Hayır</p></div><div style="font-size:14px"><b>Mağaza:</b> ${v('f-magaza')}<br><b>Müdür:</b> ${v('f-mudur')}<br><b>Mağaza Müdürü:</b> ${v('f-mag-mudur')}</div>`;
     document.getElementById('m-content').innerHTML = html;
     document.getElementById('modalPreview').classList.add('on');
 }
