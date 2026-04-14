@@ -183,21 +183,59 @@ const MAG_LIST = [
 // TEST İÇİN 2 KATEGORİ, TOPLAM 4 SORU
 const CATS = [
     {
-        id:'c1', 
-        icon:'🏬', 
-        title:'Mağaza Dış Görünüm ve Genel Alanlar', 
+        id:'c1', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', 
         questions:[
             {t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?'},
-            {t:'Mağaza içi depolama alanları düzenli mi?'}
+            {t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)'}
         ]
     },
     {
-        id:'c2', 
-        icon:'💰', 
-        title:'Kasa, Finans ve Evrak İşlemleri', 
+        id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', 
         questions:[
-            {t:'Kasa nakiti tutarlı mı?'},
-            {t:'Para yatırma şirket prosedürüne uygun mu?'}
+            {t:'Kasa nakiti tutarlı mı? (Kasa tutanağı eklenecek) Gider pusulaları prosedüre uygun mu?'},
+            {t:'Para yatırma şirket prosedürüne uygun yapılıyor mu?'}
+        ]
+    },
+    {
+        id:'c3', icon:'🚚', title:'Eve Teslim / Servis / İade Süreçleri', 
+        questions:[
+            {t:'Eve teslim iade ekranında bekleyen işlem var mı? (7 günden eski)'},
+            {t:'Eve teslimlerde 2 aydan eski satınalma bekleyen ürün kontrol ve teyidi yapıldı mı?'}
+        ]
+    },
+    {
+        id:'c4', icon:'🤝', title:'Müşteri İlişkileri ve CRM', 
+        questions:[
+            {t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?'},
+            {t:'Ordavo, Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?'}
+        ]
+    },
+    {
+        id:'c5', icon:'👥', title:'Personel ve İletişim', 
+        questions:[
+            {t:'Personel shifte uygun mu? Shift mağaza trafiğine uygun mu?'},
+            {t:'Personel kıyafeti ve yaka kartı tam mı?'}
+        ]
+    },
+    {
+        id:'c6', icon:'✨', title:'Mağaza Yerleşim & Görsel Standartlar', 
+        questions:[
+            {t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı Guide’a uyuyor mu?'},
+            {t:'Teşhirde ayıplı ürün kontrolü yapıldı mı?'}
+        ]
+    },
+    {
+        id:'c7', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', 
+        questions:[
+            {t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı?'},
+            {t:'Mağazanın donanımsal aksamları çalışıyor mu? (Kasa, terminal, bilgisayar vb.)'}
+        ]
+    },
+    {
+        id:'c8', icon:'🏷️', title:'Fiyat, Etiket ve Ürün Kontrolleri', 
+        questions:[
+            {t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu? (100 ürün kontrolü)'},
+            {t:'Sevkiyat doğru teslim alınmış mı? (Son sevkiyattan 10 ürün stok sayımı)'}
         ]
     }
 ];
