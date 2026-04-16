@@ -158,10 +158,18 @@ const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbxaKith4behA_NeVs
 
 // PE: Photo on Evet | PH: Photo on Hayır
 const CATS = [
-    {id:'c1', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[
-        {t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı? Mağaza içi aydınlatmalar çalışıyor mu?', pe:true, ph:false},
-        {t:'Mağazada müzik yayını ve koku makinesi çalışıyor mu?', pe:false, ph:false},
-        {t:'Mağazanın donanımsal aksamları çalışıyor mu? (Kasa, terminal, bilgisayar, kiosk, pavo, hızlı kasa, yazıcılar)', pe:false, ph:false}
+     {id:'c5', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[
+        {t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?', pe:true, ph:true},
+        {t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)', pe:true, ph:true},
+        {t:'Mağaza içi ve dışı depolama alanları düzenli mi? Depo standartlara uygun mu?', pe:true, ph:true},
+        {t:'Kasa bölgesi temiz ve düzenli mi? sarf malzemeler yeterli mi?', pe:true, ph:true}
+    ]},
+    {id:'c4', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[
+        {t:'Kasa nakiti tutarlı mı ve Para yatırma şirket prosedürüne uygun yapılıyor mu? (Kasa tutanağı eklenecek) Gider pusulaları prosedüre uygun mu ( GP kontrolü yapılacak )?', pe:true, ph:false},
+        {t:'Mağazanın ay içerisinde manuel iadesi mevcut mu? ( Bölge müdürünün onayı kontrol edilir )', pe:true, ph:false},
+        {t:'Masraflar BM onaylı ve prosedüre uygun işlenmiş mi? (Son ay kontrol edilecek )', pe:true, ph:false},
+        {t:'7 günden eski kabulü yapılmamış sevkiyatlar var mı? İrsaliyeler dosyalanmış mı?', pe:true, ph:false},
+        {t:'Mağazanın hasarlı tazmin tutanakları mevcut mu? Mağazanın reddedilen tazmin kaydı mevcut mu? Evet ise ilgili ürüne stok sayımı yapıldı mı?', pe:true, ph:true}
     ]},
     {id:'c2', icon:'🚚', title:'Eve Teslim / Servis / İade Süreçleri', questions:[
         {t:'Eve teslim iade ekranında bekleyen işlem var mı? (7 günden eski) Eve teslim iade ekran raporundan rastgele 5 ürüne gp kontrolü yapıldı mı?', pe:false, ph:false},
@@ -174,19 +182,6 @@ const CATS = [
         {t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu? ( Kea, Mutfak 10 ar adet, tekli seri 30 adet )', pe:false, ph:true},
         {t:'Sevkiyatlar doğru teslim alınmış mı? (Son sevkiyattan en az 10 ürünün sayımı yapılacak )', pe:false, ph:false}
     ]},
-    {id:'c4', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[
-        {t:'Kasa nakiti tutarlı mı ve Para yatırma şirket prosedürüne uygun yapılıyor mu? (Kasa tutanağı eklenecek) Gider pusulaları prosedüre uygun mu ( GP kontrolü yapılacak )?', pe:true, ph:false},
-        {t:'Mağazanın ay içerisinde manuel iadesi mevcut mu? ( Bölge müdürünün onayı kontrol edilir )', pe:true, ph:false},
-        {t:'Masraflar BM onaylı ve prosedüre uygun işlenmiş mi? (Son ay kontrol edilecek )', pe:true, ph:false},
-        {t:'7 günden eski kabulü yapılmamış sevkiyatlar var mı? İrsaliyeler dosyalanmış mı?', pe:true, ph:false},
-        {t:'Mağazanın hasarlı tazmin tutanakları mevcut mu? Mağazanın reddedilen tazmin kaydı mevcut mu? Evet ise ilgili ürüne stok sayımı yapıldı mı?', pe:true, ph:true}
-    ]},
-    {id:'c5', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[
-        {t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?', pe:true, ph:true},
-        {t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)', pe:true, ph:true},
-        {t:'Mağaza içi ve dışı depolama alanları düzenli mi? Depo standartlara uygun mu?', pe:true, ph:true},
-        {t:'Kasa bölgesi temiz ve düzenli mi? sarf malzemeler yeterli mi?', pe:true, ph:true}
-    ]},
     {id:'c6', icon:'✨', title:'Mağaza Yerleşim & Görsel Standartlar', questions:[
         {t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı gibi uygulanmış mı?', pe:true, ph:true},
         {t:'Kapı girişi ve orta alan Görsel Düzenleme’nin paylaştığı gibi uygulanmış mı?', pe:true, ph:true},
@@ -198,15 +193,21 @@ const CATS = [
         {t:'Mağazadaki alınlık ve lightboxlar güncel mi? Mevcut ürün stantları aktif kullanılıyor mu?', pe:true, ph:true},
         {t:'Teşhirde ayıplı, eksik ürün var mı?', pe:true, ph:true}
     ]},
-    {id:'c7', icon:'🤝', title:'Müşteri İlişkileri ve CRM', questions:[
-        {t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?', pe:false, ph:false},
-        {t:'Ordavo, Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?', pe:false, ph:false}
-    ]},
     {id:'c8', icon:'👥', title:'Personel ve İletişim', questions:[
         {t:'Shift trafiğe uygun yapılmış ve programda olan personeller mağazada mı?', pe:true, ph:true},
         {t:'Personel kıyafeti ve yaka kartı tam mı? Kişisel bakımları tam mı?', pe:true, ph:true},
         {t:'İletişim panosu güncel mi?', pe:true, ph:true}
     ]}
+    {id:'c7', icon:'🤝', title:'Müşteri İlişkileri ve CRM', questions:[
+        {t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?', pe:false, ph:false},
+        {t:'Ordavo, Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?', pe:false, ph:false}
+    ]},
+    {id:'c1', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[
+        {t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı? Mağaza içi aydınlatmalar çalışıyor mu?', pe:true, ph:false},
+        {t:'Mağazada müzik yayını ve koku makinesi çalışıyor mu?', pe:false, ph:false},
+        {t:'Mağazanın donanımsal aksamları çalışıyor mu? (Kasa, terminal, bilgisayar, kiosk, pavo, hızlı kasa, yazıcılar)', pe:false, ph:false}
+    ]},   
+
 ];
 
 const TOTAL_QUESTIONS = 33;
