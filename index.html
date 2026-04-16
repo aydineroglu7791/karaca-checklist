@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Mağaza Ziyaret Checklist v11.0</title>
+<title>Karaca Mağaza Ziyaret Checklist v12.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -158,31 +158,31 @@ const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbxaKith4behA_NeVs
 
 // PE: Photo on Evet | PH: Photo on Hayır
 const CATS = [
-     {id:'c5', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[
+    {id:'c1', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[
         {t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?', pe:true, ph:true},
         {t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)', pe:true, ph:true},
         {t:'Mağaza içi ve dışı depolama alanları düzenli mi? Depo standartlara uygun mu?', pe:true, ph:true},
         {t:'Kasa bölgesi temiz ve düzenli mi? sarf malzemeler yeterli mi?', pe:true, ph:true}
     ]},
-    {id:'c4', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[
+    {id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[
         {t:'Kasa nakiti tutarlı mı ve Para yatırma şirket prosedürüne uygun yapılıyor mu? (Kasa tutanağı eklenecek) Gider pusulaları prosedüre uygun mu ( GP kontrolü yapılacak )?', pe:true, ph:false},
         {t:'Mağazanın ay içerisinde manuel iadesi mevcut mu? ( Bölge müdürünün onayı kontrol edilir )', pe:true, ph:false},
         {t:'Masraflar BM onaylı ve prosedüre uygun işlenmiş mi? (Son ay kontrol edilecek )', pe:true, ph:false},
         {t:'7 günden eski kabulü yapılmamış sevkiyatlar var mı? İrsaliyeler dosyalanmış mı?', pe:true, ph:false},
         {t:'Mağazanın hasarlı tazmin tutanakları mevcut mu? Mağazanın reddedilen tazmin kaydı mevcut mu? Evet ise ilgili ürüne stok sayımı yapıldı mı?', pe:true, ph:true}
     ]},
-    {id:'c2', icon:'🚚', title:'Eve Teslim / Servis / İade Süreçleri', questions:[
+    {id:'c3', icon:'🚚', title:'Eve Teslim / Servis / İade Süreçleri', questions:[
         {t:'Eve teslim iade ekranında bekleyen işlem var mı? (7 günden eski) Eve teslim iade ekran raporundan rastgele 5 ürüne gp kontrolü yapıldı mı?', pe:false, ph:false},
         {t:'Eve teslimlerde 2 aydan eski satınalma bekleyen ürün kontrol ve teyidi yapıldı mı?', pe:false, ph:false},
         {t:'Eve teslim ekranında kargo durumu kontrolü yapılmış ve kayıp ürün için tazmin başlatılmış mı?', pe:false, ph:false},
         {t:'3Se gönderilen ürünlerin teslim belgesi rma detayı ile dosyalanmış mı? Kargoya verilmemiş servis ürünü ve Webden iade alınan hasarlı ürün var mı?', pe:false, ph:false},
         {t:'3S den dönen servis sonucu için gerekli aksiyonlar alındı mı?', pe:false, ph:false}
     ]},
-    {id:'c3', icon:'🏷️', title:'Fiyat, Etiket ve Ürün Kontrolleri', questions:[
+    {id:'c4', icon:'🏷️', title:'Fiyat, Etiket ve Ürün Kontrolleri', questions:[
         {t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu? ( Kea, Mutfak 10 ar adet, tekli seri 30 adet )', pe:false, ph:true},
         {t:'Sevkiyatlar doğru teslim alınmış mı? (Son sevkiyattan en az 10 ürünün sayımı yapılacak )', pe:false, ph:false}
     ]},
-    {id:'c6', icon:'✨', title:'Mağaza Yerleşim & Görsel Standartlar', questions:[
+    {id:'c5', icon:'✨', title:'Mağaza Yerleşim & Görsel Standartlar', questions:[
         {t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı gibi uygulanmış mı?', pe:true, ph:true},
         {t:'Kapı girişi ve orta alan Görsel Düzenleme’nin paylaştığı gibi uygulanmış mı?', pe:true, ph:true},
         {t:'Kasa önü ve T-stant yerleşimi standarda uygun mu?', pe:true, ph:true},
@@ -193,21 +193,20 @@ const CATS = [
         {t:'Mağazadaki alınlık ve lightboxlar güncel mi? Mevcut ürün stantları aktif kullanılıyor mu?', pe:true, ph:true},
         {t:'Teşhirde ayıplı, eksik ürün var mı?', pe:true, ph:true}
     ]},
-    {id:'c8', icon:'👥', title:'Personel ve İletişim', questions:[
+    {id:'c6', icon:'👥', title:'Personel ve İletişim', questions:[
         {t:'Shift trafiğe uygun yapılmış ve programda olan personeller mağazada mı?', pe:true, ph:true},
         {t:'Personel kıyafeti ve yaka kartı tam mı? Kişisel bakımları tam mı?', pe:true, ph:true},
         {t:'İletişim panosu güncel mi?', pe:true, ph:true}
-    ]}
+    ]},
     {id:'c7', icon:'🤝', title:'Müşteri İlişkileri ve CRM', questions:[
         {t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?', pe:false, ph:false},
         {t:'Ordavo, Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?', pe:false, ph:false}
     ]},
-    {id:'c1', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[
+    {id:'c8', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[
         {t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı? Mağaza içi aydınlatmalar çalışıyor mu?', pe:true, ph:false},
         {t:'Mağazada müzik yayını ve koku makinesi çalışıyor mu?', pe:false, ph:false},
         {t:'Mağazanın donanımsal aksamları çalışıyor mu? (Kasa, terminal, bilgisayar, kiosk, pavo, hızlı kasa, yazıcılar)', pe:false, ph:false}
-    ]},   
-
+    ]}
 ];
 
 const TOTAL_QUESTIONS = 33;
@@ -326,7 +325,6 @@ async function submitForm(){
         cat.questions.forEach((q, i) => {
             let qid = cat.id + '-' + i;
             if(ANS[qid] === 'yes') catYes++;
-            // Kategori Bilgisi Eklendi
             detaylar.push({ kategori: cat.title, soru: q.t, cevap: ANS[qid], not: DESC[qid] });
         });
         skolarListesi.push(Math.round(catYes / cat.questions.length * 100));
