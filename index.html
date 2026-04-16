@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Mağaza Ziyaret Checklist v10.0</title>
+<title>Karaca Mağaza Ziyaret Checklist v11.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -23,7 +23,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .hdr h1 b{color:var(--clay);display:block;font-size:32px;letter-spacing:1px}
 .W{max-width:800px;margin:0 auto;padding:0 15px}
 
-/* CARDS & FORMS */
+/* CARDS */
 .card{background:var(--white);border-radius:var(--r);box-shadow:var(--s2);overflow:hidden;margin-top:25px;border:1px solid rgba(0,0,0,0.03)}
 .card-hd{background:#2d261e;padding:20px 25px;color:#fff;display:flex;align-items:center;justify-content:space-between}
 .card-hd h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:600}
@@ -153,10 +153,10 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 <div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px; font-weight:700">İŞLENİYOR...</p></div>
 
 <script>
-// CONFIG: Kendi URL'nizi buraya yapıştırın
-const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbwWmMmAKihv0OOEFAxbn9XT0CkKjYK9QA-2Yfl5AOe_gKT8aiGfVy2AmfUfuVndYl7m/exec' };
+// CONFIG: GÜNCEL URL
+const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbxaKith4behA_NeVsguhUWBBucnmYCvDunEhFN2j_BBVmTjiCS40vyFcn2_V7_aGdIL/exec' };
 
-// PE: Photo on Evet (True/False) | PH: Photo on Hayır (True/False)
+// PE: Photo on Evet | PH: Photo on Hayır
 const CATS = [
     {id:'c1', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[
         {t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı? Mağaza içi aydınlatmalar çalışıyor mu?', pe:true, ph:false},
@@ -221,17 +221,12 @@ function renderQuestions() {
         let qRows = '';
         cat.questions.forEach((q, i) => {
             let qid = cat.id+'-'+i;
-            // Hem Evet hem Hayır foto istiyorsa sabit ibare ekle
             let staticReq = (q.pe && q.ph) ? '<small style="color:var(--red); font-weight:900; margin-left:5px">(📸 Fotoğraf Zorunlu)</small>' : '';
-            
             qRows += `
             <div class="qr" id="r-${qid}">
                 <div class="q-metin"><span class="q-num">${i+1}.</span> <span>${q.t}</span> ${staticReq}</div>
                 <div class="q-aksiyon">
-                    <div class="yb-group">
-                        <button class="yb y" onclick="setA('${qid}','yes')">E</button>
-                        <button class="yb n" onclick="setA('${qid}','no')">H</button>
-                    </div>
+                    <div class="yb-group"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div>
                     <div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div>
                     <input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')">
                     <span id="req-msg-${qid}" class="req-msg">⚠️ 📸 FOTOĞRAF ÇEKİNİZ!</span>
@@ -252,7 +247,6 @@ function setA(qid, v){
     r.classList.remove('y','n'); r.classList.add(v==='yes'?'y':'n');
     r.querySelectorAll('.yb').forEach(b=>b.classList.remove('s'));
     r.querySelector(`.yb.${v==='yes'?'y':'n'}`).classList.add('s');
-    
     checkPhotoRequirement(qid, v);
     updateProg(); updatePills();
 }
@@ -261,14 +255,9 @@ function checkPhotoRequirement(qid, val) {
     const parts = qid.split('-');
     const qObj = CATS.find(c => c.id === parts[0]).questions[parseInt(parts[1])];
     const msg = document.getElementById(`req-msg-${qid}`);
-    
     let needsPhoto = (val==='yes' && qObj.pe) || (val==='no' && qObj.ph);
-    
-    if(needsPhoto && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){
-        msg.style.display = 'inline-block';
-    } else {
-        msg.style.display = 'none';
-    }
+    if(needsPhoto && (!PHOTOS[qid] || PHOTOS[qid].length === 0)) msg.style.display = 'inline-block';
+    else msg.style.display = 'none';
 }
 
 function handlePhoto(inp, qid){
@@ -285,11 +274,8 @@ function handlePhoto(inp, qid){
             if(!PHOTOS[qid]) PHOTOS[qid]=[];
             let b64 = cv.toDataURL('image/jpeg', 0.7);
             PHOTOS[qid].push(b64);
-            
             document.getElementById(`cb-${qid}`).classList.add('has');
             document.getElementById(`th-${qid}`).innerHTML += `<img src="${b64}" style="width:65px;height:65px;object-fit:cover;border-radius:8px; border:1.5px solid var(--clay)">`;
-            
-            // Fotoğraf çekilince uyarıyı kapat
             document.getElementById(`req-msg-${qid}`).style.display = 'none';
         };
         img.src = e.target.result;
@@ -314,26 +300,19 @@ function updatePills(){
 async function submitForm(){
     if(!v('f-mudur') || !v('f-magaza') || !v('f-mag-mudur') || !v('f-emails')) { showAlert("Hata","Müdür, Mağaza ve E-posta alanlarını doldurunuz!","❌"); return; }
     if(Object.keys(ANS).length < TOTAL_QUESTIONS) { showAlert("Hata",`Lütfen ${TOTAL_QUESTIONS} sorunun tamamını yanıtlayın!`,"📝"); return; }
-    if(v('f-notlar').length < 10) { showAlert("Hata","Genel gözlem notu çok kısa (En az 10 karakter)!","✍️"); return; }
+    if(v('f-notlar').length < 10) { showAlert("Hata","Genel gözlem notu çok kısa!","✍️"); return; }
 
-    // DETAYLI KONTROL
     for(let qid in ANS){
         let parts = qid.split('-');
         let catObj = CATS.find(c => c.id === parts[0]);
         let questObj = catObj.questions[parseInt(parts[1])];
-        
-        // 1. Açıklama Kontrolü (Zorunlu)
         if(!DESC[qid] || DESC[qid].trim().length < 2){
             showAlert("Hata",`"${questObj.t}" sorusu için açıklama zorunludur!`,"✍️");
-            document.getElementById(`desc-${qid}`).focus();
-            return;
+            document.getElementById(`desc-${qid}`).focus(); return;
         }
-
-        // 2. Fotoğraf Kontrolü
         let needsPhoto = (ANS[qid]==='yes' && questObj.pe) || (ANS[qid]==='no' && questObj.ph);
         if(needsPhoto && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){
-            showAlert("Hata",`"${questObj.t}" sorusu için fotoğraf zorunludur!`,"📸");
-            return;
+            showAlert("Hata",`"${questObj.t}" sorusu için fotoğraf zorunludur!`,"📸"); return;
         }
     }
 
@@ -346,7 +325,8 @@ async function submitForm(){
         cat.questions.forEach((q, i) => {
             let qid = cat.id + '-' + i;
             if(ANS[qid] === 'yes') catYes++;
-            detaylar.push({ soru: q.t, cevap: ANS[qid], not: DESC[qid] });
+            // Kategori Bilgisi Eklendi
+            detaylar.push({ kategori: cat.title, soru: q.t, cevap: ANS[qid], not: DESC[qid] });
         });
         skolarListesi.push(Math.round(catYes / cat.questions.length * 100));
     });
