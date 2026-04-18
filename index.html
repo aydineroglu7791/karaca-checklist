@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Mağaza Ziyaret Checklist v14.0</title>
+<title>Karaca Mağaza Ziyaret Checklist v15.0-TEST</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -17,25 +17,30 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:140px;line-height:1.5}
 
-.hdr{background:var(--ink);padding:40px 20px;color:#fff;border-bottom:5px solid var(--clay);text-align:center}
-.hdr h1{font-family:'Playfair Display',serif;font-size:24px}
-.hdr h1 b{color:var(--clay);display:block;font-size:32px;letter-spacing:1px}
+/* HEADER */
+.hdr{background:var(--ink);padding:40px 20px;color:#fff;border-bottom:5px solid var(--clay);text-align:center;position:relative}
+.hdr h1{font-family:'Playfair Display',serif;font-size:22px}
+.hdr h1 b{color:var(--clay);display:block;font-size:30px;letter-spacing:1px}
+.ver-tag{position:absolute;top:10px;right:10px;background:var(--clay);color:var(--ink);font-size:10px;padding:3px 8px;border-radius:20px;font-weight:900}
 .W{max-width:800px;margin:0 auto;padding:0 15px}
 
+/* CARDS */
 .card{background:var(--white);border-radius:var(--r);box-shadow:var(--s2);overflow:hidden;margin-top:25px;border:1px solid rgba(0,0,0,0.03)}
-.card-hd{background:#2d261e;padding:20px 25px;color:#fff;display:flex;align-items:center;justify-content:space-between}
-.card-hd h2{font-family:'Playfair Display',serif;font-size:17px;font-weight:600}
+.card-hd{background:#2d261e;padding:18px 25px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.card-hd h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600}
 
 .fld-row{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px}
 .fld label{font-size:10px;font-weight:900;color:var(--ink-s);text-transform:uppercase;display:block;margin-bottom:5px}
 .fld input,.fld select,.fld textarea{border:1.5px solid var(--bdr);border-radius:10px;padding:12px;font-size:14px;width:100%;outline:none;background:#fafafa;font-family:inherit}
 
+/* DROPDOWN */
 .sdrop{position:relative}
 .sdrop-input{cursor:pointer;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7a6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center}
 .sdrop-panel{display:none;position:absolute;top:105%;left:0;right:0;background:#fff;border:1px solid var(--clay);border-radius:12px;box-shadow:var(--s2);z-index:1000;max-height:300px;overflow-y:auto;padding:10px}
 .sdrop-panel.on{display:block}
 .sdrop-item{padding:12px;font-size:13px;border-bottom:1px solid #f0f0f0;cursor:pointer}
 
+/* QUESTION STYLE */
 .qr{padding:25px 15px;border-bottom:1.5px solid #f0f0f0;transition:0.3s}
 .q-metin{font-size:14px;font-weight:700;color:#222;margin-bottom:15px;display:flex;gap:10px;align-items:flex-start}
 .q-num{color:var(--clay);font-family:'Playfair Display',serif}
@@ -54,16 +59,35 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .req-msg{color:var(--red); font-size:11px; font-weight:900; display:none; animation: blink 1s infinite;}
 @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
+/* PHOTO DELETE (X) */
+.th-wrap{position:relative; width:75px; height:75px;}
+.th-wrap img{width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--clay)}
+.del-btn{position:absolute; top:-8px; right:-8px; background:var(--red); color:#fff; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:bold; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2); border:2px solid #fff;}
+
+/* PROGRESS BAR */
 .prog-card{background:#fff;border-radius:15px;padding:20px;display:flex;align-items:center;gap:15px;margin-top:20px;border:1.5px solid var(--clay-l);position:sticky;top:10px;z-index:900}
 .prog-pct{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--clay);min-width:60px}
 .prog-track{flex:1;height:12px;background:#eee;border-radius:10px;overflow:hidden}
 .prog-fill{height:100%;background:var(--clay);width:0%;transition:0.6s}
 
+/* PREVIEW Dashboard */
+.p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top:15px;}
+.p-box { background: #fdfaf6; border: 1.5px solid var(--clay-l); border-radius: 12px; padding: 15px; text-align: center; }
+.p-box.full { grid-column: span 2; background: var(--ink); color: #fff; border: none; }
+.p-val { display: block; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--clay); }
+.p-lbl { display: block; font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--ink-s); }
+.p-status { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: 900; margin-top: 10px; text-transform: uppercase; }
+.s-success { background: var(--grn); color: #fff; }
+.s-warning { background: #e67e22; color: #fff; }
+.s-danger { background: var(--red); color: #fff; }
+
+/* ACTIONS */
 .btn-pri{background:linear-gradient(160deg,#1e1a16, #3a332c); color:#fff; border:none; border-radius:16px; padding:22px; font-weight:700; font-size:17px; cursor:pointer; box-shadow:var(--s2); width:100%; transition: 0.3s;}
 .btn-sec{background:#fff;border:2px solid var(--clay);color:var(--ink);padding:18px;border-radius:12px;font-weight:700;cursor:pointer; font-size: 14px;}
 .actions{margin-top:30px;display:grid;gap:12px}
 .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
+/* MODALS */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
 .modal.on{display:flex}
 .m-box{background:#fff;border-radius:24px;width:100%;max-width:500px;overflow:hidden}
@@ -73,20 +97,26 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 
 .spin-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:3000;align-items:center;justify-content:center;flex-direction:column;color:#fff}
 .spinner{width:60px;height:60px;border:6px solid rgba(255,255,255,0.1);border-top-color:var(--clay);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:600px){.fld-row{grid-template-columns:1fr} .btn-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<header class="hdr"><div class="W"><h1><b>KARACA ZÜCCACİYE</b>Mağaza Ziyaret Checklist</h1></div></header>
+<header class="hdr">
+    <div class="ver-tag">v15.0-TEST</div>
+    <div class="W"><h1><b>KARACA ZÜCCACİYE</b>Mağaza Ziyaret Checklist</h1></div>
+</header>
 
 <div class="W">
+    <!-- Üst Bilgiler -->
     <div class="card" style="padding:20px">
         <div class="fld-row">
             <div class="fld">
                 <label>Bölge Müdürü</label>
                 <select id="f-mudur" onchange="hesaplaSira()">
                     <option value="">-- Seçiniz --</option>
-                    <option>AYDIN EROĞLU</option><option>BAHRETTİN BAŞAR</option><option>BAYRAM ERCAN KARINDAŞ</option><option>ENİS NACİ DUĞAN</option><option>ERMAN KARAKAYA</option><option>FERHAT GENCER</option><option>HASAN AYDIN</option><option>HÜSEYİN ÖZDEMİR</option><option>MURAT TİRYAKİ</option><option>NİYAZİ KUZAN</option><option>OSMAN ASKER</option><option>SEDAT AYGÜN</option><option>SERPİL DURAN</option><option>TANER DURAK</option><option>TANER PEHLİVAN</option><option>ŞÜKRÜ ALPER ERGÜN</option>
+                    <option>AYDIN EROĞLU</option><option>BAHRETTİN BAŞAR</option><option>ENİS NACİ DUĞAN</option><option>ERMAN KARAKAYA</option>
                 </select>
             </div>
             <div class="fld">
@@ -103,25 +133,28 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
         </div>
         <div class="fld-row">
             <div class="fld"><label>Mağaza Müdürü</label><input type="text" id="f-mag-mudur" placeholder="Ad Soyad Giriniz"></div>
-            <div class="fld"><label>Rapor Gönderilecek E-postalar</label><input type="text" id="f-emails" placeholder="virgül ile ayırın..."></div>
+            <div class="fld"><label>E-postalar</label><input type="text" id="f-emails" placeholder="virgül ile ayırın..."></div>
         </div>
         <div class="fld-row">
             <div class="fld"><label>Ziyaret Zamanı</label><input type="text" id="f-tarih-full" readonly style="background:#eee"></div>
-            <div class="fld"><label>Aylık / Yıllık Ziyaret</label><input type="text" id="f-sira-ozet" readonly style="background:#fef9ee; font-weight:bold" placeholder="Mağaza seçince hesaplanır"></div>
+            <div class="fld"><label>Ziyaret Sırası</label><input type="text" id="f-sira-ozet" readonly style="background:#fef9ee; font-weight:bold" placeholder="Hesaplanıyor..."></div>
         </div>
     </div>
 
+    <!-- İlerleme Çubuğu -->
     <div class="prog-card">
         <div class="prog-pct" id="pPct">%0</div>
         <div class="prog-track"><div class="prog-fill" id="pFill"></div></div>
-        <div style="font-size:14px;font-weight:700" id="ansCnt">0 / 33</div>
+        <div style="font-size:14px;font-weight:700" id="ansCnt">0 / 16</div>
     </div>
 
+    <!-- Sorular Alanı -->
     <div id="catWrap"></div>
 
+    <!-- Genel Not -->
     <div class="card" style="padding:20px">
         <label style="font-size:11px;font-weight:900;color:var(--ink-s);text-transform:uppercase;margin-bottom:10px;display:block">Genel Gözlem & Aksiyon Planı (Zorunlu)</label>
-        <textarea id="f-notlar" rows="6" placeholder="Mağaza hakkındaki genel görüşleriniz..." style="width:100%; border:1px solid var(--bdr); border-radius:12px; padding:15px; font-size:15px; background:#fafafa; outline:none;"></textarea>
+        <textarea id="f-notlar" rows="6" placeholder="Mağaza hakkındaki genel görüşleriniz..."></textarea>
     </div>
 
     <div class="actions">
@@ -133,67 +166,51 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     </div>
 </div>
 
+<!-- Modallar -->
 <div class="modal" id="modalPreview"><div class="m-box"><div class="m-hd"><h2>Rapor Önizleme</h2></div><div class="m-bd" id="m-content"></div><div class="m-ft"><button class="btn-pri" style="width:100%; padding:15px;" onclick="closeModal('modalPreview')">Kapat</button></div></div></div>
 <div class="modal" id="modalAlert"><div class="m-box" style="max-width:400px; text-align:center"><div class="m-bd"><div id="alert-icon" style="font-size:50px;margin-bottom:15px">⚠️</div><h3 id="alert-title" style="margin-bottom:10px">Uyarı</h3><p id="alert-msg" style="color:#666"></p></div><div class="m-ft" id="alert-footer"></div></div></div>
 <div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="margin-top:20px; font-weight:700">İŞLENİYOR...</p></div>
 
 <script>
-// CONFIG: YENİ URL BURAYA EKLENDİ
 const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbxdnqF592BHPGZM8arP9UVtcBprGY3o0iqYbkEmrX2KD0F0chidI6UN3aYXEf98g728/exec' };
 
+// TEST İÇİN 16 SORULUK LİSTE
 const CATS = [
     {id:'c1', icon:'🏬', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[
         {t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?', pe:true, ph:true},
-        {t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)', pe:true, ph:true},
-        {t:'Mağaza içi ve dışı depolama alanları düzenli mi? Depo standartlara uygun mu?', pe:true, ph:true},
-        {t:'Kasa bölgesi temiz ve düzenli mi? sarf malzemeler yeterli mi?', pe:true, ph:true}
+        {t:'Mağaza yürüyüş alanı düzenli mi? (Koli/ürün bulunmuyor ve zemin temiz.)', pe:true, ph:true}
     ]},
     {id:'c2', icon:'💰', title:'Kasa, Finans ve Evrak İşlemleri', questions:[
-        {t:'Kasa nakiti tutarlı mı ve Para yatırma şirket prosedürüne uygun yapılıyor mu? (Kasa tutanağı eklenecek) Gider pusulaları prosedüre uygun mu?', pe:true, ph:false},
-        {t:'Mağazanın ay içerisinde manuel iadesi mevcut mu? (Bölge müdürünün onayı kontrol edilir)', pe:true, ph:false},
-        {t:'Masraflar BM onaylı ve prosedüre uygun işlenmiş mi? (Son ay kontrol edilecek)', pe:true, ph:false},
-        {t:'7 günden eski kabulü yapılmamış sevkiyatlar var mı? İrsaliyeler dosyalanmış mı?', pe:true, ph:false},
-        {t:'Mağazanın hasarlı tazmin tutanakları mevcut mu? Evet ise ilgili ürüne stok sayımı yapıldı mı?', pe:true, ph:true}
+        {t:'Kasa nakiti tutarlı mı? Gider pusulaları prosedüre uygun mu?', pe:true, ph:false},
+        {t:'Masraflar BM onaylı ve prosedüre uygun işlenmiş mi?', pe:true, ph:false}
     ]},
     {id:'c3', icon:'🚚', title:'Eve Teslim / Servis / İade Süreçleri', questions:[
-        {t:'Eve teslim iade ekranında bekleyen işlem var mı? (7 günden eski) GP kontrolü yapıldı mı?', pe:false, ph:false},
-        {t:'Eve teslimlerde 2 aydan eski satınalma bekleyen ürün kontrol ve teyidi yapıldı mı?', pe:false, ph:false},
-        {t:'Eve teslim ekranında kargo durumu kontrolü yapılmış ve kayıp ürün için tazmin başlatılmış mı?', pe:false, ph:false},
-        {t:'3Se gönderilen ürünlerin teslim belgesi dosyalanmış mı? Webden iade alınan hasarlı ürün var mı?', pe:false, ph:false},
+        {t:'Eve teslim iade ekranında bekleyen işlem var mı? (7 günden eski)', pe:false, ph:false},
         {t:'3S den dönen servis sonucu için gerekli aksiyonlar alındı mı?', pe:false, ph:false}
     ]},
     {id:'c4', icon:'🏷️', title:'Fiyat, Etiket ve Ürün Kontrolleri', questions:[
-        {t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu? (Kea, Mutfak 10, Tekli 30)', pe:false, ph:true},
-        {t:'Sevkiyatlar doğru teslim alınmış mı? (Son sevkiyattan en az 10 ürünün sayımı yapılacak)', pe:false, ph:false}
+        {t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu?', pe:false, ph:true},
+        {t:'Sevkiyatlar doğru teslim alınmış mı? (En az 10 ürün sayımı)', pe:false, ph:false}
     ]},
     {id:'c5', icon:'✨', title:'Mağaza Yerleşim & Görsel Standartlar', questions:[
-        {t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı gibi uygulanmış mı?', pe:true, ph:true},
-        {t:'Kapı girişi ve orta alan Görsel Düzenleme’nin paylaştığı gibi uygulanmış mı?', pe:true, ph:true},
-        {t:'Kasa önü ve T-stant yerleşimi standarda uygun mu?', pe:true, ph:true},
-        {t:'Tr’de en çok satan 10 ürün yerleşimi yapılmış ve A5 fiyat görseli konumlandırılmış mı?', pe:true, ph:true},
-        {t:'Çeyiz Kampanyaları, Bundle ve teşhir ürünlerinde görselleri doğru uygulanmış mı?', pe:true, ph:true},
-        {t:'Kampanyaya giren ürünlerin teşhirleri tam olarak açılmış mı?', pe:true, ph:true},
-        {t:'Sezon görsellereri tam ve eksiksiz şekilde uygulanmış mı?', pe:true, ph:true},
-        {t:'Mağazadaki alınlık ve lightboxlar güncel mi? Mevcut stantlar aktif mi?', pe:true, ph:true},
-        {t:'Teşhirde ayıplı, eksik ürün var mı?', pe:true, ph:true}
+        {t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı gibi mi?', pe:true, ph:true},
+        {t:'Sezon görsellereri tam ve eksiksiz şekilde uygulanmış mı?', pe:true, ph:true}
     ]},
     {id:'c6', icon:'👥', title:'Personel ve İletişim', questions:[
-        {t:'Shift trafiğe uygun yapılmış ve programda olan personeller mağazada mı?', pe:true, ph:true},
-        {t:'Personel kıyafeti ve yaka kartı tam mı? Kişisel bakımları tam mı?', pe:true, ph:true},
-        {t:'İletişim panosu güncel mi?', pe:true, ph:true}
+        {t:'Shift trafiğe uygun yapılmış ve personeller mağazada mı?', pe:true, ph:true},
+        {t:'Personel kıyafeti ve yaka kartı tam mı?', pe:true, ph:true}
     ]},
     {id:'c7', icon:'🤝', title:'Müşteri İlişkileri ve CRM', questions:[
         {t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?', pe:false, ph:false},
-        {t:'Ordavo, Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?', pe:false, ph:false}
+        {t:'Mağazadan teslimat ekranında 10 günden eski kayıt bulunuyor mu?', pe:false, ph:false}
     ]},
     {id:'c8', icon:'🛠️', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[
-        {t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı? Aydınlatmalar çalışıyor mu?', pe:true, ph:false},
-        {t:'Mağazada müzik yayını ve koku makinesi çalışıyor mu?', pe:false, ph:false},
-        {t:'Mağazanın donanımsal aksamları çalışıyor mu? (Kasa, terminal, pavo, yazıcı vb.)', pe:false, ph:false}
+        {t:'Mağazanın bekleyen teknik işleri tamamlanmış mı?', pe:true, ph:false},
+        {t:'Mağazanın donanımsal aksamları çalışıyor mu?', pe:false, ph:false}
     ]}
 ];
 
-const TOTAL_QUESTIONS = 33;
+const TOTAL_QUESTIONS = 16;
 var ANS={}, DESC={}, PHOTOS={};
 
 function init() { renderQuestions(); initMagaza(); updateTime(); updateProg(); }
@@ -205,30 +222,76 @@ function renderQuestions() {
         let qRows = '';
         cat.questions.forEach((q, i) => {
             let qid = cat.id+'-'+i;
-            let staticReq = (q.pe && q.ph) ? '<small style="color:var(--red); font-weight:900; margin-left:5px">(📸 Fotoğraf Zorunlu)</small>' : '';
-            qRows += `<div class="qr" id="r-${qid}"><div class="q-metin"><span class="q-num">${i+1}.</span> <span>${q.t}</span> ${staticReq}</div><div class="q-aksiyon"><div class="yb-group"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div><div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div><input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')"><span id="req-msg-${qid}" class="req-msg">⚠️ 📸 FOTOĞRAF ÇEKİNİZ!</span></div><div class="q-not-alanı"><input type="text" id="desc-${qid}" placeholder="Açıklama (Zorunlu)..." oninput="DESC['${qid}']=this.value" style="border:1.5px solid var(--clay-l)"><div id="th-${qid}" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"></div></div></div>`;
+            let staticReq = (q.pe && q.ph) ? '<small style="color:var(--red); font-weight:900; margin-left:5px">(📸 Zorunlu)</small>' : '';
+            qRows += `<div class="qr" id="r-${qid}"><div class="q-metin"><span class="q-num">${i+1}.</span> <span>${q.t}</span> ${staticReq}</div><div class="q-aksiyon"><div class="yb-group"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div><div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div><input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')"><span id="req-msg-${qid}" class="req-msg">⚠️ FOTOĞRAF ÇEKİNİZ!</span></div><div class="q-not-alanı"><input type="text" id="desc-${qid}" placeholder="Açıklama (Zorunlu)..." oninput="DESC['${qid}']=this.value" style="border:1.5px solid var(--clay-l)"><div id="th-${qid}" style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap"></div></div></div>`;
         });
-        wrap.innerHTML += `<div class="card"><div class="card-hd"><h2>${cat.icon} ${cat.title}</h2><span id="pill-${cat.id}" style="font-size:12px;opacity:0.8">0/${cat.questions.length}</span></div>${qRows}</div>`;
+        wrap.innerHTML += `<div class="card"><div class="card-hd"><h2>${cat.icon} ${cat.title}</h2><span id="pill-${cat.id}" style="font-size:12px;opacity:0.8">0/2</span></div>${qRows}</div>`;
     });
 }
 
 function setA(qid, v){ ANS[qid]=v; let r = document.getElementById('r-'+qid); r.classList.remove('y','n'); r.classList.add(v==='yes'?'y':'n'); r.querySelectorAll('.yb').forEach(b=>b.classList.remove('s')); r.querySelector(`.yb.${v==='yes'?'y':'n'}`).classList.add('s'); checkPhotoRequirement(qid, v); updateProg(); updatePills(); }
-function checkPhotoRequirement(qid, val) { const parts = qid.split('-'); const qObj = CATS.find(c => c.id === parts[0]).questions[parseInt(parts[1])]; const msg = document.getElementById(`req-msg-${qid}`); let needsPhoto = (val==='yes' && qObj.pe) || (val==='no' && qObj.ph); if(needsPhoto && (!PHOTOS[qid] || PHOTOS[qid].length === 0)) msg.style.display = 'inline-block'; else msg.style.display = 'none'; }
-function handlePhoto(inp, qid){ if(!inp.files.length) return; const reader = new FileReader(); reader.onload = e => { const img = new Image(); img.onload = () => { const cv = document.createElement('canvas'); let w = img.width, h = img.height; if(w > 800) { h *= 800/w; w = 800; } cv.width = w; cv.height = h; cv.getContext('2d').drawImage(img,0,0,w,h); if(!PHOTOS[qid]) PHOTOS[qid]=[]; let b64 = cv.toDataURL('image/jpeg', 0.7); PHOTOS[qid].push(b64); document.getElementById(`cb-${qid}`).classList.add('has'); document.getElementById(`th-${qid}`).innerHTML += `<img src="${b64}" style="width:65px;height:65px;object-fit:cover;border-radius:8px; border:1.5px solid var(--clay)">`; document.getElementById(`req-msg-${qid}`).style.display = 'none'; }; img.src = e.target.result; }; reader.readAsDataURL(inp.files[0]); }
+
+function checkPhotoRequirement(qid, val) { 
+    const parts = qid.split('-'); 
+    const qObj = CATS.find(c => c.id === parts[0]).questions[parseInt(parts[1])]; 
+    const msg = document.getElementById(`req-msg-${qid}`); 
+    let needsPhoto = (val==='yes' && qObj.pe) || (val==='no' && qObj.ph); 
+    if(needsPhoto && (!PHOTOS[qid] || PHOTOS[qid].length === 0)) msg.style.display = 'inline-block'; 
+    else msg.style.display = 'none'; 
+}
+
+function handlePhoto(inp, qid){ 
+    if(!inp.files.length) return; 
+    const reader = new FileReader(); 
+    reader.onload = e => { 
+        const img = new Image(); 
+        img.onload = () => { 
+            const cv = document.createElement('canvas'); 
+            let w = img.width, h = img.height; 
+            if(w > 800) { h *= 800/w; w = 800; } 
+            cv.width = w; cv.height = h; 
+            cv.getContext('2d').drawImage(img,0,0,w,h); 
+            if(!PHOTOS[qid]) PHOTOS[qid]=[]; 
+            let b64 = cv.toDataURL('image/jpeg', 0.7); 
+            PHOTOS[qid].push(b64); 
+            renderThumbs(qid);
+            document.getElementById(`req-msg-${qid}`).style.display = 'none'; 
+        }; 
+        img.src = e.target.result; 
+    }; 
+    reader.readAsDataURL(inp.files[0]); 
+}
+
+function renderThumbs(qid){
+    const thDiv = document.getElementById(`th-${qid}`);
+    thDiv.innerHTML = '';
+    (PHOTOS[qid] || []).forEach((img, idx) => {
+        thDiv.innerHTML += `<div class="th-wrap"><img src="${img}"><div class="del-btn" onclick="removePhoto('${qid}', ${idx})">✕</div></div>`;
+    });
+    document.getElementById(`cb-${qid}`).classList.toggle('has', PHOTOS[qid].length > 0);
+}
+
+function removePhoto(qid, idx){
+    PHOTOS[qid].splice(idx, 1);
+    renderThumbs(qid);
+    checkPhotoRequirement(qid, ANS[qid]);
+}
+
 function updateProg(){ let a = Object.keys(ANS).length; let pct = Math.round((a / TOTAL_QUESTIONS) * 100); document.getElementById('ansCnt').textContent = a + ' / ' + TOTAL_QUESTIONS; document.getElementById('pFill').style.width = pct + '%'; document.getElementById('pPct').textContent = '%' + pct; }
-function updatePills(){ CATS.forEach(c => { let count = c.questions.filter((_,i) => ANS[c.id+'-'+i]).length; document.getElementById('pill-'+c.id).textContent = count + '/' + c.questions.length; }); }
+
+function updatePills(){ CATS.forEach(c => { let count = c.questions.filter((_,i) => ANS[c.id+'-'+i]).length; document.getElementById('pill-'+c.id).textContent = count + '/2'; }); }
 
 async function submitForm(){
-    if(!v('f-mudur') || !v('f-magaza') || !v('f-mag-mudur') || !v('f-emails')) { showAlert("Hata","Müdür, Mağaza ve E-posta alanlarını doldurunuz!","❌"); return; }
-    if(Object.keys(ANS).length < TOTAL_QUESTIONS) { showAlert("Hata",`Lütfen ${TOTAL_QUESTIONS} sorunun tamamını yanıtlayın!`,"📝"); return; }
+    if(!v('f-mudur') || !v('f-magaza') || !v('f-mag-mudur')) { showAlert("Hata","Lütfen üst bilgileri doldurunuz!","❌"); return; }
+    if(Object.keys(ANS).length < TOTAL_QUESTIONS) { showAlert("Hata",`Lütfen tüm soruları yanıtlayın!`,"📝"); return; }
     
     for(let qid in ANS){
         let parts = qid.split('-');
         let catObj = CATS.find(c => c.id === parts[0]);
         let questObj = catObj.questions[parseInt(parts[1])];
-        if(!DESC[qid] || DESC[qid].trim().length < 2){ showAlert("Hata",`"${questObj.t}" sorusu için açıklama zorunludur!`,"✍️"); return; }
+        if(!DESC[qid] || DESC[qid].trim().length < 2){ showAlert("Hata",`"${questObj.t}" için açıklama zorunludur!`,"✍️"); return; }
         let needsPhoto = (ANS[qid]==='yes' && questObj.pe) || (ANS[qid]==='no' && questObj.ph);
-        if(needsPhoto && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){ showAlert("Hata",`"${questObj.t}" sorusu için fotoğraf zorunludur!`,"📸"); return; }
+        if(needsPhoto && (!PHOTOS[qid] || PHOTOS[qid].length === 0)){ showAlert("Hata",`"${questObj.t}" için fotoğraf zorunludur!`,"📸"); return; }
     }
 
     document.getElementById('spinOv').style.display='flex';
@@ -259,9 +322,25 @@ async function submitForm(){
     try {
         await fetch(CONFIG.url, { method:'POST', mode:'no-cors', body:JSON.stringify(payload) });
         document.getElementById('spinOv').style.display='none';
-        showAlert("Rapor Gönderildi","Başarıyla kaydedildi. PDF raporu mail adreslerine gönderilmiştir.","✅");
-        setTimeout(() => location.reload(), 4000);
-    } catch(e) { document.getElementById('spinOv').style.display='none'; showAlert("Hata","Gönderim hatası!","🌐"); }
+        showAlert("Rapor Gönderildi","Başarıyla kaydedildi.","✅");
+        setTimeout(() => location.reload(), 3000);
+    } catch(e) { document.getElementById('spinOv').style.display='none'; showAlert("Hata","Hata oluştu!","🌐"); }
+}
+
+function showPreview(){
+    let yes = Object.values(ANS).filter(x=>x==='yes').length;
+    let u = Math.round(yes/TOTAL_QUESTIONS*100);
+    let statusClass = u < 50 ? "s-danger" : (u < 75 ? "s-warning" : "s-success");
+    let statusText = u < 50 ? "Kritik" : (u < 75 ? "Gelişmeli" : "Başarılı");
+
+    let html = `
+        <div class="p-grid">
+            <div class="p-box full"><span class="p-val">%${u}</span><span class="p-lbl">Genel Uyum Skoru</span><div class="p-status ${statusClass}">${statusText}</div></div>
+            <div class="p-box"><span class="p-val">${yes}</span><span class="p-lbl">Evet</span></div>
+            <div class="p-box"><span class="p-val">${TOTAL_QUESTIONS-yes}</span><span class="p-lbl">Hayır</span></div>
+        </div>`;
+    document.getElementById('m-content').innerHTML = html;
+    document.getElementById('modalPreview').classList.add('on');
 }
 
 function showAlert(t, m, i, ty){ document.getElementById('alert-title').innerText = t; document.getElementById('alert-msg').innerText = m; document.getElementById('alert-icon').innerText = i; const footer = document.getElementById('alert-footer'); if(ty === 'confirm'){ footer.innerHTML = `<button class="btn-sec" style="margin:0;width:50%" onclick="closeModal('modalAlert')">İptal</button><button class="btn-pri" style="margin:0;width:50%;background:var(--red); padding:10px" onclick="location.reload()">Evet, Sil</button>`; } else { footer.innerHTML = `<button class="btn-pri" style="margin:0;width:100%" onclick="closeModal('modalAlert')">Tamam</button>`; } document.getElementById('modalAlert').classList.add('on'); }
@@ -274,9 +353,8 @@ function updateTime(){ let n = new Date(); document.getElementById('f-tarih-full
 function confirmReset(){ showAlert("Formu Temizle","Tüm verileriniz silinecek?","♻️","confirm"); }
 function v(id){ return document.getElementById(id).value; }
 async function hesaplaSira() { let z = document.getElementById('f-magaza').value; if(!z) return; try { const res = await fetch(`${CONFIG.url}?action=sira&magaza=${encodeURIComponent(z)}`); const d = await res.json(); document.getElementById('f-sira-ozet').value = (d.monthly + 1) + '. Ziyaret (Ay) / ' + (d.yearly + 1) + '. Ziyaret (Yıl)'; } catch(e) {} }
-function showPreview(){ let y = Object.values(ANS).filter(x=>x==='yes').length; let u = Math.round(y/TOTAL_QUESTIONS*100); let storeName = document.getElementById('f-magaza-display').value || "Seçilmedi"; let statusClass = u < 50 ? "s-danger" : (u < 75 ? "s-warning" : "s-success"); let html = `<div class="p-header"><h3>${storeName}</h3></div><div class="p-grid"><div class="p-box full"><span class="p-val">%${u}</span><span class="p-lbl">Genel Uyum Skoru</span><div class="p-status ${statusClass}">ÖNİZLEME</div></div><div class="p-box"><span class="p-val">${y}</span><span class="p-lbl">Evet</span></div><div class="p-box"><span class="p-val">${TOTAL_QUESTIONS-y}</span><span class="p-lbl">Hayır</span></div></div>`; document.getElementById('m-content').innerHTML = html; document.getElementById('modalPreview').classList.add('on'); }
 
-const MAG_LIST = ["ADA.ADANACADDE-CONT.KRC.2025","Ada.Burda Krc.2019","Ada.M1Real Krc.2010","Ada.Optimum Krc.2011","Afy.Afiumoutlet Krc.2017","Afy.Park Krc.2015","AMS.AMASYA.CADDE.KRC.2025","Ank.Acity Krc.2014","Ank.Anatolium Krc.2011","Ank.Ankamall Krc.2011","Ank.Antares Krc.2010","Ank.Cepa Krc.2016","Ank.Forum Krc.2010","Ank.Gordion Krc.2011","Ank.Kuzu Effect Krc.2019","Ank.Metromall Krc.2017","Ank.Optimum Krc.2012","Ank.Podium Krc.2020","Ank.Taurus Krc.2014","Ant.Deepo Krc.2010","Ant.Markantalya Krc.2013","Ant.Migros Krc.2012","Ant.Novada Manavgat Krc.2016","Ant.Terracity Krc.2017","Ayd.Forum Krc.2010","AYD.OPSMALL.KRC.2024","BLK.AYVALIK MARINA KRC.2024","Blk.Burda Krc.2018","Blk.Novada Edremit Krc.2015","Blu.Burda Krc.2015","BRS.ANATOLIUM CONTAINER KRC.20","Brs.Downtown Krc.2023","BRS.INEGOL KRC.2024","Brs.Kentmeydanı Krc.2014","Brs.Korupark Krc.2017","Brs.Marka Krc.2017","Brs.Zaferplaza Krc.2017","Btm.Petrol Krc.2021","Ckk.Forum Krc.2015","Cor.Ahlpark Krc.2016","Dıy.Ninovapark Krc.2011","Diy.Ceylan Krc.2019","Diy.Forum Krc.2015","DNZ. BAYRAMYERI KRC.2024","Dnz.Forum Krc.2010","Edr.Bendis Kesan Krc.2016","Edr.Erasta Krc.2017","Edr.Margi Krc.2011","Elz.Elysium Krc.2021","Erc.Park Krc.2015","Erz.Mng Krc.2019","Esk.Espark Krc.2010","Gzt.Forum Krc.2021","Gzt.Sankopark Krc.2010","HTY.ANTAKYA CONTAINER.KRC.2025","Hty.Forbes Iskenderun Krc.2016","Hty.Prime Iskenderun Krc.2011","Isp.Iyaspark.Krc.2023","Ist.Akasya Krc.2014","IST.AKBATI-CONT.KRC.2025","Ist.Arenapark Krc.2011","Ist.Armonipark Krc.2010","Ist.Atirus Krc.2010","Ist.Atlas Sbeylı Krc.2015","Ist.Basınekspres Container Krc","Ist.Buyaka Krc.2015","Ist.Canpark Krc.2014","Ist.Carousel Krc.2011","Ist.Carrefour Maltepe Krc.2012","Ist.Cevahir Krc.2012","IST.CITYS KOZYATAGI.KRC.2025","Ist.Emaar Kadıkoy Krc.2017","Ist.Forum Bpasa Krc.2010","Ist.Galataport Krc.2021","Ist.Hilltown Kyalı Krc.2017","Ist.Historia Fatih Krc.2010","Ist.Istinyepark Krc.2017","Ist.Kalecenter Krc.2014","IST.LIMONUBAHCE.CONT.KRC.2025","Ist.Mallof Krc.2014","Ist.Marina Tuzla Krc.2015","IST.MARMAR-FRM.CONTAINER.KRC.2","Ist.Marpark Krc.2012","Ist.Meydan Krc.2021","Ist.Nautilus Krc.2010","Ist.Olivium Krc.2014","Ist.Optimum Krc.2010","Ist.Özdilek Krc.2014","Ist.Palladium Atasehır Krc.201","Ist.PelicanMall Krc.2010","IST.PENDORYA CONTAINER KRC.202","Ist.Perlavista Krc.2016","Ist.Piazza Maltepe Krc.2018","Ist.Starcity Krc.2014","IST.TEMAWORLD KRC.2024","Ist.Torium Container Krc.2023","Ist.Vadi Krc.2020","Ist.Venezia Krc.2015","Ist.Vialand Krc.2013","Ist.Viaport Container Krc.2022","Izm.Agora Krc.2010","Izm.Forumbornova Krc.2020","Izm.Gaziemir Container Krc.202","Izm.Hilltown K.Yaka Krc.2019","Izm.Istinye Krc.2021","Izm.Mavibahce Krc.2015","Izm.Menemen Krc.2019","Izm.Optimum Krc.2012","Izm.Point Bornova Krc.2015","Izm.Westpark Krc.2018","Kcl.Arasta Krc.2021","Kcl.Burda Krc.2015","Kcl.Gebzecenter Krc.2010","Kcl.Symbol Krc.2015","Khm.Piazza Krc.2013","Kır.Podium Krc.2020","Kny.Kentplaza Krc.2016","Kny.Kulesite Krc.2018","Kny.M1 Real Krc.2010","Kny.Novada Krc.2016","KNY.SELÇUKER.KRC.2025","KRB. KARES KRC.2024","Krk.Burda Luleburgaz Krc.2018","Krn.Karaman Krc.2021","Kst.Kastamall Krc.2021","Kth.Sera Krc.2021","Kys.Forum Krc.2012","Kys.Park Krc.2012","Mgl.Bodrum Avenue Krc.2016","Mlt.Park Krc.2010","Mns.Magnesia Krc.2012","Mrd.Mardian Mall Krc.2021","Mrd.Movapark Krc.2012","Mrs.Carrefour Krc.2012","Mrs.Forum Krc.2010","Mrs.Novada Erdemli Krc.2020","Mrs.Saya Park Krc.2020","Mrs.Tarsus Krc.2012","Nev.Forum Krc.2011","NIG.TEMAPARK.KRC.2025","Ord.Novada Krc.2017","Osm.Park Krc.2011","Riz.Simal Krc.2021","Sak.Agora Krc.2015","Sak.Cadde Krc.2021","Sak.Serdivan Krc.2011","SMS.BULVAR-CONT.KRC.2025","SMS.LOVELETOUTLET.KRC.2025","Sms.Piazza Krc.2013","Sms.Yeşilyurt Krc.2010","Snf.Piazza Krc.2013","Srt.Park Krc.2023","Svs.Park Krc.2016","Tkr.Orion Corlu Krc.2010","Tkr.Tekira Krc.2010","Tkt.Novada Krc.2014","Trb.Forum Krc.2010","VAN. VANMALL KRC.2024","Van.Avm Krc.2015","Yzg.Novada Krc.2016","Zon.Burda Krc.2019"];
+const MAG_LIST = ["ANK.GORDION KRC.2011","ANK.ANKAMALL KRC.2011","IST.CEVAHIR KRC.2012"];
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
