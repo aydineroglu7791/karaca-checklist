@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Karaca Checklist v15.4</title>
+<title>Karaca Checklist v16.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -59,12 +59,9 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 .th-wrap img{width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--clay)}
 .del-btn{position:absolute; top:-8px; right:-8px; background:var(--red); color:#fff; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:bold; cursor:pointer; border:2px solid #fff;}
 
-/* DASHBOARD */
-.p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top:15px;}
-.p-box { background: #fdfaf6; border: 1.5px solid var(--clay-l); border-radius: 12px; padding: 15px; text-align: center; }
-.p-box.full { grid-column: span 2; background: var(--ink); color: #fff; border: none; }
-.p-val { display: block; font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--clay); }
-.p-lbl { display: block; font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--ink-s); }
+/* PROGRESS */
+.prog-card{background:#fff;border-radius:15px;padding:20px;display:flex;align-items:center;gap:15px;margin-top:20px;border:1.5px solid var(--clay-l);position:sticky;top:10px;z-index:900}
+.prog-fill{height:100%;background:var(--clay);width:0%;transition:0.6s}
 
 /* ACTIONS */
 .btn-pri{background:linear-gradient(160deg,#1e1a16, #3a332c); color:#fff; border:none; border-radius:16px; padding:22px; font-weight:700; font-size:17px; cursor:pointer; box-shadow:var(--s2); width:100%; transition: 0.3s;}
@@ -89,7 +86,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
 <body>
 
 <header class="hdr">
-    <div class="ver-tag">v15.4-TEST</div>
+    <div class="ver-tag">v16.1-TEST</div>
     <div class="W"><h1><b>KARACA ZÜCCACİYE</b>Mağaza Ziyaret Checklist</h1></div>
 </header>
 
@@ -121,7 +118,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
         </div>
         <div class="fld-row">
             <div class="fld"><label>Ziyaret Zamanı</label><input type="text" id="f-tarih-full" readonly style="background:#eee"></div>
-            <div class="fld"><label>Ziyaret Sırası</label><input type="text" id="f-sira-ozet" readonly style="background:#fef9ee; font-weight:bold" placeholder="Mağaza seçiniz"></div>
+            <div class="fld"><label>Ziyaret Sırası</label><input type="text" id="f-sira-ozet" readonly style="background:#fef9ee; font-weight:bold" placeholder="Mağaza seçince hesaplanır"></div>
         </div>
     </div>
 
@@ -140,19 +137,19 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--ink);padding
     <div class="actions">
         <div class="btn-row">
             <button class="btn-sec" onclick="showPreview()">📊 Rapor Önizle</button>
-            <button class="btn-sec" onclick="confirmReset()" style="color:#999;border-color:#ddd">♻️ Temizle</button>
+            <button class="btn-sec" onclick="confirmReset()" style="color:#999;border-color:#ddd">♻️ Formu Temizle</button>
         </div>
         <button class="btn-pri" onclick="submitForm()">📨 Formu Tamamla ve Gönder</button>
     </div>
 </div>
 
 <!-- Modallar -->
-<div class="modal" id="modalPreview"><div class="m-box"><div class="m-hd"><h2>Rapor Önizleme</h2></div><div class="m-bd" id="m-content"></div><div class="m-ft"><button class="btn-pri" style="width:100%" onclick="closeModal('modalPreview')">Kapat</button></div></div></div>
-<div class="modal" id="modalAlert"><div class="m-box" style="max-width:400px; text-align:center"><div class="m-bd"><h3 id="alert-title"></h3><p id="alert-msg" style="margin:15px 0"></p></div><div class="m-ft" id="alert-footer"></div></div></div>
+<div class="modal" id="modalPreview"><div class="m-box"><div class="m-hd"><h2>Rapor Önizleme</h2></div><div class="m-bd" id="m-content"></div><div class="m-ft" style="padding:20px"><button class="btn-pri" style="width:100%" onclick="closeModal('modalPreview')">Kapat</button></div></div></div>
+<div class="modal" id="modalAlert"><div class="m-box" style="max-width:400px; text-align:center"><div class="m-bd"><h3 id="alert-title"></h3><p id="alert-msg" style="margin:15px 0; color:#666"></p></div><div class="m-ft" id="alert-footer" style="padding:15px"></div></div></div>
 <div class="spin-ov" id="spinOv"><div class="spinner"></div><p style="color:#fff; margin-top:20px; font-weight:700">İŞLENİYOR...</p></div>
 
 <script>
-const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbyXxpD8X1KbZQiiI8R0EJasWJUru5K90_YBhe8qZFI78GD70Qq-zuJCh6UNc4u6TBw/exec' };
+const CONFIG = { url: 'https://script.google.com/macros/s/AKfycbwmKTro9MJmUCr0Ko4EAVC27x-M4ztUBsDATO-__jYoBwei2r2Bn0z9eVxvailYo92k/exec' };
 
 // AYRILMA KORUMASI
 window.addEventListener('beforeunload', function (e) {
@@ -161,11 +158,11 @@ window.addEventListener('beforeunload', function (e) {
 
 const CATS = [
     {id:'c1', title:'Mağaza Dış Görünüm ve Genel Alanlar', questions:[{t:'Dış cephe temiz ve düzenli mi? Tabela ışıkları yanıyor mu?', pe:true, ph:true}]},
-    {id:'c2', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı? Gider pusulaları prosedüre uygun mu?', pe:true, ph:false}]},
+    {id:'c2', title:'Kasa, Finans ve Evrak İşlemleri', questions:[{t:'Kasa nakiti tutarlı mı? Para yatırma prosedüre uygun mu?', pe:true, ph:false}]},
     {id:'c3', title:'Eve Teslim / Servis / İade Süreçleri', questions:[{t:'Eve teslim iade ekranında bekleyen işlem var mı?', pe:false, ph:false}]},
     {id:'c4', title:'Fiyat, Etiket ve Ürün Kontrolleri', questions:[{t:'Satış alanındaki ürünlerin barkodları ve fiyat etiketleri doğru mu?', pe:false, ph:true}]},
-    {id:'c5', title:'Mağaza Yerleşim & Görsel Standartlar', questions:[{t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı gibi mi?', pe:true, ph:true}]},
-    {id:'c6', title:'Personel ve İletişim', questions:[{t:'Shift trafiğe uygun yapılmış ve personeller mağazada mı?', pe:true, ph:true}]},
+    {id:'c5', title:'Mağaza Yerleşim & Görsel Standartlar', questions:[{t:'Duvar yerleşimi Görsel Düzenleme’nin paylaştığı gibi uygulanmış mı?', pe:true, ph:true}]},
+    {id:'c6', title:'Personel ve İletişim', questions:[{t:'Shift trafiğe uygun yapılmış ve programda olan personeller mağazada mı?', pe:true, ph:true}]},
     {id:'c7', title:'Müşteri İlişkileri ve CRM', questions:[{t:'CRM ekranındaki tüm kayıtlar kapatılmış mı?', pe:false, ph:false}]},
     {id:'c8', title:'Donanım, Teknik ve Ortam Kontrolleri', questions:[{t:'Mağazanın bekleyen teknik ve mimari işleri tamamlanmış mı?', pe:true, ph:false}]}
 ];
@@ -181,7 +178,22 @@ function renderQuestions() {
         let qRows = '';
         cat.questions.forEach((q, i) => {
             let qid = cat.id+'-'+i;
-            qRows += `<div class="qr" id="r-${qid}"><div class="q-metin"><span class="q-num">${i+1}.</span> <span>${q.t}</span></div><div class="q-aksiyon"><div class="yb-group"><button class="yb y" onclick="setA('${qid}','yes')">E</button><button class="yb n" onclick="setA('${qid}','no')">H</button></div><div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div><input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')"></div><div><input type="text" id="desc-${qid}" placeholder="Açıklama (Zorunlu)..." oninput="DESC['${qid}']=this.value" style="width:100%; padding:12px; border-radius:10px; border:1.5px solid var(--clay-l)"><div id="th-${qid}" style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap"></div></div></div>`;
+            qRows += `
+            <div class="qr" id="r-${qid}">
+                <div class="q-metin"><span class="q-num">${i+1}.</span> <span>${q.t}</span></div>
+                <div class="q-aksiyon">
+                    <div class="yb-group">
+                        <button class="yb y" onclick="setA('${qid}','yes')">E</button>
+                        <button class="yb n" onclick="setA('${qid}','no')">H</button>
+                    </div>
+                    <div class="cam-btn" id="cb-${qid}" onclick="document.getElementById('fi-${qid}').click()">📷</div>
+                    <input type="file" id="fi-${qid}" hidden accept="image/*" capture="environment" onchange="handlePhoto(this,'${qid}')">
+                </div>
+                <div>
+                    <input type="text" id="desc-${qid}" placeholder="Açıklama yazınız..." oninput="DESC['${qid}']=this.value" style="width:100%; padding:12px; border-radius:10px; border:1.5px solid var(--clay-l)">
+                    <div id="th-${qid}" style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap"></div>
+                </div>
+            </div>`;
         });
         wrap.innerHTML += `<div class="card"><div class="card-hd"><h2>${cat.title}</h2></div>${qRows}</div>`;
     });
@@ -199,41 +211,84 @@ async function hesaplaSira() {
         const res = await fetch(`${CONFIG.url}?action=sira&magaza=${encodeURIComponent(m)}`);
         const d = await res.json();
         document.getElementById('f-sira-ozet').value = (d.monthly + 1) + '. Ziyaret (Ay) / ' + (d.yearly + 1) + '. Ziyaret (Yıl)';
-    } catch(e) { console.error("Sıra hatası", e); }
+    } catch(e) { console.error("Sıra Hatası", e); }
 }
 
 async function submitForm(){
-    if(!v('f-mudur') || !v('f-magaza') || !v('f-notlar')) { showAlert("Hata","Zorunlu alanları doldurun!","❌"); return; }
-    if(Object.keys(ANS).length < 8) { showAlert("Eksik","Tüm soruları yanıtlayın!","📝"); return; }
+    if(!v('f-mudur') || !v('f-magaza') || !v('f-notlar')) { showAlert("Hata","Lütfen Müdür, Mağaza ve Genel Not alanlarını doldurun!","❌"); return; }
+    if(Object.keys(ANS).length < 8) { showAlert("Eksik","Lütfen tüm soruları yanıtlayın!","📝"); return; }
+    
     document.getElementById('spinOv').style.display='flex';
     let n=new Date(); let detaylar=[];
     CATS.forEach(cat => {
         cat.questions.forEach((q, i) => {
             let qid = cat.id + '-' + i;
-            detaylar.push({ qid: qid, kategori: cat.title, soru: q.t, cevap: ANS[qid]||"no", not: DESC[qid]||"-" });
+            // PDF İÇİN KRİTİK: kategori bilgisini buraya ekliyoruz
+            detaylar.push({ 
+                qid: qid,
+                kategori: cat.title, 
+                soru: q.t, 
+                cevap: ANS[qid] || "no", 
+                not: DESC[qid] || "-" 
+            });
         });
     });
-    let payload = { tarih: n.toLocaleDateString('tr-TR'), bolgeMuduru: v('f-mudur'), magaza: v('f-magaza'), magazaMuduru: v('f-mag-mudur'), alicilar: v('f-emails'), evet: 0, hayir: 0, uyum: 0, notlar: v('f-notlar'), soruDetaylari: detaylar, fotograflar: PHOTOS };
+
+    let payload = { 
+        tarih: n.toLocaleDateString('tr-TR'), 
+        saat: n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0'),
+        bolgeMuduru: v('f-mudur'), magaza: v('f-magaza'), magazaMuduru: v('f-mag-mudur'), 
+        alicilar: v('f-emails'), 
+        aylikZiyaret: v('f-sira-ozet').split('/')[0].trim(), 
+        yillikZiyaret: v('f-sira-ozet').split('/')[1].trim(),
+        notlar: v('f-notlar'), 
+        soruDetaylari: detaylar, 
+        fotograflar: PHOTOS 
+    };
+
     try {
         await fetch(CONFIG.url, { method:'POST', mode:'no-cors', body:JSON.stringify(payload) });
-        document.getElementById('spinOv').style.display='none'; showAlert("Başarılı","Rapor gönderildi!","✅");
-        setTimeout(() => location.reload(), 3000);
-    } catch(e) { document.getElementById('spinOv').style.display='none'; }
+        document.getElementById('spinOv').style.display='none'; 
+        showAlert("Başarılı","Rapor başarıyla gönderildi!","✅");
+        setTimeout(()=>location.reload(), 3000);
+    } catch(e) { 
+        document.getElementById('spinOv').style.display='none'; 
+        showAlert("Hata","Bağlantı hatası!","🌐");
+    }
 }
 
 function showPreview(){
     let yes = Object.values(ANS).filter(x=>x==='yes').length;
-    let html = `<div class="p-grid"><div class="p-box full"><span class="p-val">%${Math.round(yes/8*100)}</span><span class="p-lbl">GENEL UYUM</span></div><div class="p-box"><span class="p-val">${yes}</span><span class="p-lbl">EVET</span></div><div class="p-box"><span class="p-val">${8-yes}</span><span class="p-lbl">HAYIR</span></div></div>`;
+    let html = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px">
+        <div style="grid-column:span 2; background:var(--ink); color:#fff; padding:15px; border-radius:12px; text-align:center">
+            <span style="display:block; font-size:26px; font-weight:900; color:var(--clay)">%${Math.round(yes/8*100)}</span>
+            <span style="font-size:10px; font-weight:900; text-transform:uppercase">Genel Uyum Skoru</span>
+        </div>
+        <div style="background:#fdfaf6; border:1px solid var(--clay-l); padding:15px; border-radius:12px; text-align:center">
+            <span style="display:block; font-size:20px; font-weight:900; color:var(--grn)">${yes}</span>
+            <span style="font-size:10px; font-weight:900">EVET</span>
+        </div>
+        <div style="background:#fdfaf6; border:1px solid var(--clay-l); padding:15px; border-radius:12px; text-align:center">
+            <span style="display:block; font-size:20px; font-weight:900; color:var(--red)">${8-yes}</span>
+            <span style="font-size:10px; font-weight:900">HAYIR</span>
+        </div>
+    </div>`;
     document.getElementById('m-content').innerHTML = html; document.getElementById('modalPreview').classList.add('on');
 }
+
 function showAlert(t, m, i, type){
-    document.getElementById('alert-title').innerText = t; document.getElementById('alert-msg').innerText = m;
+    document.getElementById('alert-title').innerText = t; 
+    document.getElementById('alert-msg').innerText = m;
     const footer = document.getElementById('alert-footer');
-    if(type === 'confirm'){ footer.innerHTML = `<button class="btn-sec" onclick="closeModal('modalAlert')">İptal</button><button class="btn-pri" style="background:var(--red)" onclick="location.reload()">Evet, Temizle</button>`; }
-    else { footer.innerHTML = `<button class="btn-pri" onclick="closeModal('modalAlert')">Tamam</button>`; }
+    if(type === 'confirm'){ 
+        footer.innerHTML = `<button class="btn-sec" onclick="closeModal('modalAlert')">İptal</button><button class="btn-pri" style="background:var(--red); padding:10px" onclick="location.reload()">Evet, Temizle</button>`; 
+    } else { 
+        footer.innerHTML = `<button class="btn-pri" onclick="closeModal('modalAlert')">Tamam</button>`; 
+    }
     document.getElementById('modalAlert').classList.add('on');
 }
-function confirmReset(){ showAlert("Emin misiniz?","Tüm veriler silinecek.","♻️","confirm"); }
+function confirmReset(){ showAlert("Emin misiniz?","Formdaki tüm verileriniz silinecektir.","♻️","confirm"); }
 function closeModal(id){ document.getElementById(id).classList.remove('on'); }
 function v(id){ return document.getElementById(id).value; }
 function initMagaza(){ document.getElementById('sdrop-list').innerHTML = MAG_LIST.sort().map(m => `<div class="sdrop-item" onclick="selectMagaza('${m}')">${m}</div>`).join(''); }
